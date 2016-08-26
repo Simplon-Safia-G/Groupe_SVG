@@ -1,0 +1,106 @@
+<xml version="1.0" standalone="no"?>
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body{
+			background-color:#8EACB5;
+		}
+		svg{
+			border:1px solid black;
+			margin:0% 31%;
+			background-color: #B5B5B5;
+		}
+		h1{
+			text-align: center;
+			font-size:80px;
+		}
+	</style>
+	<title></title>
+</head>
+<body>
+	<h1>PONG</h1>
+		
+<svg height="400" width="500" version="1.1" xml:space="preserve">
+	<rect id="n0" x="0" y="0" height="200" width="30"
+		style="fill:black; stroke:none;" />
+	<animate xlink:href="#n0" id="n1" attributeName="y" attributeType="XML" from="0" to="200" begin="0s" dur="1.5s"/>
+	<animate xlink:href="#n0" id="n2" attributeName="y" attributeType="XML" from="200" to="0" begin="n1.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n3" attributeName="y" attributeType="XML" from="0" to="200" begin="n2.end" dur="1s"/>
+	<animate xlink:href="#n0" id="n4" attributeName="y" attributeType="XML" from="200" to="0" begin="n3.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n5" attributeName="y" attributeType="XML" from="0" to="200" begin="n4.end" dur="1s"/>
+	<animate xlink:href="#n0" id="n6" attributeName="y" attributeType="XML" from="200" to="0" begin="n5.end" dur="0.6s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n7" attributeName="y" attributeType="XML" from="0" to="200" begin="n6.end" dur="1s"/>
+	<animate xlink:href="#n0" id="n8" attributeName="y" attributeType="XML" from="200" to="0" begin="n7.end" dur="0.5s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n9" attributeName="y" attributeType="XML" from="0" to="200" begin="n8.end" dur="1s"/>
+	<animate xlink:href="#n0" id="n10" attributeName="y" attributeType="XML" from="200" to="0" begin="n9.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n11" attributeName="y" attributeType="XML" from="0" to="200" begin="n10.end" dur="0.3s"/>
+	<animate xlink:href="#n0" id="n12" attributeName="y" attributeType="XML" from="200" to="0" begin="n11.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n13" attributeName="y" attributeType="XML" from="0" to="200" begin="n12.end" dur="1s" fill="freeze" />
+	<animate xlink:href="#n0" id="n14" attributeName="y" attributeType="XML" from="200" to="0" begin="n13.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n15" attributeName="y" attributeType="XML" from="0" to="200" begin="n14.end" dur="0.7s" fill="freeze"/>
+	<!--<animate xlink:href="#n0" id="n16" attributeName="y" attributeType="XML" from="200" to="0" begin="n15.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n17" attributeName="y" attributeType="XML" from="0" to="200" begin="n16.end" dur="1s"/>
+	<animate xlink:href="#n0" id="n18" attributeName="y" attributeType="XML" from="200" to="0" begin="n17.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n19" attributeName="y" attributeType="XML" from="0" to="200" begin="n18.end" dur="1s"/>
+	<animate xlink:href="#n0" id="n20" attributeName="y" attributeType="XML" from="200" to="0" begin="n19.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#n0" id="n21" attributeName="y" attributeType="XML" from="0" to="200" begin="n20.end" dur="1s"/>
+	<animate xlink:href="#n0" id="n22" attributeName="y" attributeType="XML" from="200" to="0" begin="n21.end" dur="1s" fill="freeze"/>
+-->	</rect>
+
+	<rect id="secondrect" x="470" y="0" height="200" width="30"
+		style="fill:black; stroke:none;" >
+	<animate xlink:href="#secondrect" id="a1" attributeName="y" attributeType="XML" from="0" to="200" begin="0.8s" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a2" attributeName="y" attributeType="XML" from="200" to="0" begin="a1.end" dur="0.2s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a3" attributeName="y" attributeType="XML" from="0" to="200" begin="a2.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a4" attributeName="y" attributeType="XML" from="200" to="0" begin="a3.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a5" attributeName="y" attributeType="XML" from="0" to="200" begin="a4.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a6" attributeName="y" attributeType="XML" from="200" to="0" begin="a5.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a7" attributeName="y" attributeType="XML" from="0" to="200" begin="a6.end" dur="0.4s"/>
+	<animate xlink:href="#secondrect" id="a8" attributeName="y" attributeType="XML" from="200" to="0" begin="a7.end" dur="0.7s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a9" attributeName="y" attributeType="XML" from="0" to="200" begin="a8.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a10" attributeName="y" attributeType="XML" from="200" to="0" begin="a9.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a11" attributeName="y" attributeType="XML" from="0" to="200" begin="a10.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a12" attributeName="y" attributeType="XML" from="200" to="0" begin="a11.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a13" attributeName="y" attributeType="XML" from="0" to="200" begin="a12.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a14" attributeName="y" attributeType="XML" from="200" to="0" begin="a13.end" dur="1s" fill="freeze"/>
+	<!--<animate xlink:href="#secondrect" id="a15" attributeName="y" attributeType="XML" from="0" to="200" begin="a14.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a16" attributeName="y" attributeType="XML" from="200" to="0" begin="a15.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a17" attributeName="y" attributeType="XML" from="0" to="200" begin="a16.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a18" attributeName="y" attributeType="XML" from="200" to="0" begin="a17.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a19" attributeName="y" attributeType="XML" from="0" to="200" begin="a18.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a20" attributeName="y" attributeType="XML" from="200" to="0" begin="a19.end" dur="1s" fill="freeze"/>
+	<animate xlink:href="#secondrect" id="a21" attributeName="y" attributeType="XML" from="0" to="200" begin="a20.end" dur="1s"/>
+	<animate xlink:href="#secondrect" id="a22" attributeName="y" attributeType="XML" from="200" to="0" begin="a21.end" dur="1s" fill="freeze"/>
+-->
+	</rect>
+	<ellipse cx="30" cy="30" rx="20" ry="20" style=" fill:black; stroke:none; fill-opacity:1; stroke-opacity:0,3 ">
+	<animateMotion id="i0" begin="0" dur="1s" path="M10,30 450,70" fill="freeze"/>
+	<animateMotion id="i1" begin="i0.end" dur="1s" path="M450,70 10,200" fill="freeze"/>
+	<animateMotion id="i2" begin="i1.end" dur="1s" path="M10,200 450,300" fill="freeze"/>
+	<animateMotion id="i3" begin="i2.end" dur="1s" path="M450,300 10,80" fill="freeze"/>
+	<animateMotion id="i4" begin="i3.end" dur="1s" path="M10,80 450,250" fill="freeze"/>
+	<animateMotion id="i5" begin="i4.end" dur="1s" path="M450,250 10,10" fill="freeze"/>
+	<animateMotion id="i6" begin="i5.end" dur="1s" path="M10,10 450,10" fill="freeze"/>
+	<animateMotion id="i7" begin="i6.end" dur="1s" path="M450,10 10,250" fill="freeze"/>
+	<animateMotion id="i8" begin="i7.end" dur="1s" path="M10,250 450,20" fill="freeze"/>
+	<animateMotion id="i9" begin="i8.end" dur="1s" path="M450,30 10,340" fill="freeze"/>
+	<animateMotion id="i10" begin="i9.end" dur="1s" path="M10,340 450,20" fill="freeze"/>
+	<animateMotion id="i11" begin="i10.end" dur="1s" path="M450,20 10,300" fill="freeze"/>
+	<animateMotion id="i12" begin="i11.end" dur="1s" path="M10,300 450,50" fill="freeze"/>
+	<animateMotion id="i13" begin="i12.end" dur="0.2s" path="M450,50 10,25" fill="freeze"/>-->
+	<animate attributeName="fill-opacity" attributeType="CSS" from="1" to="0" begin="i13.end" dur="0.1s" fill="freeze"/>
+	
+	</ellipse>
+
+	<!--<path d="M30,30 470,70" style="fill:none; stroke:black" />
+	<path d="M30,20 470,300" style="fill:none; stroke:black" />
+	<path d="M30,300 470,100" style="fill:none; stroke:black" />
+	<path d="M30,90 470,100" style="fill:none; stroke:black" />
+	<path d="M30,200 470,40" style="fill:none; stroke:black" />-->
+
+
+</svg>	
+	</div>
+</body>
+</html>
