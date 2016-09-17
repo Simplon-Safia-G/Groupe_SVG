@@ -1337,6 +1337,9 @@ class Player {
                 interval = undefined;
                 _thisTetromino.animate(0, true);
                 break;
+            case `${player.drop} | keydown`:
+                event.preventDefault();
+                break;
             case `${player.rotate} | keyup`:
                 event.preventDefault();
                 if (_thisTetromino.id.indexOf("O") != -1)
