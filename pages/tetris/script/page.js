@@ -29,11 +29,3 @@ for (let i = 0; i < chapters.length; i++) {
     ;
 }
 ;
-var fixNavBar = function () {
-    var navbarRect = navbar.getBoundingClientRect(), offset = navbarRect.top - window.screenTop;
-    console.log(navbarRect.top);
-    if (offset < 0) {
-        navbar.setAttribute("style", "position:fixed");
-    }
-    ;
-};
