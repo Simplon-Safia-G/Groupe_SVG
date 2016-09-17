@@ -58,6 +58,17 @@
 	background-color: #ffffff;
 	left: 0;
 }
+.listen p {
+	font-family: 'Muli', sans-serif;
+	text-align: center;
+	color: #888;
+	font-size: 25px;
+	margin-top: 5%;
+}
+li {
+	margin-top: 5%;
+	list-style: none;
+}
 /*--------------------------------------------------------------------------------------------------------*/
 *,*:before,*:after {
 	box-sizing: border-box;
