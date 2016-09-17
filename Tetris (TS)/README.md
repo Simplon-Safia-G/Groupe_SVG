@@ -4,7 +4,7 @@ A *Tetris* clone to try out SVG and TypeScript.
 
 #### **Work in Progress.**
 
-## Explication de l'algorithme à la ligne 65 (TS)
+## Explication de l'algorithme à la ligne 102 (original.ts)
 
 Nous devons configurer la position du point de spawn de nos tetrominos qui doit être situé au milieu de la largeur de la zone de jeu, dans notre cas, notre balise SVG.
 
@@ -36,3 +36,7 @@ On divise le tout par 2 pour positioner le tetromino au centre du SVG :
 
 Ce qui nous donne notre algorithme :  
 `this.x =  ((_this.width * document.documentElement.clientWidth ) / 100 - this.width) / 2 + "px"`
+
+
+### Bug list
+* Mute slider gets stuck at extremities
