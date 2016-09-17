@@ -1,0 +1,24 @@
+body{
+	 text-align: justify;
+	 user-select:none;
+}
+.titre{
+	font-family: 'Lobster', cursive, sans-serif;
+	font-size: 2rem;
+}
+.sous-titre{
+	font-family: 'Lobster', cursive, sans-serif;
+	font-size:1.5rem;
+}
+.paragraphe{
+	font-family: 'Muli', sans-serif;
+	font-size: 1rem;
+	text-align: justify;
+
+}
+li{
+	font-family: 'Muli', sans-serif;
+}#partieTuto{
+	margin-left: 10%;
+	margin-right:10%;
+}
