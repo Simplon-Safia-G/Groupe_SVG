@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <script src="https://use.fontawesome.com/ccbd12acb3.js"></script> -->
+  <script src="lib/require.js" data-main="script/tetris.js"></script>
+  <link rel="stylesheet" href="../../lib/PrismJS/prism.css">
+  <link rel="stylesheet" href="style/page.min.css">
+  <link rel="stylesheet" href="style/tetris.min.css">
+  <meta charset="utf-8">
+  <title>Tetris</title>
+</head>
+<body>
+
+   <audio loop id="music" type="audio/oga" src="assets/sounds/Tetris.ogg"></audio>
+
+  <div id="container">
+    <!-- <svg id="svgArea" width="600px" height="99vh" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+      <rect class="tetrominos" id="rect0" height="30" width="150" x="140" y="150"></rect>
+      <rect id= "square" width="60" height="60" x="70" y="50"></rect>
+
+       <path class="tetrominos" id="L" d="M140, 50 v90, 0 h0, 60 v-30, 0 h0, -30 v-60 z" />
+      <path class="tetrominos" id="J" d="M240, 125 h0, 60, v-90, 0 h0, -30 v60, 0 h0, -30 z" />
+
+       <g transform="translate(100, 200) rotate(90)">
+        <polygon id="L" points="90,0 90,60 60,60 60,30 0,30 0,0" fill="red" stroke="black"/>
+      </g>
+      <g transform="translate(200, 300) rotate(90)">
+        <polygon id="J" points="0,60 -90,60 -90,30 -30,30 -30,0 0,0" fill="blue" stroke="black"/>
+      </g>
+
+       <path id="T" d="M330, 50 v30, 0 h0, 30 v30, 0 h0, 30 v-30, 0 h0, 30 v-30, 0 h0, -90 z"/>
+
+      <g transform="translate(200, 400) rotate(270)">
+        <polygon id="T" points="30,0 30,30 60,30 60,60 30,60 30,90 0,90 0,0" fill="pink" stroke="black"/>
+      </g>
+
+
+       <path id="Z" d="M110, 200 v30, 0 h0, 30 v30, 0 h0, 60 v-30, 0 h0, -30 v-30, 0 h0, -60 z"/>
+       <path id="S" d="M310, 200 v30, 0 h0, -30 v30, 0 h0, -60 v-30, 0 h0, 30 v-30, 0 h0, 60 z"/>
+
+       <g transform="translate(100, 500) rotate(90)">
+        <polygon id="S" points="30,0 30,30 60,30 60,90 30,90 30,60 0,60 0,0" fill="green" stroke="black"/>
+      </g>
+
+      <g transform="translate(200,500) rotate(90)">
+        <polygon id="Z" points="30,0 30,-30 60,-30 60,-90 30,-90 30,-60 0,-60 0,0" fill="yellow" stroke="black"/>
+      </g>
+    </svg> -->
+  </div>
+
+  <div id="separator">
+  </div>
+
+  <div id="explanation-container">
+    <div id="title">
+      <h1>Explication</h1>
+    </div>
+    <div class="subtitle">
+      <h3>Introduction</h3>
+    </div>
+    <p>
+      Tetris est un jeu-vidéo sorti le 6 juin 1984 et développé par le game designer russe Alekseï Pajitnov pour l'ordinateur russe Elektronika 60. L'audience du jeu fut pour un temps limitée aux collègues de son créateur avant que le jeu soit porté vers l'ordinateur IBM d'antan suite à sa popularité parmi ces derniers.
+    </p>
+    <p>
+      Quelques années plus tard, le jeu, porté maintenant sur une multitude de systèmes d'exploitation, connut une popularité internationale, réjouissant les petits enfants partout dans le monde scotchés à l'écran de leur ordinateur IBM dernier cri et leurs parents qui n'avaient plus ni à payer de babysitter, ni à sacrificier de leur temps précieux pour cette inutile activité qui est l'enseignement parental.<br />
+      Force est de contaster que certains de ces enfants n'ont pas si bien tourné, peut-être à cause de l'absence de cette dernière, mais quoi qu'il en soit, tous ces enfants ayant passé l'intégralité des années 90 à bâtir des murs de blocs assis les uns sur les autres comme par nostalgie du mur de Berlin se sont retrouvé 20 ans plus tard <strike>au chômage</strike> en formation de développement web.
+    </p>
+    <p>
+      C'est à ce moment-là que ce site fut créé.
+    </p>
+    <p>
+      Tetris TS est une version amatrice écrite en TypeScript faisant usage de la technologie SVG pour les graphismes. Ce court texte quant à lui décrira les 1600 lignes de code sous le capot, les plus du SVG dans le développement de petits jeux ainsi que ses inconvénients, et une introduction rapide aux ajouts de TypeScript.
+    </p>
+
+    <div class="subtitle">
+      <h3>TypeScript - Kékecé</h3>
+    </div>
+    <p>
+      TypeScript est un langage de programmation libre et open-source développé par Microsoft dont le but est d'améliorer JavaScript en rajoutant des concepts inconnus au langage tel que le typage, les imports de module, etc.<br />
+      Etant basée sur JavaScript, la syntaxe de ce langage se rapproche beaucoup à celle de JavaScript, et il est même possible d'utiliser du JavaScript dans TypeScript. Par conséquent, ce code en JavaScript :
+      <pre>
+        <code class="language-javascript">
+          // JavaScript
+
+          function Dog(breed, legs, eyes, name){
+            this.breed = breed;
+            this.legs = legs;
+            this.eyes = eyes;
+            this.name = name;
+          };
+
+          Dog.prototype.bark = function(age){
+            return "Hey there, I'm " + age + " years old, my name is " + this.name + ", I am a " + this.breed + " and I have " + this.legs +
+            " legs and " + this.eyes + " eyes.";
+          };
+
+          var richard = new Dog("labrador", "Richard", 4, 2);
+          var age = 98;
+          richard.bark(98);
+          // Hey there, I'm 98 years old, my name is Richard, I am a labrador and I have 4 legs and 2 eyes.
+        </code>
+      </pre>
+      marche également en TypeScript et c'est parfaitement admis de l'écrire ainsi... Mais quel est l'intérêt de créer un fichier .ts, écrit en JavaScript, pour ensuite le compiler en fichier .js, aussi écrit en JavaScript ? <br />
+      Aucun. Pour faire court, quitte à apprendre TypeScript, il va falloir écrire du TypeScript. Ainsi, ce même code peut (et devrait) s'écrire :
+      <pre>
+        <code class="language-typescript">
+          // TypeScript
+
+          class Dog {
+            breed: string;
+            legs: number;
+            eyes: number;
+            name: string;
+
+            constructor(breed: string, legs: number, eyes: number, name: string){
+              this.breed = breed;
+              this.legs = legs;
+              this.eyes = eyes;
+              this.name = name;
+            };
+
+            public bark(age: number): string {
+              return `Hey there, I'm ${age} years old, my name is ${this.name}, I am a ${this.breed} and I have ${this.legs} and ${this.eyes} eyes.`;
+            };
+          };
+
+          var richard: Dog = new Dog("labrador", 4, 2, "Richard");
+          var age: number = 98;
+          richard.bark(age);
+          // Hey there, I'm 98 years old, my name is Richard, I am a labrador and I have 4 legs and 2 eyes.
+        </code>
+      </pre>
+
+      A vue de nez, tout ce que TypeScript a fait ici, c'est un code plus long pour faire la même chose. Néanmoins, lorsque vous écrivez un code de 1600 lignes, et que vous écrivez votre 200e <code class="language-javascript inline-code">Dog.prototype.something = function(){...}</code> de la journée, non seulement vous commencez à devenir cinglé, mais en plus votre code se voit alongé de plusieurs centaines de lignes qui au final ne disent que la même chose : <code class="language-javascript inline-code">Dog.prototype.something = function(){...}</code>. C'est là le début du bonheur qui émane de TypeScript, et des langages faisant usage des classes d'une manière générale - en comparaison, le fichier .ts de Tetris TS est donc de 1600 lignes, sauts de ligne et commentaires inclus, alors que le fichier compilé .js en fait 1300, sans sauts de ligne ni commentaires qui sont ignorés à la compilation.<br />
+      Un deuxième avantage de cette nouvelle syntaxe est une lecture plus agréable et une aisance dans l'identification des classes. Les prototypes JavaScript étant déclarés par le biais d'une fonction (<code class="language-javascript inline-code">function Dog(){ ... }</code>), ils ne sont reconnaissables que par la majuscule imposée par la convention au nom du prototype. Dans la programmation orientée classe, le mot clef <samp>class</samp> permet dès le premier coup d'oeil d'identifier que le bloc qui suit est une classe et non une fonction. Evidemment, prototype et classe ne se comportent pas tout à fait de la même manière, mais c'est un sujet petit peu trop touffu pour le développer ici et aucune de ces différences ne sera très significative pour nous.<br />
+      <br />
+      Une autre nouveauté est le typage :
+      <ul>
+        <li>
+          Chaque variable en TypeScript peut (et devrait) avoir un type explicitement déclaré avec l'aide des deux points (comme par exemple : <code class="language-typescript inline-code">var age: number</code> - la variable <samp>age</samp> et du type <samp>number</samp> <strong>et rien d'autre</strong>).
+        </li>
+        <li>
+          De même, chaque fonction et méthode peut (et devrait) exprimer quel type de data elle retourne (par exemple : <code class="language-typescript inline-code">public bark(): string</code> - la méthode <samp>bark()</samp> retourne quelque chose de type <samp>string</samp> <strong>et rien d'autre</strong>).
+        </li>
+        <li>
+          Le type des arguments passés à une fonction peut (et devrait) aussi être explicitement déclaré (comme par exemple : <code class="language-typescript inline-code">public bark(age: number): string</code> - l'argument <samp>age</samp> passé à la fonction <samp>bark()</samp> doit être de type <samp>number</samp> <strong>et rien d'autre</strong>).
+        </li>
+        <li>
+          Les objets peuvent (et devraient) aussi avoir leur type déclaré. Notez que le type d'un objet est la classe dont il est l'instance (exemple : <code class="language-typescript inline-code">var richard: Dog</code> - l'objet <samp>richard</samp> est du type <samp>Dog</samp>).
+        </li>
+        <li>
+          Les tableaux ne sont pas l'exception, leur type peut être aussi déclaré. Leur syntaxe est cependant un peu spéciale, donc nous les verrons plus tard.
+        </li>
+      </ul>
+      <br />
+      Une dernière nouveauté dont je voulais parler est aussi les backticks (<samp>``</samp>). Ces symboles ressemblant aux accents graves en syntaxe française n'existent pas en JavaScript et permettent d'interpoler des strings en TypeScript par le biais de <samp>${}</samp> (comme vu dans <code class="language-typescript inline-code">`my name is ${this.name}.`</code>) qui est beaucoup plus lisible, beaucoup plus facile à écrire, et bien plus joli que la version JavaScript <code class="language-javascript inline-code">"my name is " + this.name + "."</code>.<br />
+    </p>
+    <p>
+      Mon but ici n'est pas de vous apprendre TypeScript, mais il est important de noter ces différences qui existent entre JavaScript et TypeScript pour mieux comprendre le code derrière Tetris TS.<br />
+      Sans plus attendre, passons au-dit code !
+    </p>
+
+    <div class="subtitle">
+      <h3>Tetris TS - Le Jeu le plus avancé sur le marché</h3>
+    </div>
+    <p>
+       Compte tenu de l'ampleur du code, cette explication sera découpée en parties basées sur chaque fonctionalité - le menu principal, le menu d'options, la génération de la zone de jeu et de son menu, la génération des Tetrominos, et enfin le joueur, ses contrôles et l'intéractivité.
+    </p>
+    <div class="part">
+      <h4>Le Menu Principal</h4>
+    </div>
+    </p>
+
+  </div>
+  <script src="../../lib/PrismJS/prism.js"></script>
+
+</body>
+</html>
