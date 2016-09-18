@@ -29,9 +29,7 @@ function main(){
   function scrollToElem(){
     event.preventDefault();
     var $href = $(event.target).attr("href");
-    console.log($href);
     var target = $($href);
-    console.log(target.offset().top);
     $('html, body').animate({
       scrollTop: target.offset().top - 10
     }, 1000);

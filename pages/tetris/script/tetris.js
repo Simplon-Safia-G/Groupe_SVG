@@ -50,12 +50,12 @@ class UserInterface {
     createSvgArea() {
         var width = this.width + "px";
         var height = this.height + "px";
-        document.getElementById("container").innerHTML = "<svg id=" + this.id + " width=" + width + " height=" + height + " xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>";
-        this.menu = document.getElementById('svgArea');
+        document.getElementById("container").innerHTML = `<svg id=${this.id} width=${width} height=${height} xmlns=${this.svgns} xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>`;
+        this.menu = document.getElementById(this.id);
     }
     ;
     createMenu() {
-        var svgArea = document.getElementById("svgArea");
+        var svgArea = this.menu;
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "gContainer");
         g.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 4})`);

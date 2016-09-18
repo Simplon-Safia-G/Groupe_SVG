@@ -18,11 +18,11 @@ for (let i = 0; i < chapters.length; i++) {
     }
     ;
     for (let e = 0; e < parts.length; e++) {
-        parts[e].setAttribute("id", `${"part" + e}`);
+        parts[e].setAttribute("id", `${"part" + i + "-" + e}`);
         let li = document.createElement("li");
         ul.appendChild(li);
         let a = document.createElement("a");
-        a.setAttribute("href", `${"#part" + e}`);
+        a.setAttribute("href", `${"#part" + i + "-" + e}`);
         a.innerHTML = parts[e].firstElementChild.innerHTML;
         li.appendChild(a);
     }

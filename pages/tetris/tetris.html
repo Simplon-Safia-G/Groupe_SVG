@@ -44,13 +44,13 @@
       </p>
       <p>
         Quelques années plus tard, le jeu, porté maintenant sur une multitude de systèmes d'exploitation, connut une popularité internationale, réjouissant les petits enfants partout dans le monde scotchés à l'écran de leur ordinateur IBM dernier cri et leurs parents qui n'avaient plus ni à payer de babysitter, ni à sacrificier de leur temps précieux pour cette inutile activité qui est l'enseignement parental.<br />
-        Force est de contaster que certains de ces enfants n'ont pas si bien tourné, peut-être à cause de l'absence de cette dernière, mais quoi qu'il en soit, tous ces enfants ayant passé l'intégralité des années 90 à bâtir des murs de blocs assis les uns sur les autres comme par nostalgie du mur de Berlin se sont retrouvé 20 ans plus tard <strike>au chômage</strike> en formation de développement web.
+        Force est de contaster que certains de ces enfants n'ont pas si bien tourné, peut-être à cause de l'absence de cette dernière, mais quoi qu'il en soit, tous ces enfants ayant passé l'intégralité des années 90 à bâtir des murs de blocs les uns sur les autres comme par nostalgie du mur de Berlin se sont retrouvé 20 ans plus tard <strike>au chômage</strike> en formation de développement web.
       </p>
       <p>
         C'est à ce moment-là que ce site fut créé.
       </p>
       <p>
-        Tetris TS est une version amatrice écrite en TypeScript faisant usage de la technologie SVG pour les graphismes. Ce court texte quant à lui décrira les 1600 lignes de code sous le capot, les plus du SVG dans le développement de petits jeux ainsi que ses inconvénients, et une introduction rapide aux ajouts de TypeScript.
+        Tetris TS est une version amatrice écrite en TypeScript faisant usage de la technologie SVG pour les graphismes. Ce court texte quant à lui décrira les 1600 lignes de script sous le capot, les plus du SVG dans le développement de petits jeux ainsi que ses inconvénients, et une introduction rapide aux ajouts de TypeScript.
       </p>
     </div>
     <div class="chapter">
@@ -149,13 +149,132 @@
         <h3>Tetris TS - Le Jeu le plus avancé sur le marché</h3>
       </div>
       <p>
-        Compte tenu de l'ampleur du code, cette explication sera découpée en parties basées sur chaque fonctionalité - le menu principal, le menu d'options, la génération de la zone de jeu et de son menu, la génération des Tetrominos, et enfin le joueur, ses contrôles et l'intéractivité.
+        Compte tenu de l'ampleur du code, cette explication sera découpée en parties basées sur chaque fonctionalité - l'interface utilisateur, les fondations du jeu, la génération de la zone de jeu et de son menu, la génération des Tetrominos, et enfin le joueur, ses contrôles et l'intéractivité.
       </p>
+      <p style="font-weight: bold">
+        Je recommende grandement de lire <a href="../tuto/tuto.html">le tutoriel sur le SVG d'Aurélien</a> avant de continuer. Je n'expliquerai pas les bases du SVG ici, cela ne sert à rien de refaire ce qui a déjà été fait.
+      </p>
+
       <div class="part">
-        <h4>Le Menu Principal</h4>
+        <h4>Les Menus</h4>
       </div>
+      <p>
+        Les menus de Tetris TS sont tous gérés par la classe <samp>UserInterface</samp>. Ses propriétés sont tout ce qu'il y a de plus basique :
+      </p>
+      <pre>
+        <code class="language-typescript code">
+          class UserInterface {
+            svgns: string = "http://www.w3.org/2000/svg";
+            id: string;
+            width: number;
+            height: number;
+
+            menu: Element;
+
+            constructor(id: string, width: number, height: number){
+              this.id = id;
+              this.width = width * (basicWidth + userInterfaceWidth);
+              this.height = height * basicHeight;
+
+              this.createSvgArea();
+              this.createMenu();
+            };
+            ...
+          };
+          ...
+          var basicWidth: number = 10;
+          ...
+          var userInterfaceWidth: number = 5;
+          ...
+        </code>
+      </pre>
+      <p>
+        Une id, la largeur de la fenêtre du jeu ainsi que sa hauteur. La propriété qui nous intéresse, et qui est commune à toutes les classes du jeu, est la propriété <samp>svgns</samp>. Si vous avez suivi le tutoriel d'Aurélien, vous devriez savoir que la balise <samp>&lsaquo;svg&rsaquo;</samp> prend un attribut <samp>xmlns</samp> qui fait référence aux informations nécessaires pour que le navigateur puisse générer du SVG. Cette référence est donc un lien vers un site de référencement. C'est cette propriété <samp>svgns</samp>.<br />
+        Elle est commune à toutes les classes dû à une limitation de JavaScript (et par conséquent TypeScript) dans la manière de créer des éléments SVG. Le langage propre de JavaScript ne connait tout simplement pas le SVG et a besoin de sa référence - à chaque création d'un <samp>&lsaquo;rect&rsaquo;</samp>, d'un <samp>&lsaquo;circle&rsaquo;</samp> ou tout autre élément SVG, cette référence doit être donnée. Ainsi, puisqu'il m'enchante guère de réécrire 50 fois le même lien, je le garde dans une propriété que je peux invoquer à tout moment.<br />
+        La propriété <samp>menu</samp> est preuve de paresse - elle sera définie plus tard lors de la création de la fenêtre de jeu.<br />
+        Notez les variables globales <samp>basicWidth</samp> et <samp>userInterfaceWidth</samp> - j'en reparlerai plus tard lorsque nous parlerons des <samp>BasicSquare</samp>.
+      </p>
+      <p>
+        Bien qu'elle fasse un total de 600 lignes à elle seule, peu de choses se produit dans cette classe-même. Du fait qu'elle génère en très grande partie le SVG de chaque menu dont les attributs doivent être donnés un à un, la plupart de ces lignes de code se résume en armées de <code class="language-typescript inline-code">element.setAttribute()</code>. En réalité, il existe deux manières de créer un élément SVG - celle que je viens de mentionner, et modifier la propriété <samp>innerHTML</samp> directement. Nous verrons surtout la première qui est plus pratique selon moi, mais j'ai gardé un exemple de la deuxième manière de le faire.<br />
+        Vous avez peut-être remarqué que deux méthodes sont appelées dans le constructeur de <samp>UserInterface</samp>. La première méthode génère la zone SVG sur la page. Si nous la regardons de plus près :
+        <pre>
+          <code class="language-typescript code">
+            class UserInterface {
+              ...
+              private createSvgArea(): void {
+                var width: string = this.width + "px";
+                var height: string = this.height + "px";
+                document.getElementById("container").innerHTML = `&lsaquo;svg id=${this.id} width=${width} height=${height} xmlns=${this.svgns}
+                xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'&rsaquo; &lsaquo;/svg&rsaquo;`;
+                this.menu = document.getElementById(this.id);
+              };
+              ...
+            };
+          </code>
+        </pre>
+          J'utilise la deuxième manière mentionnée de générer du SVG. De base, le fichier HTML de la page contient une <samp>&lsaquo;div&rsaquo;</samp> avec l'id <samp>container</samp>. Son seul but dans la vie est de contenir la fenêtre du jeu en injectant dans son <samp>innerHTML</samp> la balise de base du SVG avec tous les attributs donnés au constructeur de la classe.<br />
+          Remarquez aussi le retour triomphant de notre propriété <samp>menu</samp>, qui se voit donner la dure tâche de retenir la balise SVG nouvellement créée afin que je n'aie plus à écrire <code class="language-typescript inline-code">document.getElementById(this.id)</code>.
+        </p>
+        <p>
+          Une deuxième méthode est ensuite appelée dans le constructeur après que la balise SVG est générée. Son but est de mettre en place le menu principal avec le titre, l'option pour choisir le niveau et les boutons. Regardons d'abord la génération du titre :
+          <pre>
+            <code class="language-typescript code">
+              class UserInterface {
+                ...
+                private createMenu(): void {
+                  var svgArea: Element = this.menu;
+
+                  var g: Element = document.createElementNS(this.svgns, "g");
+                  g.setAttribute("id", "gContainer");
+                  g.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 4})`);
+                  svgArea.appendChild(g);
+
+
+                  // TITLE
+                  var gTitle: Element = document.createElementNS(this.svgns, "g");
+                  g.appendChild(gTitle);
+
+                  var fill: Array&lsaquo;string&rsaquo; = ["#ef76ae", "#6dc358", "#f56926", "#9c79b7", "#04bbf2", "#f0543d"];
+                  var stroke: Array&lsaquo;string&rsaquo; = ["#910758", "#005715", "#c14711", "#530c60", "#126c93", "#940d12"];
+                  var letters: Array&lsaquo;string&rsaquo; = ["T", "E", "T", "R", "I", "S"];
+
+                  for(var i = 0; i < letters.length; i++){
+                    var title: Element = document.createElementNS(this.svgns, "text");
+                    title.setAttribute("style", `font-size:100px; fill:${fill[i]}; stroke:${stroke[i]}`);
+                    if(letters[i] == "I"){
+                      title.setAttribute("transform", `translate(${((basicSquare*2) * i) + 5})`);
+                    } else if(letters[i] == "S"){
+                      title.setAttribute("transform", `translate(${((basicSquare*2) * i) - 30})`);
+                    } else {
+                      title.setAttribute("transform", `translate(${(basicSquare*2) * i})`);
+                    };
+
+                    title.innerHTML = letters[i];
+                    gTitle.appendChild(title);
+                  };
+
+                  var subtitle: Element = document.createElementNS(this.svgns, "text");
+                  subtitle.setAttribute("style", "font-family: sans-serif; font-size:100px; stroke: #755f25; fill: #fcc82d; font-weight: bold");
+                  subtitle.setAttribute("transform", `translate(${basicSquare * 3.5}, ${basicSquare * 2.5})`);
+                  subtitle.innerHTML = "TS";
+                  gTitle.appendChild(subtitle);
+                  ...
+                };
+                ...
+              };
+            </code>
+          </pre>
+        </p>
+
       <div class="part">
-        <h4>Les Options</h4>
+        <h4>Les BasicSquare</h4>
+      </div>
+      <p>
+        Avant de nous lancer dans le jeu en lui-même, il est important de comprendre les fondations de Tetris TS - la classe <samp>BasicSquare</samp>.
+      </p>
+
+      <div class="part">
+        <h4>La Zone de Jeu</h4>
       </div>
     </div>
 

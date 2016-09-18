@@ -2,7 +2,6 @@ var navbar = document.getElementById("navbar");
 var chapters = Array.from(document.getElementsByClassName("chapters"));
 for (let i = 0; i < chapters.length; i++) {
     let title = chapters[i].firstElementChild;
-    console.log(title);
     title.setAttribute("id", `${"chapter" + i}`);
     let li = document.createElement("li");
     navbar.appendChild(li);
@@ -20,11 +19,11 @@ for (let i = 0; i < chapters.length; i++) {
     }
     ;
     for (let e = 0; e < parts.length; e++) {
-        parts[e].setAttribute("id", `${"part" + e}`);
+        parts[e].setAttribute("id", `${"part" + i + "-" + e}`);
         let li = document.createElement("li");
         ul.appendChild(li);
         let a = document.createElement("a");
-        a.setAttribute("href", `${"#part" + e}`);
+        a.setAttribute("href", `${"#part" + i + "-" + e}`);
         a.innerHTML = parts[e].innerHTML;
         a.innerHTML = a.innerHTML.split("-")[0];
         a.innerHTML = a.innerHTML.split(":")[0];
