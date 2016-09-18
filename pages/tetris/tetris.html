@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- <script src="https://use.fontawesome.com/ccbd12acb3.js"></script> -->
+  <script src="https://use.fontawesome.com/ccbd12acb3.js"></script>
   <script src="../../lib/jquery.js"></script>
   <script src="lib/require.js" data-main="script/tetris.js"></script>
   <link rel="stylesheet" href="../../lib/PrismJS/prism.css">
@@ -11,10 +11,10 @@
   <title>Tetris TS</title>
 </head>
 <body>
+  <audio loop id="music" type="audio/oga" src="assets/sounds/Tetris.ogg"></audio>
   <div id="backToIndex">
     <a href="../../index.html">Retour</a>
   </div>
-   <audio loop id="music" type="audio/oga" src="assets/sounds/Tetris.ogg"></audio>
 
   <div id="container">
   </div>
@@ -34,7 +34,7 @@
 
   <div id="explanation-container">
     <div id="title">
-      <h1>Explication</h1>
+      <h1>Making Of</h1>
     </div>
     <div class="chapter">
       <div class="subtitle">
@@ -74,8 +74,8 @@
             };
 
             Dog.prototype.bark = function(age){
-              return "Hey there, I'm " + age + " years old, my name is " + this.name + ", I am a " + this.breed + " and I have " + this.legs +
-              " legs and " + this.eyes + " eyes.";
+              return "Hey there, I'm " + age + " years old, my name is " + this.name + ", I am a " + this.breed + " and I have " + this.legs
+              + " legs and " + this.eyes + " eyes.";
             };
 
             var richard = new Dog("labrador", "Richard", 4, 2);
@@ -141,7 +141,7 @@
       </p>
       <p>
         Mon but ici n'est pas de vous apprendre TypeScript, mais il est important de noter ces différences qui existent entre JavaScript et TypeScript pour mieux comprendre le code derrière Tetris TS.<br />
-        Sans plus attendre, passons au-dit code !
+        Sans plus attendre, passons audit code !
       </p>
     </div>
 

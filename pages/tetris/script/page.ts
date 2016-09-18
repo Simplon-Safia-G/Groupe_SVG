@@ -2,7 +2,7 @@ var navbar: Element = document.getElementById("navbar");
 
 var chapters: Array<any> = Array.from(document.getElementsByClassName("chapter"));
 
-for(let i = 0; i < chapters.length; i++){
+for(let i: number = 0; i < chapters.length; i++){
   let subtitle = chapters[i].firstElementChild.firstElementChild;
   subtitle.setAttribute("id", `${"chapter" + i}`);
 
@@ -22,7 +22,7 @@ for(let i = 0; i < chapters.length; i++){
     li.appendChild(ul);
   };
 
-  for(let e = 0; e < parts.length; e++){
+  for(let e: number = 0; e < parts.length; e++){
     parts[e].setAttribute("id", `${"part" + e}`);
     let li: Element = document.createElement("li");
     ul.appendChild(li);

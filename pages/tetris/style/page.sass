@@ -1,4 +1,5 @@
 $sampColor: rgba(154,224,254,.4)
+$orange: #fe8b0a
 // rgb(255,222,149)
 $height: 50px
 // 'Muli', sans-serif;
@@ -20,6 +21,9 @@ $height: 50px
 *
   font-family: Muli, sans-serif
 
+body
+  transition: all 1s ease-out
+
 h1
   font-size: 50px
   font-family: Lobster, sans-serif
@@ -39,7 +43,9 @@ p
   text-indent: 70px
   text-align: justify
 
-pre
+
+code[class*="language-"],
+pre[class*="language-"]
   margin-top: 10px !important
   margin-bottom: 10px !important
 
@@ -106,7 +112,7 @@ samp
 
 #backToIndex
   position: absolute
-  border: 2px solid black
+  border: 3px solid $orange
   margin-left: 10px
   margin-top: 5px
   padding-left: 10px
@@ -126,7 +132,7 @@ samp
   left: 0
   width: 100%
   height: $height
-  background-color: #fe8b0a
+  background-color: $orange
 
 #explanation-container
   background-color: #fff
