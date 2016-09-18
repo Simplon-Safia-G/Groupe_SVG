@@ -195,7 +195,7 @@
         Notez les variables globales <samp>basicWidth</samp> et <samp>userInterfaceWidth</samp> - j'en reparlerai plus tard lorsque nous parlerons des <samp>BasicSquare</samp>.
       </p>
       <p>
-        Bien qu'elle fasse un total de 600 lignes à elle seule, peu de choses se produit dans cette classe-même. Du fait qu'elle génère en très grande partie le SVG de chaque menu dont les attributs doivent être donnés un à un, la plupart de ces lignes de code se résume en armées de <code class="language-typescript inline-code">element.setAttribute()</code>. En réalité, il existe deux manières de créer un élément SVG - celle que je viens de mentionner, et modifier la propriété <samp>innerHTML</samp> directement. Nous verrons surtout la première qui est plus pratique selon moi, mais j'ai gardé un exemple de la deuxième manière de le faire.<br />
+        Bien qu'elle fasse un total de 600 lignes à elle seule, peu de choses se produit dans cette classe-même. Du fait qu'elle génère en très grande partie le SVG de chaque menu dont les attributs doivent être donnés un à un, la plupart de ces lignes de code se résume en armées de <code class="language-typescript inline-code">element.setAttribute()</code>. En réalité, il existe deux manières de créer un élément SVG - celle que je viens de mentionner, et modifier la propriété <samp>innerHTML</samp> directement. Nous verrons surtout la première qui est plus pratique selon moi, mais j'ai gardé un exemple de la deuxième.<br />
         Vous avez peut-être remarqué que deux méthodes sont appelées dans le constructeur de <samp>UserInterface</samp>. La première méthode génère la zone SVG sur la page. Si nous la regardons de plus près :
         <pre>
           <code class="language-typescript code">
@@ -213,7 +213,13 @@
           </code>
         </pre>
           J'utilise la deuxième manière mentionnée de générer du SVG. De base, le fichier HTML de la page contient une <samp>&lsaquo;div&rsaquo;</samp> avec l'id <samp>container</samp>. Son seul but dans la vie est de contenir la fenêtre du jeu en injectant dans son <samp>innerHTML</samp> la balise de base du SVG avec tous les attributs donnés au constructeur de la classe.<br />
-          Remarquez aussi le retour triomphant de notre propriété <samp>menu</samp>, qui se voit donner la dure tâche de retenir la balise SVG nouvellement créée afin que je n'aie plus à écrire <code class="language-typescript inline-code">document.getElementById(this.id)</code>.
+          Remarquez aussi le retour triomphant de notre propriété <samp>menu</samp>, qui se voit donner la dure tâche de retenir la balise SVG nouvellement créée afin que je n'aie plus à écrire <code class="language-typescript inline-code">document.getElementById(this.id)</code>.<br />
+          <div class="imageEx">
+            <img src="assets/images/createSvgArea.png" />
+            <p>
+              Ce code nous donne un gros rectangle complètement blanc, la bordure est ajoutée en CSS.
+            </p>
+          </div>
         </p>
         <p>
           Une deuxième méthode est ensuite appelée dans le constructeur après que la balise SVG est générée. Son but est de mettre en place le menu principal avec le titre, l'option pour choisir le niveau et les boutons. Regardons d'abord la génération du titre :
@@ -264,6 +270,13 @@
               };
             </code>
           </pre>
+
+          <div class="imageEx">
+            <img src="assets/images/createMenu-Title.png" />
+            <p>
+              Notre gros rectangle a maintenant un titre multicouleur !
+            </p>
+          </div>
         </p>
 
       <div class="part">
