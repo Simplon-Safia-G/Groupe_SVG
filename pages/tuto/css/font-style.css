@@ -19,6 +19,7 @@ body{
 li{
 	font-family: 'Muli', sans-serif;
 }#partieTuto{
-	margin-left: 10%;
-	margin-right:10%;
+	margin-right: auto;
+  margin-left: 15%;
+  width: 70%;
 }
