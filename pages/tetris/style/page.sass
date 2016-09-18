@@ -1,3 +1,6 @@
+$sampColor: rgba(154,224,254,.4)
+$orange: #fe8b0a
+// rgb(255,222,149)
 $height: 50px
 // 'Muli', sans-serif;
 // 'Lobster', cursive; (cette police est a modifié)
@@ -18,6 +21,9 @@ $height: 50px
 *
   font-family: Muli, sans-serif
 
+body
+  transition: all 1s ease-out
+
 h1
   font-size: 50px
   font-family: Lobster, sans-serif
@@ -37,17 +43,88 @@ p
   text-indent: 70px
   text-align: justify
 
-pre
+
+code[class*="language-"],
+pre[class*="language-"]
   margin-top: 10px !important
   margin-bottom: 10px !important
 
 samp
   font-family: Courier, sans-serif
-  background-color: rgb(247,255,149)
+  background-color: $sampColor
+
+.code
+  font-family: Muri, sans-serif !important
 
 .inline-code
   background-color: rgb(48,48,48) !important
   text-shadow: none !important
+
+.fixed
+  margin-top: -200px !important
+  transition: transform 1s ease-out
+  transform: translateY(210px)
+  position: fixed !important
+  top: 0 !important
+
+#navbar-container
+  position: absolute
+  border: 1px solid black
+  width: 13%
+  background-color: #fff
+  margin-top: 200px
+
+  .heading-container
+    max-height: 50px
+
+
+    *
+      display: block
+
+  .heading-container.closed
+    max-height: 0
+
+    *
+      display: none
+
+  .ul-heading
+    background-color: #fff
+    margin-top: 10px
+    margin-left: 15px
+    margin-bottom: 0
+    margin-right: auto
+    font-family: Muli, sans-serif
+    font-size: 25px
+    font-weight: normal
+
+  ul
+    list-style: none
+    padding-left: 12px
+    z-index: 0
+
+    ul
+      padding-left: 10px
+
+
+    a
+      color: black
+      text-decoration: none
+
+#backToIndex
+  position: absolute
+  border: 3px solid $orange
+  margin-left: 10px
+  margin-top: 5px
+  padding-left: 10px
+  padding-right: 10px
+  padding-top: 10px
+  height: 30px
+  width: 50px
+
+  a
+    color: black
+    text-decoration: none
+    font-weight: bold
 
 #separator
   position: absolute
@@ -55,14 +132,15 @@ samp
   left: 0
   width: 100%
   height: $height
-  background-color: #fe8b0a
+  background-color: $orange
 
 #explanation-container
+  background-color: #fff
   margin-top: $height * 3
   margin-bottom: $height * 3
   margin-right: auto
-  margin-left: auto
-  width: 80%
+  margin-left: 15%
+  width: 70%
 
 #title
   text-align: center
