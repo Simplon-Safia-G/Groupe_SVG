@@ -263,6 +263,7 @@ class UserInterface {
     var i = 0;
     for(var property in player){
       if (player[property] != player.moving) {
+        if(typeof player[property] == "function") break;
         controls.push([property, player[property]]);
 
         var gRow = document.createElementNS(_this.svgns, "g");
@@ -1466,7 +1467,7 @@ class Tetromino {
 
       // Defining what each key does
       // NOTE TO SELF : SWITCH CANT HAVE MULTIPLE CONDITIONS WITHOUT DOING SOME WEIRDASS STUPID SHIT
-      switch(`${(event.key || event.which)} | ${event.type}`){
+      switch(`${(event.key || event.charCode)} | ${event.type}`){
         case `${player.left} | keydown`:
         event.preventDefault();
         if(!_thisTetromino.checkAll("tetromino-left") && !_thisTetromino.checkAll("left")){
