@@ -1,8 +1,3 @@
-// Add Array.from() function to the ArrayConstructor interface, because TypeScript wouldn't let me use it even with ES6 for some reason
-interface ArrayConstructor {
-  from(arrayLike: any, mapFn?, thisArg?): Array<any>;
-};
-
 var navbar: Element = document.getElementById("navbar");
 
 var chapters: Array<any> = Array.from(document.getElementsByClassName("chapters"));
@@ -41,3 +36,17 @@ for(let i: number = 0; i < chapters.length; i++){
     li.appendChild(a);
   };
 };
+
+var divBack: Element = document.createElement("div");
+divBack.setAttribute("class", "back-container closed");
+navbar.parentElement.appendChild(divBack);
+divBack.appendChild(document.createElement("hr"));
+var backToTop = document.createElement("a");
+backToTop.setAttribute("id", "toTop");
+backToTop.setAttribute("style", "cursor:pointer");
+backToTop.innerHTML = "Back to Top";
+var ulBack: Element = document.createElement("ul");
+divBack.appendChild(ulBack);
+var liBack: Element = document.createElement("li");
+ulBack.appendChild(liBack);
+liBack.appendChild(backToTop);
