@@ -394,11 +394,12 @@ var UserInterface = (function () {
             document.addEventListener("keyup", handler, false);
             function assignKey(event, target) {
                 event.stopImmediatePropagation();
-                if (event.key == "Escape") {
+                if (event.key == "Escape" || event.which == 27) {
                     return closePopup();
                 }
                 ;
                 player[target.getAttribute("id")] = event.key;
+                player[target.getAttribute("id") + "Code"] = event.which;
                 target.innerHTML = player[target.getAttribute("id")].length > 1 ? player[target.getAttribute("id")] : player[target.getAttribute("id")].toUpperCase();
                 callbackCheck();
                 return closePopup();

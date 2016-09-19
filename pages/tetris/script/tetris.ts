@@ -348,9 +348,9 @@ class UserInterface {
 
       function volumeHandler(event){
         if(event.type === "mousedown") {
-          document.addEventListener("mousemove", volumeControl)
+          document.addEventListener("mousemove", volumeControl);
         } else {
-          document.removeEventListener("mousemove", volumeControl)
+          document.removeEventListener("mousemove", volumeControl);
           if(volume != 0){
             var workaround: any = document.getElementById("music");
             workaround.volume = volume / 100;
@@ -468,11 +468,12 @@ class UserInterface {
       function assignKey(event, target){
         event.stopImmediatePropagation();
 
-        if(event.key == "Escape") {
+        if(event.key == "Escape" || event.which == 27) {
           return closePopup();
         };
 
         player[target.getAttribute("id")] = event.key;
+        player[target.getAttribute("id") + "Code"] = event.which;
         target.innerHTML = player[target.getAttribute("id")].length > 1 ? player[target.getAttribute("id")] : player[target.getAttribute("id")].toUpperCase();
 
         callbackCheck();
