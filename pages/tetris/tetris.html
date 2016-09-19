@@ -182,9 +182,12 @@
             ...
           };
           ...
+          var basicSquare: number = 35;
           var basicWidth: number = 10;
-          ...
+          var basicHeight: number = 20;
           var userInterfaceWidth: number = 5;
+          ...
+          var userInterface: UserInterface = new UserInterface("svgArea", basicSquare, basicSquare);
           ...
         </code>
       </pre>
@@ -192,7 +195,7 @@
         Une id, la largeur de la fenêtre du jeu ainsi que sa hauteur. La propriété qui nous intéresse, et qui est commune à toutes les classes du jeu, est la propriété <samp>svgns</samp>. Si vous avez suivi le tutoriel d'Aurélien, vous devriez savoir que la balise <samp>&lsaquo;svg&rsaquo;</samp> prend un attribut <samp>xmlns</samp> qui fait référence aux informations nécessaires pour que le navigateur puisse générer du SVG. Cette référence est donc un lien vers un site de référencement. C'est cette propriété <samp>svgns</samp>.<br />
         Elle est commune à toutes les classes dû à une limitation de JavaScript (et par conséquent TypeScript) dans la manière de créer des éléments SVG. Le langage propre de JavaScript ne connait tout simplement pas le SVG et a besoin de sa référence - à chaque création d'un <samp>&lsaquo;rect&rsaquo;</samp>, d'un <samp>&lsaquo;circle&rsaquo;</samp> ou tout autre élément SVG, cette référence doit être donnée. Ainsi, puisqu'il m'enchante guère de réécrire 50 fois le même lien, je le garde dans une propriété que je peux invoquer à tout moment.<br />
         La propriété <samp>menu</samp> est preuve de paresse - elle sera définie plus tard lors de la création de la fenêtre de jeu.<br />
-        Notez les variables globales <samp>basicWidth</samp> et <samp>userInterfaceWidth</samp> - j'en reparlerai plus tard lorsque nous parlerons des <samp>BasicSquare</samp>.
+        Notez les variables globales <samp>basicWidth</samp>, <samp>basicHeight</samp>, <samp>basicSquare</samp> (à ne pas confondre avec la classe <samp>BasicSquare</samp>) et <samp>userInterfaceWidth</samp> - j'en reparlerai plus tard lorsque nous parlerons des <samp>BasicSquare</samp>.
       </p>
       <p>
         Bien qu'elle fasse un total de 600 lignes à elle seule, peu de choses se produit dans cette classe-même. Du fait qu'elle génère en très grande partie le SVG de chaque menu dont les attributs doivent être donnés un à un, la plupart de ces lignes de code se résume en armées de <code class="language-typescript inline-code">element.setAttribute()</code>. En réalité, il existe deux manières de créer un élément SVG - celle que je viens de mentionner, et modifier la propriété <samp>innerHTML</samp> directement. Nous verrons surtout la première qui est plus pratique selon moi, mais j'ai gardé un exemple de la deuxième.<br />
@@ -244,8 +247,8 @@
                   var stroke: Array&lsaquo;string&rsaquo; = ["#910758", "#005715", "#c14711", "#530c60", "#126c93", "#940d12"];
                   var letters: Array&lsaquo;string&rsaquo; = ["T", "E", "T", "R", "I", "S"];
 
-                  for(var i = 0; i < letters.length; i++){
-                    var title: Element = document.createElementNS(this.svgns, "text");
+                  for(let i = 0; i < letters.length; i++){
+                    let title: Element = document.createElementNS(this.svgns, "text");
                     title.setAttribute("style", `font-size:100px; fill:${fill[i]}; stroke:${stroke[i]}`);
                     if(letters[i] == "I"){
                       title.setAttribute("transform", `translate(${((basicSquare*2) * i) + 5})`);
@@ -270,6 +273,10 @@
               };
             </code>
           </pre>
+          <p>
+            Par soucis d'organisation, je crée d'abord une balise <samp>&lsaquo;g&rsaquo;</samp> pour regrouper l'intégralité du menu principal.<br />
+            Notez la première limitation selon moi du SVG - les groupes <samp>&lsaquo;g&rsaquo;</samp> ne prennent pas d'attributs spécifiques pour déterminer leur positionnement. Par défaut, ils se positionnent là où leurs éléments enfants se trouvent. Par conséquent, le plus gros du problème réside dans le fait qu'on doive déplacer chaque élément enfant un à un au lieu de déplacer le groupe entier en une fois, ce qui est une perte de temps et des calculs supplémentaires superflus. Il est en revanche possible d'utiliser la propriété CSS <samp>transform:translate(...)</samp> pour atteindre ce but.
+          </p>
 
           <div class="imageEx">
             <img src="assets/images/createMenu-Title.png" />

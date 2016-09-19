@@ -1,7 +1,7 @@
 // Add Array.from() function to the ArrayConstructor interface, because TypeScript wouldn't let me use it even with ES6 for some reason
-// interface ArrayConstructor {
-//   from(arrayLike: any, mapFn?, thisArg?): Array<any>;
-// };
+interface ArrayConstructor {
+  from(arrayLike: any, mapFn?, thisArg?): Array<any>;
+};
 
 // Declare the class of the basic squares making every graphic element of the game
 class BasicSquare {
@@ -96,8 +96,8 @@ class UserInterface {
     var stroke: Array<string> = ["#910758", "#005715", "#c14711", "#530c60", "#126c93", "#940d12"];
     var letters: Array<string> = ["T", "E", "T", "R", "I", "S"];
 
-    for(var i = 0; i < letters.length; i++){
-      var title: Element = document.createElementNS(this.svgns, "text");
+    for(let i = 0; i < letters.length; i++){
+      let title: Element = document.createElementNS(this.svgns, "text");
       title.setAttribute("style", `font-size:100px; fill:${fill[i]}; stroke:${stroke[i]}`);
       if(letters[i] == "I"){
         title.setAttribute("transform", `translate(${((basicSquare*2) * i) + 5})`);
@@ -573,7 +573,7 @@ class UserInterface {
         elementText.innerHTML = warnedElementsIds.join(", ");
         gElementText.appendChild(elementText);
 
-        function closeWarning(){
+        var closeWarning = function(){
           closeRect.removeEventListener("click", closeWarning);
           document.getElementById("warningContainer").parentNode.removeChild(document.getElementById("warningContainer"));
         };
@@ -1303,7 +1303,7 @@ class Tetromino {
                 var _thisresulty: number = this.resulty;
                 var _thisresultx: number = this.resultx;
 
-                function testBorders(resultx, resulty){
+                var testBorders = function(resultx, resulty){
                   if(yOffset != a.length * -1 && !gameZone[resulty]){
                     yOffset--;
                     resulty -= 1;
@@ -1610,7 +1610,7 @@ class Tetromino {
   var game;
   var player;
   // var game: any = new Tetris("gameArea", basicSquare, basicSquare);
-  var userInterface: any = new UserInterface("svgArea", basicSquare, basicSquare);
+  var userInterface: UserInterface = new UserInterface("svgArea", basicSquare, basicSquare);
 
   // Create new player
   //Key codes = up: 38, left : 37, right: 39, down: 40, m: 77
