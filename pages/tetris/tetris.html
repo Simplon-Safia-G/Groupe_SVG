@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../../lib/PrismJS/prism.css">
   <link rel="stylesheet" href="style/page.min.css">
   <link rel="stylesheet" href="style/tetris.min.css">
+  <link rel="stylesheet" href="../../style/navbar.min.css" />
   <meta charset="utf-8">
   <title>Tetris TS</title>
 </head>
@@ -275,7 +276,8 @@
           </pre>
           <p>
             Par soucis d'organisation, je crée d'abord une balise <samp>&lsaquo;g&rsaquo;</samp> pour regrouper l'intégralité du menu principal.<br />
-            Notez la première limitation selon moi du SVG - les groupes <samp>&lsaquo;g&rsaquo;</samp> ne prennent pas d'attributs spécifiques pour déterminer leur positionnement. Par défaut, ils se positionnent là où leurs éléments enfants se trouvent. Par conséquent, le plus gros du problème réside dans le fait qu'on doive déplacer chaque élément enfant un à un au lieu de déplacer le groupe entier en une fois, ce qui est une perte de temps et des calculs supplémentaires superflus. Il est en revanche possible d'utiliser la propriété CSS <samp>transform:translate(...)</samp> pour atteindre ce but.
+            Notez la première limitation selon moi du SVG - les groupes <samp>&lsaquo;g&rsaquo;</samp> ne prennent pas d'attributs spécifiques pour déterminer leur positionnement. Par défaut, ils se positionnent là où leurs éléments enfants se trouvent. Par conséquent, le plus gros du problème réside dans le fait qu'on doive déplacer chaque élément enfant un à un au lieu de déplacer le groupe entier en une fois, ce qui est une perte de temps et des calculs supplémentaires superflus. Il est en revanche possible d'utiliser la propriété CSS <samp>transform:translate(...)</samp> pour atteindre ce but.<br />
+            Le groupe général est suivi ensuite de
           </p>
 
           <div class="imageEx">
