@@ -1,4 +1,3 @@
-;
 var navbar = document.getElementById("navbar");
 var chapters = Array.from(document.getElementsByClassName("chapters"));
 for (var i = 0; i < chapters.length; i++) {
@@ -33,3 +32,16 @@ for (var i = 0; i < chapters.length; i++) {
     ;
 }
 ;
+var divBack = document.createElement("div");
+divBack.setAttribute("class", "back-container closed");
+navbar.parentElement.appendChild(divBack);
+divBack.appendChild(document.createElement("hr"));
+var backToTop = document.createElement("a");
+backToTop.setAttribute("id", "toTop");
+backToTop.setAttribute("style", "cursor:pointer");
+backToTop.innerHTML = "Back to Top";
+var ulBack = document.createElement("ul");
+divBack.appendChild(ulBack);
+var liBack = document.createElement("li");
+ulBack.appendChild(liBack);
+liBack.appendChild(backToTop);
