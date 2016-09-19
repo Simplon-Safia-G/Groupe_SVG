@@ -1,4 +1,3 @@
-;
 var BasicSquare = (function () {
     function BasicSquare(x, y, classy, id) {
         this.svgns = "http://www.w3.org/2000/svg";

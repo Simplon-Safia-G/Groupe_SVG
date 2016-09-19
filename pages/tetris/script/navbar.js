@@ -28,11 +28,19 @@ function main(){
 
   function scrollToElem(){
     event.preventDefault();
+    if($(event.target).attr("id") == "toTop") return toTop(event);
     var $href = $(event.target).attr("href");
     var target = $($href);
     $('html, body').animate({
       scrollTop: target.offset().top - 10
     }, 1000);
+  };
+
+  function toTop(){
+    event.preventDefault();
+    $(window).animate({
+      scrollTop: $('body').offset().top
+    });
   };
 
   $("ul a").click(scrollToElem);
