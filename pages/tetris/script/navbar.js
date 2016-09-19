@@ -38,9 +38,9 @@ function main(){
 
   function toTop(){
     event.preventDefault();
-    $(window).animate({
-      scrollTop: $('body').offset().top
-    });
+    $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   $("ul a").click(scrollToElem);

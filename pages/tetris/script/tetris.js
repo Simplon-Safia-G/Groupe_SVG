@@ -208,7 +208,7 @@ var UserInterface = (function () {
         var i = 0;
         for (var property in player) {
             if (player[property] != player.moving) {
-                if (typeof player[property] == "function")
+                if (typeof player[property] != "string")
                     break;
                 controls.push([property, player[property]]);
                 var gRow = document.createElementNS(_this.svgns, "g");
@@ -1241,12 +1241,17 @@ var Tetromino = (function () {
 }());
 ;
 var Player = (function () {
-    function Player(rotate, left, right, drop, mute) {
+    function Player(rotateCode, leftCode, rightCode, dropCode, muteCode, rotate, left, right, drop, mute) {
         this.rotate = rotate;
         this.left = left;
         this.right = right;
         this.drop = drop;
         this.mute = mute;
+        this.rotateCode = rotateCode;
+        this.leftCode = leftCode;
+        this.rightCode = rightCode;
+        this.dropCode = dropCode;
+        this.muteCode = muteCode;
         this.moving = false;
     }
     ;
@@ -1282,8 +1287,8 @@ var Player = (function () {
         var indexes = _thisTetromino.squaresIndex;
         var timeout;
         var timer = 200;
-        switch ((event.key || event.charCode) + " | " + event.type) {
-            case player.left + " | keydown":
+        switch ((event.keyCode || event.which) + " | " + event.type) {
+            case player.leftCode + " | keydown":
                 event.preventDefault();
                 if (!_thisTetromino.checkAll("tetromino-left") && !_thisTetromino.checkAll("left")) {
                     player.moving = true;
@@ -1308,7 +1313,7 @@ var Player = (function () {
                 }
                 ;
                 break;
-            case player.right + " | keydown":
+            case player.rightCode + " | keydown":
                 event.preventDefault();
                 if (!_thisTetromino.checkAll("tetromino-right") && !_thisTetromino.checkAll("right")) {
                     player.moving = true;
@@ -1335,16 +1340,16 @@ var Player = (function () {
                 }
                 ;
                 break;
-            case player.drop + " | keyup":
+            case player.dropCode + " | keyup":
                 event.preventDefault();
                 clearInterval(interval);
                 interval = undefined;
                 _thisTetromino.animate(0, true);
                 break;
-            case player.drop + " | keydown":
+            case player.dropCode + " | keydown":
                 event.preventDefault();
                 break;
-            case player.rotate + " | keyup":
+            case player.rotateCode + " | keyup":
                 event.preventDefault();
                 if (_thisTetromino.id.indexOf("O") != -1)
                     return;
@@ -1376,7 +1381,7 @@ var Player = (function () {
                     player.moving = false;
                 }, timer);
                 break;
-            case player.mute + " | keydown":
+            case player.muteCode + " | keydown":
                 event.preventDefault();
                 player.toggleMusic();
                 break;
@@ -1401,4 +1406,4 @@ var volume = 100;
 var game;
 var player;
 var userInterface = new UserInterface("svgArea", basicSquare, basicSquare);
-var player = new Player("ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
+var player = new Player(38, 37, 39, 40, 77, "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");

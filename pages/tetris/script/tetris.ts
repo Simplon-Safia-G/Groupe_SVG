@@ -263,7 +263,7 @@ class UserInterface {
     var i = 0;
     for(var property in player){
       if (player[property] != player.moving) {
-        if(typeof player[property] == "function") break;
+        if(typeof player[property] != "string") break;
         controls.push([property, player[property]]);
 
         var gRow = document.createElementNS(_this.svgns, "g");
@@ -1418,14 +1418,24 @@ class Tetromino {
     right: string;
     drop: string;
     mute: string;
+    rotateCode: number;
+    leftCode: number;
+    rightCode: number;
+    dropCode: number;
+    muteCode: number;
     moving: boolean;
 
-    constructor(rotate: string, left: string, right: string, drop: string, mute: string){
+    constructor(rotateCode: number, leftCode: number, rightCode: number, dropCode: number, muteCode:number, rotate: string, left: string, right: string, drop: string, mute: string){
       this.rotate = rotate;
       this.left = left;
       this.right = right;
       this.drop = drop;
       this.mute = mute;
+      this.rotateCode = rotateCode;
+      this.leftCode = leftCode;
+      this.rightCode = rightCode;
+      this.dropCode = dropCode;
+      this.muteCode = muteCode;
       this.moving = false;
     };
 
@@ -1466,9 +1476,8 @@ class Tetromino {
       var timer: number = 200;
 
       // Defining what each key does
-      // NOTE TO SELF : SWITCH CANT HAVE MULTIPLE CONDITIONS WITHOUT DOING SOME WEIRDASS STUPID SHIT
-      switch(`${(event.key || event.charCode)} | ${event.type}`){
-        case `${player.left} | keydown`:
+      switch(`${(event.keyCode || event.which)} | ${event.type}`){
+        case `${player.leftCode} | keydown`:
         event.preventDefault();
         if(!_thisTetromino.checkAll("tetromino-left") && !_thisTetromino.checkAll("left")){
           player.moving = true;
@@ -1498,7 +1507,7 @@ class Tetromino {
         };
         break;
 
-        case `${player.right} | keydown`:
+        case `${player.rightCode} | keydown`:
         event.preventDefault();
         if(!_thisTetromino.checkAll("tetromino-right") && !_thisTetromino.checkAll("right")){
           player.moving = true;
@@ -1528,7 +1537,7 @@ class Tetromino {
         };
         break;
 
-        case `${player.drop} | keyup`:
+        case `${player.dropCode} | keyup`:
         event.preventDefault();
         clearInterval(interval);
         interval = undefined;
@@ -1536,11 +1545,11 @@ class Tetromino {
         _thisTetromino.animate(0, true);
         break;
 
-        case `${player.drop} | keydown`:
+        case `${player.dropCode} | keydown`:
         event.preventDefault();
         break;
 
-        case `${player.rotate} | keyup`:
+        case `${player.rotateCode} | keyup`:
         event.preventDefault();
         if(_thisTetromino.id.indexOf("O") != -1) return;
 
@@ -1578,7 +1587,7 @@ class Tetromino {
         }, timer);
         break;
 
-        case `${player.mute} | keydown`:
+        case `${player.muteCode} | keydown`:
         event.preventDefault();
         player.toggleMusic();
         break;
@@ -1610,7 +1619,7 @@ class Tetromino {
 
   // Create new player
   //Key codes = up: 38, left : 37, right: 39, down: 40, m: 77
-  var player: any = new Player("ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
+  var player: any = new Player(38, 37, 39, 40, 77, "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
 
   // document.addEventListener('keyup', player.controls);
   // document.addEventListener('keydown', player.controls);
