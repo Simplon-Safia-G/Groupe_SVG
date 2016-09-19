@@ -1,3 +1,6 @@
+* {
+	font-family: sans-serif;
+}
 #block1 {
 	position: absolute; 
 	display: block;
@@ -19,7 +22,7 @@
 	margin-top: 1%;
 }
 #block1 span { 
-	display: flex; 
+	display: flex;  
 	position: absolute;
 	margin-left: 25%; 
 	margin-top: 2%;
@@ -149,7 +152,7 @@ h2 {
 	font-weight: 100;
 	margin: 0;
 	padding-top: 55px;
-	font-family: 'Open Sans';
+	font-family: 'Lobster', cursive;
 	letter-spacing: -1px;
 	text-transform: capitalize;
 }

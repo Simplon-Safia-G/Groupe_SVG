@@ -1,3 +1,6 @@
+* {
+	font-family: sans-serif;
+}
 #block1 {
 	position: absolute;
 	display: block;
@@ -34,7 +37,7 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	border-width: 1px;
-	background-image: url(../assets/images/illu-princi2.svg);
+	background-image: url(../assets/images/AAAA.svg);
 	top: 72px;
 	height: 706px;
 	width: 100%;
@@ -51,7 +54,7 @@
 	background-repeat: no-repeat;
 	border-width: 1px;
 	background-image: url(http://media.lpgenerator.ru/images/130357/wh-3-bg.png#size_2560x1105);
-	top: 100%;
+	top: 75%;
 	height: 1120px;
 	width: 100%;
 	z-index: 1;
@@ -68,6 +71,20 @@
 li {
 	margin-top: 5%;
 	list-style: none;
+}
+a:link {
+	color: #797979;
+	text-decoration: none;
+	font-family: helvetica;
+	font-size: 15px;
+}
+a:visited {
+	color: #797979;
+	text-decoration: none;
+}
+a:hover {
+	color : #fe8b0a;
+	text-decoration: none;
 }
 /*--------------------------------------------------------------------------------------------------------*/
 *,*:before,*:after {
@@ -273,7 +290,7 @@ h2 {
 	font-weight: 100;
 	margin: 0;
 	padding-top: 55px;
-	font-family: 'Open Sans';
+	font-family: 'Lobster', cursive;
 	letter-spacing: -1px;
 	text-transform: capitalize;
 }
