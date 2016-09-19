@@ -72,15 +72,15 @@ class UserInterface {
     this.createMenu();
   };
 
-  private createSvgArea(){
+  private createSvgArea(): void {
     var width: string = this.width + "px";
     var height: string = this.height + "px";
-    document.getElementById("container").innerHTML = "<svg id="+this.id+" width="+width+" height="+height+" xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>";
-    this.menu = document.getElementById('svgArea');
+    document.getElementById("container").innerHTML = `<svg id=${this.id} width=${width} height=${height} xmlns=${this.svgns} xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>`;
+    this.menu = document.getElementById(this.id);
   };
 
-  private createMenu(){
-    var svgArea: Element = document.getElementById("svgArea");
+  private createMenu(): void {
+    var svgArea: Element = this.menu;
 
     var g: Element = document.createElementNS(this.svgns, "g");
     g.setAttribute("id", "gContainer");
@@ -92,9 +92,9 @@ class UserInterface {
     var gTitle: Element = document.createElementNS(this.svgns, "g");
     g.appendChild(gTitle);
 
-    var fill = ["#ef76ae", "#6dc358", "#f56926", "#9c79b7", "#04bbf2", "#f0543d"];
-    var stroke = ["#910758", "#005715", "#c14711", "#530c60", "#126c93", "#940d12"];
-    var letters = ["T", "E", "T", "R", "I", "S"];
+    var fill: Array<string> = ["#ef76ae", "#6dc358", "#f56926", "#9c79b7", "#04bbf2", "#f0543d"];
+    var stroke: Array<string> = ["#910758", "#005715", "#c14711", "#530c60", "#126c93", "#940d12"];
+    var letters: Array<string> = ["T", "E", "T", "R", "I", "S"];
 
     for(var i = 0; i < letters.length; i++){
       var title: Element = document.createElementNS(this.svgns, "text");
@@ -370,16 +370,16 @@ class UserInterface {
 
       function volumeControl(event){
         event.preventDefault();
-        console.log(event);
-        console.log(sliderCircle.getBoundingClientRect());
-        console.log(sliderRect.getBoundingClientRect());
+        // console.log(event);
+        // console.log(sliderCircle.getBoundingClientRect());
+        // console.log(sliderRect.getBoundingClientRect());
 
         if(sliderCircle.getBoundingClientRect().right <= sliderRect.getBoundingClientRect().right + 5 && sliderCircle.getBoundingClientRect().left >= sliderRect.getBoundingClientRect().left - 5) {
           cursorX = event.clientX - svgArea.getBoundingClientRect().right + gSettings.getBoundingClientRect().left - basicSquare*0.6;
           volume = Math.floor((cursorX / Number(sliderRect.getAttribute("width"))) * 100);
           if(volume < 0) volume = 0;
           if(volume > 100) volume = 100;
-          console.log(volume);
+          // console.log(volume);
           sliderCircle.setAttribute("cx", `${cursorX}`);
         };
 

@@ -50,12 +50,12 @@ class UserInterface {
     createSvgArea() {
         var width = this.width + "px";
         var height = this.height + "px";
-        document.getElementById("container").innerHTML = "<svg id=" + this.id + " width=" + width + " height=" + height + " xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>";
-        this.menu = document.getElementById('svgArea');
+        document.getElementById("container").innerHTML = `<svg id=${this.id} width=${width} height=${height} xmlns=${this.svgns} xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>`;
+        this.menu = document.getElementById(this.id);
     }
     ;
     createMenu() {
-        var svgArea = document.getElementById("svgArea");
+        var svgArea = this.menu;
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "gContainer");
         g.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 4})`);
@@ -297,9 +297,6 @@ class UserInterface {
         document.addEventListener("mouseup", volumeHandler);
         function volumeControl(event) {
             event.preventDefault();
-            console.log(event);
-            console.log(sliderCircle.getBoundingClientRect());
-            console.log(sliderRect.getBoundingClientRect());
             if (sliderCircle.getBoundingClientRect().right <= sliderRect.getBoundingClientRect().right + 5 && sliderCircle.getBoundingClientRect().left >= sliderRect.getBoundingClientRect().left - 5) {
                 cursorX = event.clientX - svgArea.getBoundingClientRect().right + gSettings.getBoundingClientRect().left - basicSquare * 0.6;
                 volume = Math.floor((cursorX / Number(sliderRect.getAttribute("width"))) * 100);
@@ -307,7 +304,6 @@ class UserInterface {
                     volume = 0;
                 if (volume > 100)
                     volume = 100;
-                console.log(volume);
                 sliderCircle.setAttribute("cx", `${cursorX}`);
             }
             ;

@@ -3,17 +3,19 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type"text/css" href="css/navbar.min.css" />
 	<link rel="stylesheet" href="../../lib/PrismJS/prism.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script type="text/javascript" src="../Page du site/jquery/jquery.js"></script>
+	<script type="text/javascript" src="../../lib/jquery.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="jquery.tiltedpage-scroll.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Lobster|Muli" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/font-style.css">
+	<title>Tutoriel SVG</title>
 </head>
 <body id="body">
 
-	<pre>
+	<!-- <pre>
 		<code class="language-javascript">
 			function Dog(id){
 				this.id = id;
@@ -23,224 +25,303 @@
 
 	<p>
 		C'est un bout de <code class="language-javascript inline-code">code</code> en inline.
-	</p>
+	</p> -->
 
+	<nav id="navbar-container">
+    <div class="heading-container closed">
+      <h3 class="ul-heading">Tutoriel SVG</h3>
+      <hr />
+    </div>
+    <ul id="navbar">
+    </ul>
+  </nav>
 		<div id="partieTuto">
-			<h3 class="titre">Intro</h3>
+			<div class="chapters">
+				<h3 class="titre">Intro</h3>
 
-			<p class="paragraphe">Le SVG, abréviation de "Scalable Vector Graphics" (graphiques vectoriels
-			adaptables), est un langage simple qui permet de créer des dessins vectoriels</p>
+				<p class="paragraphe">
+					Le SVG, abbréviation de "Scalable Vector Graphics" (graphiques vectoriels
+					adaptables), est un langage simple qui permet de créer des dessins vectoriels
+				</p>
 
-			<h5 class="titre">Avantages:</h5>
+				<h5 class="sous-titre">Avantages :</h5>
 
-			<p class="paragraphe"><ul>
-			<li>Contrairement au bitmap, on peux zoomer sur les images sans perdre de qualité.</li>
-			<li>On peut aussi imprimer à très haute résolution.</li>
-			<li>Contrairement au flash(avant flash 8), il existe des balises en SVG qui favorisent le reférencement des documents par les moteurs de recherche.</li>
+				<ul>
+					<li>Contrairement au bitmap, on peut zoomer sur les images sans perdre en qualité.</li>
+					<li>On peut aussi imprimer à très haute résolution.</li>
+					<li>Contrairement au Flash (avant Flash 8), il existe des balises en SVG qui favorisent le référencement de documents par les moteurs de recherche.</li>
+				</ul>
 
-			<h5 class="titre">Désavantages:</h5>
-
-			<p class="paragraphe">Les utilisateurs d'IE doivent se procurrer un plug-in.</p>
-			<p class="paragraphe">Ce plug-in est assez lourd.</p>
+				<h5 class="sous-titre">Désavantages :</h5>
+				<ul>
+					<li>
+						Les utilisateurs d'IE doivent se procurer un plug-in.
+					</li>
+					<li>
+						Ce plug-in est assez lourd.
+					</li>
+				</ul>
+			</div>
 				<!--1er chapitre-->
-			<h3 class="titre">Structure d'un doc SVG</h3>
+				<div class="chapters">
+					<h3 class="titre">Structure d'un doc SVG</h3>
 
-			<p class="paragraphe">Le SVG est un langage basé sur le XML , donc tout documents svg doivent commencer par le déclaration XML:</p>
+					<p class="paragraphe">Le SVG est un langage basé sur le XML, donc tout document SVG doit commencer par la déclaration XML :</p>
 
-			<pre id="editor"></pre>
-			<p class="paragraphe">l'attribut standalone="no" indique que le document 'ne se tient pas tout seul', il fait référence à des fichiers    externes entre autre une DTD, une DTD est un fichier qui indique quelles balises ont le droit d'être utilisées, avec quels attributs, etc
-			le DTD du svg s'inclue dans la balise <!DOCTYPE></p>
-			<pre id="editor1"></pre>
-			<p class="paragraphe">Finalement la balise dans laquelle nous allons inscrire notre code est tout simplement : </p>
+					<pre id="editor"></pre>
+					<p class="paragraphe">
+						l'attribut standalone="no" indique que le document n'est pas indépendent, il fait référence à des fichiers externes, entre autres une DTD. Une DTD est un fichier qui indique quelles balises ont le droit d'être utilisées, avec quels attributs, etc.
+						Le DTD du svg s'inclue dans la balise <!DOCTYPE>
+					</p>
+					<pre id="editor1"></pre>
+					<p class="paragraphe">
+						Finalement la balise dans laquelle nous allons inscrire notre code est tout simplement :
+					</p>
 
-			<pre id="editor2"></pre>
+					<pre id="editor2"></pre>
 
-			<p class="paragraphe">Cette balise prend (au moins) 4 attributs:
-			<ul class="listAPuce">
-				<li>XMLNS l'espace de nom du svg(une page ou trouver l'information à son sujet);</li>
-				<li>version, la version du langage(dans ce cas le svg 1.1);</li>
-				<li>width, La largeur du doc(en px);</li>
-				<li>height, la hauteur du doc(en px aussi);</li>
-			</ul>
+					<p class="paragraphe">Cette balise prend (au moins) 4 attributs :</p>
+					<ul class="listAPuce">
+						<li>XMLNS l'espace de nom du SVG (une page où trouver l'information à son sujet);</li>
+						<li>version, la version du langage (dans ce cas le SVG 1.1);</li>
+						<li>width, la largeur du doc (en px);</li>
+						<li>height, la hauteur du doc (en px aussi);</li>
+					</ul>
 
-			<h3 class="titre">Récapitulons</h3> :
-			<pre id="editor3"></pre>
+					<h3 class="sous-titre">Récapitulatif :</h3>
+					<pre id="editor3"></pre>
 
-			<p class="paragraphe">Nous avons quelques autres balises pour indenter notre code tel que:
-			<ul>
-				<li>
-					La balise "defs" qui sert de "bazar" pour mettre les lignes de code qui vont être utilisées plusieurs fois, cela permet d'éviter les répétions et de gagner du temps.
-				</li>
-				<li>
-					La balise: "g" cette balise sert a grouper des éléments
-				</li>
-			</ul>
-			</p>
+					<p class="paragraphe">Nous avons quelques autres balises pour indenter notre code telles que :
+						<ul>
+							<li>
+								La balise "defs" qui sert de "bazar" pour mettre les lignes de code qui vont être utilisées plusieurs fois, cela permet d'éviter les répétitions et de gagner du temps.
+							</li>
+							<li>
+								La balise "g", cette balise sert a grouper des éléments de la même manière que les "div" et les "span" en HTML5.
+							</li>
+						</ul>
+					</p>
+				</div>
 			<!--2eme chapitre-->
-			<h3 class="titre">base du dessin en SVG</h3>
-			<p class="paragraphe">Comme nous en avons rapidement parlé dans le chapitre précédent le svg est un langage qui permet de "dessiner" et animer des formes plus ou moins complexes pour ce faire il existe plusieurs balises telles que:</p>
-			<ul>
-			<li> <pre id="editor4"></pre> qui permet de créer des rectangles par rapport a l'axe X/Y.</li>
-			<li><pre id="editor5"></pre> qui permet de créer une ellipse, on peux influer sur sa position avec les attributs cx/cy, et sur le rayon avec rx/ry</li>
-			<li><pre id="editor13"></pre>Polyline ou ligne brisée, est un ensemble de droites reliées, un seul attribut est requis "points, il permet d'indiquer chaque point de la ligne brisée, séparer par des virgules et des espaces."</li>
-			<li><pre id="editor14"></pre>fonctionne aussi avec l'attribut point, la diférence est que le navigateur trace tout seul une ligne du dernier au premier point pour fermer le polygon.</li>
-			<li><pre id="editor6"></pre> même fonctionnement que l'ellipse mais celui-ci permet de dessiner des cercle</li>
-			<li><pre id="editor7"></pre> permet de créer un segment du point 1 à 2.</li>
-			</ul>
-			<p class="paragraphe">Nous pouvons aussi styliser nos formes en leur ajoutant l'attribut "style" qui comporte "fill" pour l'intérieur de la forme et "stroke"pour le contour, l'opacité peut etre modifié avec fill/stroke-opacity.</p>
+			<div class="chapters">
+				<h3 class="titre">Base du dessin en SVG</h3>
+				<p class="paragraphe">Comme nous en avons rapidement parlé dans le chapitre précédent le SVG est un langage qui permet de "dessiner" et animer des formes plus ou moins complexes. Pour ce faire il existe plusieurs balises telles que :</p>
+				<ul>
+					<li> <pre id="editor4"></pre> qui permet de créer un rectangle par rapport a l'axe X/Y.</li>
+					<li><pre id="editor5"></pre> qui permet de créer une ellipse dont on peut influencer la position avec les attributs cx/cy et le rayon avec rx/ry</li>
+					<li><pre id="editor13"></pre>Polyline ou ligne brisée, est un ensemble de droites reliées, un seul attribut est requis : "points". Il permet d'indiquer chaque point sur la ligne brisée, chacun de ces points séparé par une virgule et chacun de leurs axes séparé par un espace."</li>
+					<li><pre id="editor14"></pre>fonctionne aussi avec l'attribut "points", la diférence régit dans le navigateur qui trace lui-même une ligne du dernier au premier point pour fermer le polygon.</li>
+					<li><pre id="editor6"></pre> même fonctionnement que l'ellipse mais celui-ci permet de dessiner des cercles.</li>
+					<li><pre id="editor7"></pre> permet de créer un segment du point 1 à 2.</li>
+				</ul>
+				<p class="paragraphe">Nous pouvons aussi styliser nos formes en leur ajoutant l'attribut "style" qui comporte "fill" pour l'intérieur de la forme et "stroke" pour son contour, l'opacité de chaque peut être également modifiée avec respectivement "fill-opacity" et "stroke-opacity".</p>
+			</div>
 
 			<!--chapitre 3-->
-			<h3 class="sous-titre">Les tracés</h3>
-				<p class="paragraphe">Un tracé est plus général qu'une ligne brisée. En effet il permet non seulement de dessiner des droites, mais aussi des courbes. On l'introduit avec la balise 'Path'
-				il prend l'attribut "d=" qui indique les commande(ligne, courbe, etc) à effectuer pour dessiner le tracé. Ces commandes sont très variées...</p>
+			<div class="chapters">
+				<h3 class="titre">Les tracés</h3>
+				<p class="paragraphe">
+					Un tracé est plus général qu'une ligne brisée. En effet, il permet non seulement de dessiner des droites, mais aussi des courbes. On l'introduit avec la balise "path"
+					il prend l'attribut "d" qui indique les commande (ligne, courbe, etc) à effectuer pour dessiner le tracé. Ces commandes sont sensibles à la casse et sont très variées...
+				</p>
 
-				<p class="paragraphe">un point courant est la dernière coordonnée indiquée dans l'attribut d. cela peut être soit un moveto, ou la fin d'une courbe, d'une ligne, etc</p>
+				<p class="paragraphe">
+					Un point courant est la dernière coordonnée indiquée dans l'attribut "d". Cela peut être soit un "moveto", ou la fin d'une courbe, d'une ligne, etc
+				</p>
 
-				<h5 class="sous-titre">La commande (M) moveto</h5>
-				<p class="paragraphe">La commande moveto('Move to' 'bouger vers' en anglais) etablit un nouveau point courant, on note:
-					<pre id="editor15"></pre>	</p><!--<path d="M100,500" />-->
-				<h5 class="sous-titre">La commande (L)lineto</h5>
-					<p class="paragraphe">Elle trace une ligne  du point courant vers un autre</p>
+				<h5 class="sous-titre">Moveto</h5>
+				<p class="paragraphe">
+					La commande moveto ('Move to', 'bouger vers' en anglais) établit un nouveau point courant, on note :
+				</p>
+				<pre id="editor15"></pre>
+				<!--<path d="M100,500" />-->
+				<h5 class="sous-titre">Lineto</h5>
+				<p class="paragraphe">Elle trace une ligne  du point courant vers un autre</p>
 
-						Exemple:
-						 	<pre id="editor16"></pre><!--<path d="M100,100 l400,150"/>-->
+				Exemple:
+				<pre id="editor16"></pre><!--<path d="M100,100 l400,150"/>-->
 
-				<h5 class="sous-titre">Les commandes (H) et (V)</h5>
-					<p class="paragraphe">Elles sont utilisées pour dessiner des lignes horizontales (H) et (V) verticales seulement. Je vous conseille de les utiliser car elles reduisent la taille de vos fichiers. Leur fonctionnement est similaire a lineto.</p>
-				<h5 class="sous-titre">La commande (Z)</h5>
-					<p class="paragraphe"> La commande closepath(Z) est un raccourci qui trace une ligne vers le point spécifié avec la derniere commande moveto. il n'a besoin d'aucune cordonée.
-					exemple:
-						<pre id="editor17"></pre><!--<path d="M200,200 l10,10 h10,20 v50,20 z"/>--></p>
+				<h5 class="sous-titre">Les commandes h et v</h5>
+				<p class="paragraphe">Elles sont utilisées pour dessiner des lignes horizontales (H) et verticales (V) seulement. Je vous conseille de les utiliser, car elles reduisent la taille de vos fichiers. Leur fonctionnement est similaire à lineto.</p>
+				<h5 class="sous-titre">La commande z</h5>
+				<p class="paragraphe">
+					La commande closepath (Z) est un raccourci qui trace une ligne vers le point spécifié avec la dernière commande moveto. Il n'a besoin d'aucune coordonnée.
+				</p>
+				Exemple:
+				<pre id="editor17"></pre><!--<path d="M200,200 l10,10 h10,20 v50,20 z"/>-->
+			</div>
 
-				<h4 class="sous-titre">Les courbes</h4>
-					<p class="paragraphe">Les courbes sont un peu plus difficiles a assimiler, en effet vous devez savoir quel type de courbe vous souhaitez dessiner. Et il en existe trois</p>
+			<div class="chapters">
+				<h4 class="titre">Les courbes</h4>
+				<p class="paragraphe">Les courbes sont un peu plus difficiles à assimiler. En effet, vous devez savoir quel type de courbe vous souhaitez dessiner. Et il en existe trois :</p>
 
-					<h5 class="sous-titre">Les courbes quadratiques de Bézier (Q et T)</h5>
-						<p class="paragraphe">Une courbe quadratique ressemble à cela:
-						</p>
-							<img src="assets/images/courbeQuadra.svg" alt="courbe quadratiques" height="200px" width="300px" />
-						<p class="paragraphe">On introduit ce type de courbe avec la commande Q qui trace une courbe a partir d'un point courant. Vous devez indiquer deux coordonées:
-						<ul>
-							<li>Un point de contrôle</li>
-							<li>Le point de fin de la courbe</li>
-						</ul>
-						<p class="paragraphe">Un point de contrôle est un point qui "tire sur la courbe" voici un exemple en visuel:</p>
-							</p>
-							<img src="assets/images/schemacourbequadra.svg" alt="shcéma" courbe quadratique />
-							<p class="paragraphe">
-								il existe une derniere commande pour dessiner des courbes quadratiques : (T). c'est une sorte de raccourci. Vous devez seulement indiquer une cordonnée, le point de fin de courbe. Le point de contrôle est calculé comme étant le point image selon une symétrie centrale du point de contrôle de la courbe q précédente.
-								Petit schéma imagé...
-							</p>
-								<!-- schéma illustrator-->
-								<img src="assets/images/courbeT.svg" alt="raccourci T">
-						<h5 class="sous-titre">Les courbes cubiques de Bézier (C et S)</h5>
+				<h5 class="sous-titre">Les courbes quadratiques</h5>
+				<p class="paragraphe">Les courbes quadratiques de Bézier ressemble à cela:
+				</p>
+				<img src="assets/images/courbeQuadra.svg" alt="courbe quadratiques" height="200px" width="300px" />
+				<p class="paragraphe">On introduit ce type de courbe avec la commande Q qui trace une courbe à partir d'un point courant. Vous devez indiquer deux coordonées :
+					<ul>
+						<li>Un point de contrôle</li>
+						<li>Le point de fin de la courbe</li>
+					</ul>
+					<p class="paragraphe">Un point de contrôle est un point qui "tire sur la courbe", voici un exemple en visuel :</p>
+				</p>
+				<img src="assets/images/schemacourbequadra.svg" alt="shcéma" courbe quadratique />
+				<p class="paragraphe">
+					Il existe une derniere commande pour dessiner des courbes quadratiques : (T). C'est une sorte de raccourci. Vous devez seulement indiquer une coordonnée, le point de fin de la courbe. Le point de contrôle est calculé comme étant le point image selon une symétrie centrale du point de contrôle de la courbe q précédente.
+					Petit schéma imagé...
+				</p>
+				<!-- schéma illustrator-->
+				<img src="assets/images/courbeT.svg" alt="raccourci T">
+				<h5 class="sous-titre">Les courbes cubiques</h5>
 
-							<p class="paragraphe">Ici cela devient un peu plus compliqué... Une courbe bezier cubique ressemble a cela:
-								</p>
-								<!--Image IA d'une courbe cubiques de bézier-->
+				<p class="paragraphe">Ici cela devient un peu plus compliqué... Une courbe de Bézier cubique ressemble a cela :
+				</p>
+				<!--Image IA d'une courbe cubiques de bézier-->
 
-								<svg  height="150" width="300">
-									<path d="M10 80 Q 52.5 10, 95 80 T 180 80"  style="fill:none; stroke:black; stroke-width:5px"/>
-								</svg>
-							<p class="paragraphe">Nouvelle commande (C), il a besoin de 3 coordonnées:<ul>
-								<li>Un point de contrôle en debut de courbe</li>
-								<li>
-									Un point de contrôle n fin de courbe
-								</li>
-								<li>
-									Un point de fin de courbe
-								</li>
-							</ul>
-							<p class="paragraphe">Chaque point de contrôle tire la moité de la courbe vers lui.
-							Exemple:
-							</p>
+				<svg  height="150" width="300">
+					<path d="M10 80 Q 52.5 10, 95 80 T 180 80"  style="fill:none; stroke:black; stroke-width:5px"/>
+				</svg>
+				<p class="paragraphe">Nouvelle commande (C), elle a besoin de 3 coordonnées :<ul>
+					<li>Un point de contrôle en début de courbe</li>
+					<li>
+						Un point de contrôle en fin de courbe
+					</li>
+					<li>
+						Un point de fin de courbe
+					</li>
+				</ul>
+				<p class="paragraphe">Chaque point de contrôle tire la moité de la courbe vers lui.
+					Exemple:
+				</p>
 
 
-							<p class="paragraphe">Il existe aussi une commande raccoucie(comme (T)), mais pour les courbes cubiques. C'est 'S'. Vous devez seulement indiquer le deuxième point de contrôle et le point de fin de courbe, le premier point de contrôle étant l'image par symétrie centrale du deuxième point de contrôle de la courbe précédente.
-							encore un schéma:
-
-							<!--Schéma de courbe cubique a faire <path d="M100,100 c150,-50 100,200 200,200 s0,-100 100,-200" />--></p>
+				<p class="paragraphe">
+					Il existe aussi une commande de raccourci (comme (T)), mais pour les courbes cubiques. C'est 'S'. Vous devez seulement indiquer le deuxième point de contrôle et le point de fin de courbe, le premier point de contrôle étant l'image par symétrie centrale du deuxième point de contrôle de la courbe précédente.
+					Encore un schéma:
+				</p>
+					<!--Schéma de courbe cubique a faire <path d="M100,100 c150,-50 100,200 200,200 s0,-100 100,-200" />-->
 
 
 					<!--Ici mettre un exercice de base sur les formes (a discuter en groupe)-->
 
-						<h5 class="sous-titre">Les arcs elliptiques (A)</h5>
-							<p class="paragraphe">Un arc elliptique c'est une partie d'ellipse comme ceci:
-								<!-- image d'arc elliptique--></p>
-							<p class="paragraphe">La 3ème commande est probablement la plus compliqué, car elle prend 6 paramètres
+					<h5 class="sous-titre">Les arcs elliptiques</h5>
+					<p class="paragraphe">Un arc elliptique est une partie d'une ellipse, comme ceci:
+						<!-- image d'arc elliptique--></p>
+						<p class="paragraphe">Ces arcs sont introduits par la commande "A", qui est probablement la plus compliquée, car elle prend 6 paramètres :
 							<ul>
-								<li>Le rayon horizontal de l'ellipse</li>
-								<li>Le rayon vertical de l'ellipse</li>
-								<li>l'angle de rotation de l'ellipse par rapport a l'horizontal</li>
-								<li>La valeur du drapeau-large de l'arc (0 ou 1)</li>
-								<li>la valeur du drapeau-baleyage de l'arc(0 ou 1)</li>
+								<li>le rayon horizontal de l'ellipse</li>
+								<li>le rayon vertical de l'ellipse</li>
+								<li>l'angle de rotation de l'ellipse par rapport à l'horizontal</li>
+								<li>la valeur du drapeau-large de l'arc (0 ou 1)</li>
+								<li>la valeur du drapeau-balayage de l'arc (0 ou 1)</li>
 								<li>le point de fin de l'arc elliptique</li>
 							</ul>
-								en code cela donne ceci:
-									<pre id="editor18"></pre><!--<path d="M200,450 a25,100 -30 0,1 50,-25 " />-->
-									<!--Schéma pour décomposer le code-->
-							</p>
+							En code cela donne ceci :
+							<pre id="editor18"></pre><!--<path d="M200,450 a25,100 -30 0,1 50,-25 " />-->
+							<!--Schéma pour décomposer le code-->
+						</p>
 
+					</div>
 
-			<h3 class="titre">Animation</h3>
+					<div class="chapters">
+						<h3 class="titre">Animations</h3>
 
-			<p class="paragraphe">Le plus gros interêt du SVG est l'animation de forme plus ou moins complexe de façon simple et efficace.
-			Pour animer nos formes nous allons simplement utiliser la balise :
-			 </p>
-				<pre id="editor9"></pre>
+						<p class="paragraphe">Le plus gros interêt du SVG est l'animation de forme plus ou moins complexe de façon simple et efficace.
+							Pour animer nos formes, nous allons simplement utiliser la balise :
+						</p>
+						<pre id="editor9"></pre>
 
+						<p> Cette balise prend plusieurs attributs :</p>
 
-			<p> <ul>Cette balise prend plusieurs attributs:
+						<ul>
+							<li>xlink:href, cet attribut defini un lien vers une ressource de référence (avec un ID ou une classe)</li>
 
-				<li>xlink:href, cet attribut defini un link vers une ressource en reference(avec un ID ou class)</li>
+							<li>attributeName, qui sert à séléctionner l'attribut sur lequel on veut influer (x, y, fill, stroke, opacity, etc).</li>
 
-				<li>attributName, qui sert a séléctionner l'attribut sur lequel on veut influer.(x, y, fill, stroke, opacity, ...)</li>
+							<li>attributeType, cet atribut permet d'indiquer selon l'élément sur lequel on influe est du XML ou du CSS.</li>
 
-				<li>attributType, cet atribut permet d'indiquer l'élement sur lequel on influe est XML ou CSS.</li>
+							<li>from, position de départ de l'animation.</li>
 
-				<li>from, position de départ de l'animation.</li>
+							<li>to, positon de fin de l'animation.</li>
 
-				<li>to, positon de fin d'animation.</li>
+							<li>value, il est possible d'utiliser value pour donner plusieurs coordonnées. </li>
 
-				<li>value, il est possible d'utiliser value pour donner plusieurs coordonnées </li>
+							<li>begin, le moment auquel commence l'animation, en seconde (il est possible d'utiliser .start et .end pour faciliter la synchronisation avec les autres animations).</li>
 
-				<li>begin, la moment ou commence l'animation, en seconde(il est possible d'utiliser .start et .end pour faciliter la synchronisation avec les autres animations).</li>
+							<li>dur, indique la durée de l'animation.</li>
 
-				<li>dur, indique la durée de l'animation.</li>
+							<li>repeatCount, il prend comme valeur "indefinite" si l'on veut que l'animation se fasse en boucle (dans ce cas, une animation avec value permet de faire une animation simple fluide avec une ligne de code), on peut bien sûr lui donner une valeur numérique si l'on veut un nombre defini d'itérations.</li>
 
-				<li>repeatCount, il prend comme valeur, "indifinite" si l'on veut que l'animation se fasse en boucle(dans ces cas une animation avec value, permet de faire une animation simple fluide avec une ligne de code), on peut bien sur lui donner une valeur numérique si l'on veut un nombre definit d'itération.</li>
+							<li>restart, il peut prendre plusieurs valeurs :
+								<ul>
+									<li>
+										always : l'animation peut redémmarer quand on le souhaite
+									</li>
+									<li>
+										whenNotActive : l'animation ne peut redémarrer que quand elle n'est pas active
+									</li>
+									<li>
+										never : l'animation ne peut jamais redémarrer.
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<p>Il existe d'autres balises d'animations telles que :</p>
 
-				<li>restart, always: l'animation peut redémmarer quand on le souhaite, whenNotActive: l'animation ne peut redémmarer que quand elle n'est pas active, never: l'animation ne peut jamais redémmarer.</li>
-				</ul></p>
-				<p>il existe d'autres balises d'animations telles que:<ul>
+						<ul>
 
-				<li><pre id="editor20"></pre>, qui permet d'effectuer une animation par apport a une path, un petit exemple:</li>
-					j<pre id="editor19"></pre><!-- <animateMotion d="M200,300 t200,300" /> " -->
-				<li><pre id="editor21"></pre>, l'élément permet d'animer un élement soit par translation, mise à l'echelle, rotation et/ou clinaison.</li>
-				</ul>
-				<!--Mettre un exemple d'animation part apport a une path.(a discuter en groupe).-->
-			<p class="paragraphe">Avec ceci nous pouvons donc réaliser des animations plus poussées.</p>
+							<li><pre id="editor20"></pre>, qui permet d'effectuer une animation par rapport à un path. Un petit exemple :</li>
+							j<pre id="editor19"></pre><!-- <animateMotion d="M200,300 t200,300" /> " -->
+							<li><pre id="editor21"></pre>, l'élément permet d'animer un élément soit par translation, mise à l'échelle, rotation et/ou inclinaison.</li>
+						</ul>
+						<!--Mettre un exemple d'animation part apport a une path.(a discuter en groupe).-->
+						<p class="paragraphe">Avec ceci, nous pouvons donc réaliser des animations plus poussées.</p>
 
-				<!--Exo sur l'animation ici-->
+						<!--Exo sur l'animation ici-->
 
-				<!--Chapitre4-->
-			<h3 class="titre">Le texte</h3>
+					</div>
+					<!--Chapitre4-->
+					<div class="chapters">
 
-			<p class="paragraphe">La première chose a savoir avec le texte en SVG, c'est que la version actuelle ne gère pas les blocs. Heureusement il existe des techniques pour contourner les lacunes du SVG </p>
+						<h3 class="titre">Le texte</h3>
 
-			<p class="paragraphe">Il existe quelques balises telles que <pre id="editor12"></pre>cette balise permet donc d'afficher des lignes de texte dans nos documents, comme vous pouvez le voir elle contient les attributs x et y qui nous servent a positionner le texte, le point X/Y est positionner au bas gauche de la première lettre de la phrase.
-			Comme pour les formes il est possible de styliser vos textes:</p>
-			<ul class="listAPuce">
-			<li>Couleur et remplace avec fill et stroke.</li>
-			<li>taille du texte avec font-size. </li>
-			<li>Italique avec font-style.</li>
-			<li>gras avec font-weight.</li>
-			<li>la police avec font-family.</li>
-			<li>les sur/soulignements avec text-decoration.</li>
-			<li>l'alignement du texte avec texte anchor(change la position de X/Y) exemple imagé conseillé ici(a discuter).</li>
-			<li>l'espacement des lettres entre les mots avec lettre-spacing (pour l'espacement entre chaque lettre) et word-spacing (pour l'espacement entre chaques mots).</li>
-			</ul>
-		<div>
+						<p class="paragraphe">La première chose a savoir avec le texte en SVG, c'est que la version actuelle ne gère pas les blocs. Heureusement, il existe des techniques pour contourner les lacunes du SVG. </p>
+
+						<p class="paragraphe">
+							Il existe quelques balises telles que <pre id="editor12"></pre>. Cette balise permet donc d'afficher des lignes de texte dans nos documents. Comme vous pouvez le voir, elle contient les attributs x et y qui nous servent à positionner le texte. L'origine des points x et y se trouve au bas gauche de la première lettre de la phrase.
+							Comme pour les formes, il est possible de styliser vos textes :
+						</p>
+						<ul class="listAPuce">
+							<li>
+								la couleur est remplacée avec fill et stroke.
+							</li>
+							<li>
+								la taille du texte avec font-size.
+							</li>
+							<li>
+								les italiques se font avec font-style.
+							</li>
+							<li>
+								le gras avec font-weight.
+							</li>
+							<li>
+								le changement de police avec font-family.
+							</li>
+							<li>
+								les surlignages et soulignages avec text-decoration.
+							</li>
+							<li>
+								l'alignement du texte avec texte anchor(change la position de X/Y) exemple imagé conseillé ici(a discuter).
+							</li>
+							<li>
+								l'espacement des lettres entre les mots avec lettre-spacing (pour l'espacement entre chaque lettre) et word-spacing (pour l'espacement entre chaque mot).
+							</li>
+						</ul>
+					</div>
+				</div>
 	<script src="../../lib/PrismJS/prism.js"></script>
+	<script src="script/script.js"></script>
+	<script src="script/navbar.js"></script>
 </body>
 </html>
