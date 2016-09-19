@@ -1,5 +1,5 @@
-class BasicSquare {
-    constructor(x, y, classy, id) {
+var BasicSquare = (function () {
+    function BasicSquare(x, y, classy, id) {
         this.svgns = "http://www.w3.org/2000/svg";
         this.width = basicSquare;
         this.height = basicSquare;
@@ -10,7 +10,7 @@ class BasicSquare {
         this.drawSquare(id);
     }
     ;
-    setId(id, which) {
+    BasicSquare.prototype.setId = function (id, which) {
         var classes = document.getElementsByClassName(which);
         var e = 0;
         for (var i = 0; i < classes.length; i++) {
@@ -21,9 +21,9 @@ class BasicSquare {
         }
         ;
         return id + e.toString();
-    }
+    };
     ;
-    drawSquare(id) {
+    BasicSquare.prototype.drawSquare = function (id) {
         var _thisGame = document.getElementById(id);
         var newSquare = document.createElementNS(this.svgns, "rect");
         newSquare.setAttribute("class", this.class);
@@ -35,10 +35,11 @@ class BasicSquare {
         newSquare.setAttribute("fill", noFill);
         newSquare.setAttribute("stroke", "black");
         _thisGame.appendChild(newSquare);
-    }
-}
-class UserInterface {
-    constructor(id, width, height) {
+    };
+    return BasicSquare;
+}());
+var UserInterface = (function () {
+    function UserInterface(id, width, height) {
         this.svgns = "http://www.w3.org/2000/svg";
         this.id = id;
         this.width = width * (basicWidth + userInterfaceWidth);
@@ -47,18 +48,18 @@ class UserInterface {
         this.createMenu();
     }
     ;
-    createSvgArea() {
+    UserInterface.prototype.createSvgArea = function () {
         var width = this.width + "px";
         var height = this.height + "px";
-        document.getElementById("container").innerHTML = `<svg id=${this.id} width=${width} height=${height} xmlns=${this.svgns} xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>`;
+        document.getElementById("container").innerHTML = "<svg id=" + this.id + " width=" + width + " height=" + height + " xmlns=" + this.svgns + " xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'> </svg>";
         this.menu = document.getElementById(this.id);
-    }
+    };
     ;
-    createMenu() {
+    UserInterface.prototype.createMenu = function () {
         var svgArea = this.menu;
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "gContainer");
-        g.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 4})`);
+        g.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 4 + ")");
         svgArea.appendChild(g);
         var gTitle = document.createElementNS(this.svgns, "g");
         g.appendChild(gTitle);
@@ -67,15 +68,15 @@ class UserInterface {
         var letters = ["T", "E", "T", "R", "I", "S"];
         for (var i = 0; i < letters.length; i++) {
             var title = document.createElementNS(this.svgns, "text");
-            title.setAttribute("style", `font-size:100px; fill:${fill[i]}; stroke:${stroke[i]}`);
+            title.setAttribute("style", "font-size:100px; fill:" + fill[i] + "; stroke:" + stroke[i]);
             if (letters[i] == "I") {
-                title.setAttribute("transform", `translate(${((basicSquare * 2) * i) + 5})`);
+                title.setAttribute("transform", "translate(" + (((basicSquare * 2) * i) + 5) + ")");
             }
             else if (letters[i] == "S") {
-                title.setAttribute("transform", `translate(${((basicSquare * 2) * i) - 30})`);
+                title.setAttribute("transform", "translate(" + (((basicSquare * 2) * i) - 30) + ")");
             }
             else {
-                title.setAttribute("transform", `translate(${(basicSquare * 2) * i})`);
+                title.setAttribute("transform", "translate(" + (basicSquare * 2) * i + ")");
             }
             ;
             title.innerHTML = letters[i];
@@ -84,34 +85,34 @@ class UserInterface {
         ;
         var subtitle = document.createElementNS(this.svgns, "text");
         subtitle.setAttribute("style", "font-family: sans-serif; font-size:100px; stroke: #755f25; fill: #fcc82d; font-weight: bold");
-        subtitle.setAttribute("transform", `translate(${basicSquare * 3.5}, ${basicSquare * 2.5})`);
+        subtitle.setAttribute("transform", "translate(" + basicSquare * 3.5 + ", " + basicSquare * 2.5 + ")");
         subtitle.innerHTML = "TS";
         gTitle.appendChild(subtitle);
         var gLevel = document.createElementNS(this.svgns, "g");
-        gLevel.setAttribute("transform", `translate(${basicSquare * 4.6}, ${basicSquare * 4})`);
+        gLevel.setAttribute("transform", "translate(" + basicSquare * 4.6 + ", " + basicSquare * 4 + ")");
         g.appendChild(gLevel);
         var levelText = document.createElementNS(this.svgns, "text");
         levelText.innerHTML = "Level :";
         gLevel.appendChild(levelText);
         var foreignObject = document.createElementNS(this.svgns, "foreignObject");
-        foreignObject.setAttribute("transform", `translate(${basicSquare * 1.5}, ${-basicSquare / 2.2})`);
+        foreignObject.setAttribute("transform", "translate(" + basicSquare * 1.5 + ", " + -basicSquare / 2.2 + ")");
         gLevel.appendChild(foreignObject);
         var levelInput = document.createElement("input");
         levelInput.setAttribute("id", "levelInput");
-        levelInput.setAttribute("type", `number`);
-        levelInput.setAttribute("min", `0`);
+        levelInput.setAttribute("type", "number");
+        levelInput.setAttribute("min", "0");
         levelInput.value = "0";
         foreignObject.appendChild(levelInput);
         var gNewGame = document.createElementNS(this.svgns, "g");
-        gNewGame.setAttribute("transform", `translate(${basicSquare * 4}, ${basicSquare * 4.5})`);
+        gNewGame.setAttribute("transform", "translate(" + basicSquare * 4 + ", " + basicSquare * 4.5 + ")");
         g.appendChild(gNewGame);
         var newGameText = document.createElementNS(this.svgns, "text");
         newGameText.setAttribute("style", "font-size:15px");
-        newGameText.setAttribute("transform", `translate(${basicSquare}, ${basicSquare * 0.65})`);
+        newGameText.setAttribute("transform", "translate(" + basicSquare + ", " + basicSquare * 0.65 + ")");
         newGameText.innerHTML = "New Game";
         gNewGame.appendChild(newGameText);
         var gNewGamePath = document.createElementNS(this.svgns, "g");
-        gNewGamePath.setAttribute("transform", `translate(30, 15)`);
+        gNewGamePath.setAttribute("transform", "translate(30, 15)");
         gNewGame.appendChild(gNewGamePath);
         var newGamePath = document.createElementNS(this.svgns, "path");
         newGamePath.setAttribute("transform", "scale(0.015)");
@@ -121,21 +122,21 @@ class UserInterface {
         newGameRect.setAttribute("fill", "transparent");
         newGameRect.setAttribute("style", "cursor:pointer");
         newGameRect.setAttribute("stroke", "black");
-        newGameRect.setAttribute("width", `${basicSquare * 3.5}`);
-        newGameRect.setAttribute("height", `${basicSquare}`);
+        newGameRect.setAttribute("width", "" + basicSquare * 3.5);
+        newGameRect.setAttribute("height", "" + basicSquare);
         gNewGame.appendChild(newGameRect);
         newGameRect.addEventListener('click', this.newGame);
         var gSettings = document.createElementNS(this.svgns, "g");
         gSettings.setAttribute("id", "settingsContainer");
-        gSettings.setAttribute("transform", `translate(${basicSquare * 4}, ${basicSquare * 5.7})`);
+        gSettings.setAttribute("transform", "translate(" + basicSquare * 4 + ", " + basicSquare * 5.7 + ")");
         g.appendChild(gSettings);
         var settingsText = document.createElementNS(this.svgns, "text");
         settingsText.setAttribute("style", "font-size:15px");
-        settingsText.setAttribute("transform", `translate(${basicSquare * 1.2}, ${basicSquare * 0.65})`);
+        settingsText.setAttribute("transform", "translate(" + basicSquare * 1.2 + ", " + basicSquare * 0.65 + ")");
         settingsText.innerHTML = "Settings";
         gSettings.appendChild(settingsText);
         var gSettingsPath = document.createElementNS(this.svgns, "g");
-        gSettingsPath.setAttribute("transform", `translate(22, 18)`);
+        gSettingsPath.setAttribute("transform", "translate(22, 18)");
         gSettings.appendChild(gSettingsPath);
         var settingsPath = document.createElementNS(this.svgns, "path");
         settingsPath.setAttribute("transform", "scale(0.015)");
@@ -143,16 +144,16 @@ class UserInterface {
         gSettingsPath.appendChild(settingsPath);
         var settingsRect = document.createElementNS(this.svgns, "rect");
         settingsRect.setAttribute("id", "settings");
-        settingsRect.setAttribute("width", `${basicSquare * 3.5}`);
-        settingsRect.setAttribute("height", `${basicSquare}`);
+        settingsRect.setAttribute("width", "" + basicSquare * 3.5);
+        settingsRect.setAttribute("height", "" + basicSquare);
         settingsRect.setAttribute("fill", "transparent");
         settingsRect.setAttribute("stroke", "black");
-        settingsRect.setAttribute("style", `cursor:pointer`);
+        settingsRect.setAttribute("style", "cursor:pointer");
         gSettings.appendChild(settingsRect);
         settingsRect.addEventListener('click', this.setUpSettings);
-    }
+    };
     ;
-    setUpSettings() {
+    UserInterface.prototype.setUpSettings = function () {
         if (document.getElementById("settingsMenu"))
             return;
         var _this = userInterface;
@@ -171,12 +172,12 @@ class UserInterface {
         }
         ;
         var gSettings = document.createElementNS(_this.svgns, "g");
-        gSettings.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 7})`);
+        gSettings.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 7 + ")");
         gSettings.setAttribute("id", "settingsMenu");
         svgArea.appendChild(gSettings);
         var settingsMenuRect = document.createElementNS(_this.svgns, "rect");
-        settingsMenuRect.setAttribute("width", `${basicSquare * 10.7}`);
-        settingsMenuRect.setAttribute("height", `${basicSquare * 10}`);
+        settingsMenuRect.setAttribute("width", "" + basicSquare * 10.7);
+        settingsMenuRect.setAttribute("height", "" + basicSquare * 10);
         settingsMenuRect.setAttribute("fill", "white");
         settingsMenuRect.setAttribute("stroke", "black");
         gSettings.appendChild(settingsMenuRect);
@@ -184,60 +185,62 @@ class UserInterface {
         gClose.setAttribute("id", "closeBtn");
         gSettings.appendChild(gClose);
         var gClosePath = document.createElementNS(_this.svgns, "g");
-        gClosePath.setAttribute("transform", `translate(${basicSquare}, ${basicSquare})`);
+        gClosePath.setAttribute("transform", "translate(" + basicSquare + ", " + basicSquare + ")");
         gClose.appendChild(gClosePath);
         var closePath = document.createElementNS(_this.svgns, "path");
-        closePath.setAttribute("transform", `scale(0.015)`);
+        closePath.setAttribute("transform", "scale(0.015)");
         closePath.setAttribute("d", "M0 0q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z");
         gClosePath.appendChild(closePath);
         var closeRect = document.createElementNS(_this.svgns, "rect");
-        closeRect.setAttribute("x", `${basicSquare * .25}`);
-        closeRect.setAttribute("y", `${basicSquare * .35}`);
+        closeRect.setAttribute("x", "" + basicSquare * .25);
+        closeRect.setAttribute("y", "" + basicSquare * .35);
         closeRect.setAttribute("fill", "transparent");
         closeRect.setAttribute("stroke", "black");
         closeRect.setAttribute("style", "cursor:pointer;");
-        closeRect.setAttribute("height", `${basicSquare}`);
-        closeRect.setAttribute("width", `${basicSquare}`);
+        closeRect.setAttribute("height", "" + basicSquare);
+        closeRect.setAttribute("width", "" + basicSquare);
         gClose.appendChild(closeRect);
         closeRect.addEventListener("click", closeSettings);
         var gControls = document.createElementNS(_this.svgns, "g");
-        gControls.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 2})`);
+        gControls.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 2 + ")");
         gSettings.appendChild(gControls);
         var controls = [];
         var i = 0;
         for (var property in player) {
             if (player[property] != player.moving) {
+                if (typeof player[property] != "string")
+                    break;
                 controls.push([property, player[property]]);
                 var gRow = document.createElementNS(_this.svgns, "g");
-                gRow.setAttribute("id", `${property + "Row"}`);
-                gRow.setAttribute("transform", `translate(0, ${basicSquare * i})`);
+                gRow.setAttribute("id", "" + (property + "Row"));
+                gRow.setAttribute("transform", "translate(0, " + basicSquare * i + ")");
                 gControls.appendChild(gRow);
                 var name = document.createElementNS(_this.svgns, "text");
                 name.innerHTML = property.split('')[0].toUpperCase() + property.substring(1) + ":";
                 gRow.appendChild(name);
                 var gValue = document.createElementNS(_this.svgns, "g");
-                gValue.setAttribute("transform", `translate(${basicSquare * 2})`);
+                gValue.setAttribute("transform", "translate(" + basicSquare * 2 + ")");
                 gRow.appendChild(gValue);
                 var value = document.createElementNS(_this.svgns, "text");
                 value.innerHTML = player[property].length > 1 ? player[property] : player[property].toUpperCase();
-                value.setAttribute("id", `${property}`);
+                value.setAttribute("id", "" + property);
                 value.setAttribute("class", "keyValues");
                 value.setAttribute("text-anchor", "middle");
-                value.setAttribute("transform", `translate(${basicSquare * 1.5})`);
+                value.setAttribute("transform", "translate(" + basicSquare * 1.5 + ")");
                 gValue.appendChild(value);
                 var valueRect = document.createElementNS(_this.svgns, "rect");
                 valueRect.setAttribute("stroke", "black");
                 valueRect.setAttribute("fill", "transparent");
-                valueRect.setAttribute("width", `${basicSquare * 3}`);
-                valueRect.setAttribute("height", `${basicSquare - 5}`);
-                valueRect.setAttribute("y", `${-basicSquare / 1.7}`);
+                valueRect.setAttribute("width", "" + basicSquare * 3);
+                valueRect.setAttribute("height", "" + (basicSquare - 5));
+                valueRect.setAttribute("y", "" + -basicSquare / 1.7);
                 valueRect.setAttribute("style", "cursor:pointer;");
                 gValue.appendChild(valueRect);
                 valueRect.addEventListener("click", popupHandler);
                 var gWarning = document.createElementNS(_this.svgns, "g");
-                gWarning.setAttribute("id", `${property + "Warning"}`);
-                gWarning.setAttribute("style", `opacity:0`);
-                gWarning.setAttribute("transform", `translate(${basicSquare * 6}, 2.5)`);
+                gWarning.setAttribute("id", "" + (property + "Warning"));
+                gWarning.setAttribute("style", "opacity:0");
+                gWarning.setAttribute("transform", "translate(" + basicSquare * 6 + ", 2.5)");
                 gRow.appendChild(gWarning);
                 var warningPath = document.createElementNS(_this.svgns, "path");
                 warningPath.setAttribute("transform", "scale(0.015)");
@@ -248,30 +251,30 @@ class UserInterface {
         }
         ;
         var seperator = document.createElementNS(_this.svgns, "line");
-        seperator.setAttribute("x1", `${basicSquare * 1}`);
-        seperator.setAttribute("y1", `${basicSquare * 7}`);
-        seperator.setAttribute("x2", `${basicSquare * 9}`);
-        seperator.setAttribute("y2", `${basicSquare * 7}`);
+        seperator.setAttribute("x1", "" + basicSquare * 1);
+        seperator.setAttribute("y1", "" + basicSquare * 7);
+        seperator.setAttribute("x2", "" + basicSquare * 9);
+        seperator.setAttribute("y2", "" + basicSquare * 7);
         seperator.setAttribute("stroke-width", "1");
         seperator.setAttribute("stroke", "black");
         gSettings.appendChild(seperator);
         var gMute = document.createElementNS(_this.svgns, "g");
-        gMute.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 8})`);
+        gMute.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 8 + ")");
         gSettings.appendChild(gMute);
         var muteText = document.createElementNS(_this.svgns, "text");
         muteText.innerHTML = "Music";
         gMute.appendChild(muteText);
         var gSlider = document.createElementNS(_this.svgns, "g");
-        gSlider.setAttribute("transform", `translate(${basicSquare * 1.5}, ${-basicSquare / 8})`);
+        gSlider.setAttribute("transform", "translate(" + basicSquare * 1.5 + ", " + -basicSquare / 8 + ")");
         gMute.appendChild(gSlider);
         var sliderRect = document.createElementNS(_this.svgns, "rect");
-        sliderRect.setAttribute("width", `${basicSquare * 4}`);
-        sliderRect.setAttribute("height", `${basicSquare * 0.02}`);
+        sliderRect.setAttribute("width", "" + basicSquare * 4);
+        sliderRect.setAttribute("height", "" + basicSquare * 0.02);
         sliderRect.setAttribute("fill", "black");
         gSlider.appendChild(sliderRect);
         var sliderCircle = document.createElementNS(_this.svgns, "circle");
-        sliderCircle.setAttribute("cx", `${(Number(sliderRect.getAttribute("width"))) * (volume / 100)}`);
-        sliderCircle.setAttribute("r", `5`);
+        sliderCircle.setAttribute("cx", "" + (Number(sliderRect.getAttribute("width"))) * (volume / 100));
+        sliderCircle.setAttribute("r", "5");
         gSlider.appendChild(sliderCircle);
         var cursorX;
         function volumeHandler(event) {
@@ -304,14 +307,14 @@ class UserInterface {
                     volume = 0;
                 if (volume > 100)
                     volume = 100;
-                sliderCircle.setAttribute("cx", `${cursorX}`);
+                sliderCircle.setAttribute("cx", "" + cursorX);
             }
             ;
             if (sliderCircle.getBoundingClientRect().right >= sliderRect.getBoundingClientRect().right) {
-                sliderCircle.setAttribute("cx", `${cursorX - 10}`);
+                sliderCircle.setAttribute("cx", "" + (cursorX - 10));
             }
             else if (sliderCircle.getBoundingClientRect().left <= sliderRect.getBoundingClientRect().left - 5) {
-                sliderCircle.setAttribute("cx", `${cursorX + 10}`);
+                sliderCircle.setAttribute("cx", "" + (cursorX + 10));
             }
             ;
             var workaround = document.getElementById("music");
@@ -327,8 +330,8 @@ class UserInterface {
                 var values = Array.from(document.getElementsByClassName("keyValues"));
                 var sortedValues = [];
                 for (var e = 0; e < values.length; e++) {
-                    document.getElementById(`${values[e].getAttribute("id") + "Warning"}`).setAttribute("style", "opacity:0");
-                    document.getElementById(`${values[e].getAttribute("id")}`).setAttribute("class", "keyValues");
+                    document.getElementById("" + (values[e].getAttribute("id") + "Warning")).setAttribute("style", "opacity:0");
+                    document.getElementById("" + values[e].getAttribute("id")).setAttribute("class", "keyValues");
                     sortedValues.push([values[e].innerHTML, values[e].getAttribute("id")]);
                 }
                 ;
@@ -343,10 +346,10 @@ class UserInterface {
                     sortedValues[j];
                     sortedValues[j + 1];
                     if (sortedValues[j + 1] && sortedValues[j + 1][0] == sortedValues[j][0]) {
-                        document.getElementById(`${sortedValues[j][1] + "Warning"}`).setAttribute("style", "opacity:1");
-                        document.getElementById(`${sortedValues[j + 1][1] + "Warning"}`).setAttribute("style", "opacity:1");
-                        document.getElementById(`${sortedValues[j][1]}`).setAttribute("class", "keyValues warned");
-                        document.getElementById(`${sortedValues[j + 1][1]}`).setAttribute("class", "keyValues warned");
+                        document.getElementById("" + (sortedValues[j][1] + "Warning")).setAttribute("style", "opacity:1");
+                        document.getElementById("" + (sortedValues[j + 1][1] + "Warning")).setAttribute("style", "opacity:1");
+                        document.getElementById("" + sortedValues[j][1]).setAttribute("class", "keyValues warned");
+                        document.getElementById("" + sortedValues[j + 1][1]).setAttribute("class", "keyValues warned");
                         doubleKeys.push(true);
                     }
                     ;
@@ -363,23 +366,23 @@ class UserInterface {
             g.setAttribute("id", "popupContainer");
             settingsMenu.appendChild(g);
             var greyRect = document.createElementNS(_this.svgns, "rect");
-            greyRect.setAttribute("width", `${basicSquare * 10.7}`);
-            greyRect.setAttribute("height", `${basicSquare * 10}`);
+            greyRect.setAttribute("width", "" + basicSquare * 10.7);
+            greyRect.setAttribute("height", "" + basicSquare * 10);
             greyRect.setAttribute("style", "opacity:0.75");
             greyRect.setAttribute("fill", "grey");
             greyRect.setAttribute("stroke", "black");
             g.appendChild(greyRect);
             var gPopup = document.createElementNS(_this.svgns, "g");
-            gPopup.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 4})`);
+            gPopup.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 4 + ")");
             g.appendChild(gPopup);
             var popupRect = document.createElementNS(_this.svgns, "rect");
             popupRect.setAttribute("fill", "white");
             popupRect.setAttribute("stroke", "black");
-            popupRect.setAttribute("width", `${basicSquare * 7}`);
-            popupRect.setAttribute("height", `${basicSquare}`);
+            popupRect.setAttribute("width", "" + basicSquare * 7);
+            popupRect.setAttribute("height", "" + basicSquare);
             gPopup.appendChild(popupRect);
             var popupText = document.createElementNS(_this.svgns, "text");
-            popupText.setAttribute("transform", `translate(15, 22)`);
+            popupText.setAttribute("transform", "translate(15, 22)");
             popupText.innerHTML = "Press new key (escape to cancel)";
             gPopup.appendChild(popupText);
             var target = event.target;
@@ -391,11 +394,12 @@ class UserInterface {
             document.addEventListener("keyup", handler, false);
             function assignKey(event, target) {
                 event.stopImmediatePropagation();
-                if (event.key == "Escape") {
+                if (event.key == "Escape" || event.which == 27) {
                     return closePopup();
                 }
                 ;
                 player[target.getAttribute("id")] = event.key;
+                player[target.getAttribute("id") + "Code"] = event.which;
                 target.innerHTML = player[target.getAttribute("id")].length > 1 ? player[target.getAttribute("id")] : player[target.getAttribute("id")].toUpperCase();
                 callbackCheck();
                 return closePopup();
@@ -425,17 +429,17 @@ class UserInterface {
                 gWarningContainer.setAttribute("id", "warningContainer");
                 gSettings.appendChild(gWarningContainer);
                 var greyRect = document.createElementNS(_this.svgns, "rect");
-                greyRect.setAttribute("width", `${basicSquare * 10.7}`);
-                greyRect.setAttribute("height", `${basicSquare * 10}`);
+                greyRect.setAttribute("width", "" + basicSquare * 10.7);
+                greyRect.setAttribute("height", "" + basicSquare * 10);
                 greyRect.setAttribute("fill", "grey");
                 greyRect.setAttribute("style", "opacity:0.75");
                 gWarningContainer.appendChild(greyRect);
                 var gWarning = document.createElementNS(_this.svgns, "g");
-                gWarning.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 3})`);
+                gWarning.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 3 + ")");
                 gWarningContainer.appendChild(gWarning);
                 var warningRect = document.createElementNS(_this.svgns, "rect");
-                warningRect.setAttribute("width", `${basicSquare * 7}`);
-                warningRect.setAttribute("height", `${basicSquare * 3}`);
+                warningRect.setAttribute("width", "" + basicSquare * 7);
+                warningRect.setAttribute("height", "" + basicSquare * 3);
                 warningRect.setAttribute("fill", "pink");
                 warningRect.setAttribute("stroke", "black");
                 gWarning.appendChild(warningRect);
@@ -449,31 +453,31 @@ class UserInterface {
                 tspan1.innerHTML = "Two or more settings use";
                 tspan2.innerHTML = "the same keys :";
                 warningText.setAttribute("text-anchor", "middle");
-                warningText.setAttribute("transform", `translate(${basicSquare * 3.5})`);
+                warningText.setAttribute("transform", "translate(" + basicSquare * 3.5 + ")");
                 gWarning.appendChild(warningText);
                 warningText.appendChild(tspan1);
                 warningText.appendChild(tspan2);
                 var gClosePath = document.createElementNS(_this.svgns, "g");
-                gClosePath.setAttribute("transform", `translate(${basicSquare * .67},${basicSquare * .71})`);
+                gClosePath.setAttribute("transform", "translate(" + basicSquare * .67 + "," + basicSquare * .71 + ")");
                 gWarning.appendChild(gClosePath);
                 var closePath = document.createElementNS(_this.svgns, "path");
-                closePath.setAttribute("transform", `scale(0.010)`);
+                closePath.setAttribute("transform", "scale(0.010)");
                 closePath.setAttribute("d", "M0 0q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z");
                 gClosePath.appendChild(closePath);
                 var closeRect = document.createElementNS(_this.svgns, "rect");
-                closeRect.setAttribute("x", `${basicSquare * .25}`);
-                closeRect.setAttribute("y", `${basicSquare * .35}`);
+                closeRect.setAttribute("x", "" + basicSquare * .25);
+                closeRect.setAttribute("y", "" + basicSquare * .35);
                 closeRect.setAttribute("fill", "transparent");
                 closeRect.setAttribute("stroke", "black");
                 closeRect.setAttribute("style", "cursor:pointer;");
-                closeRect.setAttribute("height", `${basicSquare / 2}`);
-                closeRect.setAttribute("width", `${basicSquare / 2}`);
+                closeRect.setAttribute("height", "" + basicSquare / 2);
+                closeRect.setAttribute("width", "" + basicSquare / 2);
                 gWarning.appendChild(closeRect);
                 closeRect.addEventListener("click", closeWarning);
                 var warnedElements = Array.from(document.getElementsByClassName("keyValues warned"));
                 var warnedElementsIds = [];
                 var gElementText = document.createElementNS(_this.svgns, "g");
-                gElementText.setAttribute("transform", `translate(${basicSquare}, ${basicSquare * 2})`);
+                gElementText.setAttribute("transform", "translate(" + basicSquare + ", " + basicSquare * 2 + ")");
                 gWarning.appendChild(gElementText);
                 var elementText = document.createElementNS(_this.svgns, "text");
                 for (var o = 0; o < warnedElements.length; o++) {
@@ -481,18 +485,17 @@ class UserInterface {
                 }
                 elementText.innerHTML = warnedElementsIds.join(", ");
                 gElementText.appendChild(elementText);
-                function closeWarning() {
+                var closeWarning = function () {
                     closeRect.removeEventListener("click", closeWarning);
                     document.getElementById("warningContainer").parentNode.removeChild(document.getElementById("warningContainer"));
-                }
-                ;
+                };
             }
             ;
         }
         ;
-    }
+    };
     ;
-    newGame() {
+    UserInterface.prototype.newGame = function () {
         var level = Number(document.getElementById("levelInput").value);
         level > 99 ? level = 99 : level;
         var _this = userInterface || this;
@@ -509,12 +512,13 @@ class UserInterface {
         document.addEventListener('keydown', player.controls);
         document.getElementById("mute").addEventListener("click", player.toggleMusic);
         document.getElementById("settings").addEventListener("click", userInterface.setUpSettings);
-    }
+    };
     ;
-}
+    return UserInterface;
+}());
 ;
-class Tetris {
-    constructor(id, width, height, level) {
+var Tetris = (function () {
+    function Tetris(id, width, height, level) {
         this.tetrominos = [];
         this.svgns = "http://www.w3.org/2000/svg";
         this.id = id;
@@ -529,7 +533,7 @@ class Tetris {
         this.createGameArea();
         this.spawnTetromino();
     }
-    createGameArea() {
+    Tetris.prototype.createGameArea = function () {
         var svgArea = document.getElementById("svgArea");
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "gameZone");
@@ -537,7 +541,7 @@ class Tetris {
         var gSideMenu = document.createElementNS(this.svgns, "g");
         gSideMenu.setAttribute("id", "sideMenu");
         gSideMenu.setAttribute("text-anchor", "middle");
-        gSideMenu.setAttribute("transform", `translate(${this.width * basicWidth + 20}, ${basicSquare})`);
+        gSideMenu.setAttribute("transform", "translate(" + (this.width * basicWidth + 20) + ", " + basicSquare + ")");
         svgArea.appendChild(gSideMenu);
         this.setUpPreview();
         this.setUpOptions();
@@ -552,20 +556,20 @@ class Tetris {
             ;
         }
         ;
-    }
+    };
     ;
-    setUpPreview() {
+    Tetris.prototype.setUpPreview = function () {
         var height = basicSquare;
         var width = basicSquare;
         var gSideMenu = document.getElementById("sideMenu");
         var text = document.createElementNS(this.svgns, "text");
-        text.setAttribute("transform", `translate(${basicSquare * 2})`);
+        text.setAttribute("transform", "translate(" + basicSquare * 2 + ")");
         text.innerHTML = "NEXT";
         gSideMenu.appendChild(text);
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "preview");
         g.setAttribute("stroke", "black");
-        g.setAttribute("transform", `translate(0, 10)`);
+        g.setAttribute("transform", "translate(0, 10)");
         g.setAttribute("width", width.toString());
         g.setAttribute("height", height.toString());
         gSideMenu.appendChild(g);
@@ -579,13 +583,13 @@ class Tetris {
             ;
         }
         ;
-    }
+    };
     ;
-    displayScore() {
+    Tetris.prototype.displayScore = function () {
         var gSideMenu = document.getElementById("sideMenu");
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "info");
-        g.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 7})`);
+        g.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 7 + ")");
         gSideMenu.appendChild(g);
         var levelTitle = document.createElementNS(this.svgns, "text");
         levelTitle.setAttribute("id", "levelTitle");
@@ -606,26 +610,26 @@ class Tetris {
         score.setAttribute("y", (basicSquare * 3).toString());
         score.innerHTML = this.score.toString();
         g.appendChild(score);
-    }
+    };
     ;
-    setUpOptions() {
+    Tetris.prototype.setUpOptions = function () {
         var gSideMenu = document.getElementById("sideMenu");
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "options");
-        g.setAttribute("transform", `translate(${basicSquare}, ${basicSquare * 5})`);
+        g.setAttribute("transform", "translate(" + basicSquare + ", " + basicSquare * 5 + ")");
         gSideMenu.appendChild(g);
         var gMute = document.createElementNS(this.svgns, "g");
         gMute.setAttribute("id", "muteContainer");
         g.appendChild(gMute);
         var gMutePath = document.createElementNS(this.svgns, "g");
-        gMutePath.setAttribute("transform", `translate(17, 10)`);
+        gMutePath.setAttribute("transform", "translate(17, 10)");
         gMute.appendChild(gMutePath);
         var music = document.getElementById("music");
         var pathValues = music.muted ? "M0 0v1088q0 26-19 45t-45 19-45-19l-333-333h-262q-26 0-45-19t-19-45v-384q0-26 19-45t45-19h262l333-333q19-19 45-19t45 19 19 45z" : "M0 0v1088q0 26-19 45t-45 19-45-19l-333-333h-262q-26 0-45-19t-19-45v-384q0-26 19-45t45-19h262l333-333q19-19 45-19t45 19 19 45zm384 544q0 76-42.5 141.5t-112.5 93.5q-10 5-25 5-26 0-45-18.5t-19-45.5q0-21 12-35.5t29-25 34-23 29-35.5 12-57-12-57-29-35.5-34-23-29-25-12-35.5q0-27 19-45.5t45-18.5q15 0 25 5 70 27 112.5 93t42.5 142zm256 0q0 153-85 282.5t-225 188.5q-13 5-25 5-27 0-46-19t-19-45q0-39 39-59 56-29 76-44 74-54 115.5-135.5t41.5-173.5-41.5-173.5-115.5-135.5q-20-15-76-44-39-20-39-59 0-26 19-45t45-19q13 0 26 5 140 59 225 188.5t85 282.5zm256 0q0 230-127 422.5t-338 283.5q-13 5-26 5-26 0-45-19t-19-45q0-36 39-59 7-4 22.5-10.5t22.5-10.5q46-25 82-51 123-91 192-227t69-289-69-289-192-227q-36-26-82-51-7-4-22.5-10.5t-22.5-10.5q-39-23-39-59 0-26 19-45t45-19q13 0 26 5 211 91 338 283.5t127 422.5z";
         var muteBtn = document.createElementNS(this.svgns, "path");
         muteBtn.setAttribute("id", "mutePath");
         muteBtn.setAttribute("stroke", "black");
-        muteBtn.setAttribute("transform", `scale(0.015)`);
+        muteBtn.setAttribute("transform", "scale(0.015)");
         muteBtn.setAttribute("d", pathValues);
         gMutePath.appendChild(muteBtn);
         var muteRect = document.createElementNS(this.svgns, "rect");
@@ -634,14 +638,14 @@ class Tetris {
         muteRect.setAttribute("height", basicSquare.toString());
         muteRect.setAttribute("fill", "transparent");
         muteRect.setAttribute("stroke", "black");
-        muteRect.setAttribute("style", `cursor:pointer`);
+        muteRect.setAttribute("style", "cursor:pointer");
         gMute.appendChild(muteRect);
         var gControls = document.createElementNS(this.svgns, "g");
         gControls.setAttribute("id", "settingsContainer");
-        gControls.setAttribute("transform", `translate(${basicSquare}, 0)`);
+        gControls.setAttribute("transform", "translate(" + basicSquare + ", 0)");
         g.appendChild(gControls);
         var gControlsPath = document.createElementNS(this.svgns, "g");
-        gControlsPath.setAttribute("transform", `translate(22, 18)`);
+        gControlsPath.setAttribute("transform", "translate(22, 18)");
         gControls.appendChild(gControlsPath);
         var settingsPath = document.createElementNS(this.svgns, "path");
         settingsPath.setAttribute("transform", "scale(0.015)");
@@ -653,42 +657,42 @@ class Tetris {
         settingsRect.setAttribute("height", basicSquare.toString());
         settingsRect.setAttribute("fill", "transparent");
         settingsRect.setAttribute("stroke", "black");
-        settingsRect.setAttribute("style", `cursor:pointer`);
+        settingsRect.setAttribute("style", "cursor:pointer");
         gControls.appendChild(settingsRect);
-    }
-    getHtmlSquare(square) {
+    };
+    Tetris.prototype.getHtmlSquare = function (square) {
         return document.getElementById(square.id);
-    }
+    };
     ;
-    updateScore() {
+    Tetris.prototype.updateScore = function () {
         var score = document.getElementById("score");
         score.innerHTML = this.score.toString();
         if ((1000 * this.level) * (this.level / 2) <= this.score) {
             this.updateLevel();
         }
         ;
-    }
+    };
     ;
-    updateLevel() {
+    Tetris.prototype.updateLevel = function () {
         if (this.level < 99)
             this.level++;
         var level = document.getElementById("level");
         level.innerHTML = this.level.toString();
         this.updateSpeed();
-    }
+    };
     ;
-    updateSpeed() {
+    Tetris.prototype.updateSpeed = function () {
         for (var i = 0; i < this.level; i++) {
             if (this.speed > 0)
                 this.speed -= 50;
         }
         ;
-    }
+    };
     ;
-    spawnTetromino() {
+    Tetris.prototype.spawnTetromino = function () {
         var _this = game || this;
-        const X = true;
-        const O = false;
+        var X = true;
+        var O = false;
         var tetrominosSchematics = [
             new function () {
                 this.id = "I";
@@ -766,11 +770,11 @@ class Tetris {
             ;
         }
         ;
-    }
+    };
     ;
-    checkLines(tetromino) {
+    Tetris.prototype.checkLines = function (tetromino) {
         var _this = game || this;
-        var rows = tetromino.map(x => x[0]);
+        var rows = tetromino.map(function (x) { return x[0]; });
         rows = rows.filter(function (elem, index, self) {
             return index == self.indexOf(elem);
         });
@@ -822,12 +826,13 @@ class Tetris {
             this.updateScore();
         }
         ;
-    }
+    };
     ;
-}
+    return Tetris;
+}());
 ;
-class Tetromino {
-    constructor(id, fill, squareNbr) {
+var Tetromino = (function () {
+    function Tetromino(id, fill, squareNbr) {
         this.squaresIndex = [];
         this.id = id + Tetromino.instances.toString();
         this.fill = fill;
@@ -837,7 +842,7 @@ class Tetromino {
         Tetromino.instances++;
         tetrominos.push(this);
     }
-    draw(spawn) {
+    Tetromino.prototype.draw = function (spawn) {
         currentTetromino = this;
         if (spawn && this.checkAll("top"))
             return;
@@ -850,9 +855,9 @@ class Tetromino {
             i++;
         } while (i < this.squaresIndex.length);
         spawn && this.animate(game.speed);
-    }
+    };
     ;
-    drawPreview() {
+    Tetromino.prototype.drawPreview = function () {
         var i = 1;
         do {
             var c = 0;
@@ -865,9 +870,12 @@ class Tetromino {
             } while (c < previewZone[i].length);
             i++;
         } while (i < previewZone.length);
-    }
+    };
     ;
-    createFromSquares(row = 0, col = 0, spawn = true) {
+    Tetromino.prototype.createFromSquares = function (row, col, spawn) {
+        if (row === void 0) { row = 0; }
+        if (col === void 0) { col = 0; }
+        if (spawn === void 0) { spawn = true; }
         var squareArray = this.squareNbrClass;
         var oldSquaresIndex;
         if (!spawn)
@@ -898,9 +906,10 @@ class Tetromino {
             ;
         }
         ;
-    }
+    };
     ;
-    animate(speed, scoreUp = false) {
+    Tetromino.prototype.animate = function (speed, scoreUp) {
+        if (scoreUp === void 0) { scoreUp = false; }
         var _this = this;
         var readyToSpawn = 0;
         var tetromino = Array.from(document.getElementsByClassName("falling"));
@@ -957,9 +966,9 @@ class Tetromino {
                 }
             }
         }, speed);
-    }
+    };
     ;
-    rotate(squareNbr) {
+    Tetromino.prototype.rotate = function (squareNbr) {
         var rotatedArray = [];
         for (var i = squareNbr.length - 1; i >= 0; i--) {
             var reverse = squareNbr[i].reverse();
@@ -972,9 +981,9 @@ class Tetromino {
         }
         ;
         return rotatedArray;
-    }
+    };
     ;
-    checkAll(withWhat) {
+    Tetromino.prototype.checkAll = function (withWhat) {
         var collide;
         switch (withWhat) {
             case "top":
@@ -1102,21 +1111,21 @@ class Tetromino {
                     this.resultx = 0;
                     this.resulty = 0;
                     this.run = function (a, b) {
-                        const indexes = a;
+                        var indexes = a;
                         var _a = [];
                         for (var i = 0; i < b.x.length && i < b.y.length; i++) {
                             var noCollide = 0;
                             var yOffset = 0;
                             var xOffset = 0;
                             var testResulty = indexes[a.length - 1][0] + b.y[i];
-                            var cols = indexes.map(x => x[1]);
+                            var cols = indexes.map(function (x) { return x[1]; });
                             var testResultx = Math.max.apply(null, cols);
                             for (var f = 0; f < a.length; f++) {
                                 var col = indexes[f][1];
                                 var row = indexes[f][0];
                                 var _thisresulty = this.resulty;
                                 var _thisresultx = this.resultx;
-                                function testBorders(resultx, resulty) {
+                                var testBorders = function (resultx, resulty) {
                                     if (yOffset != a.length * -1 && !gameZone[resulty]) {
                                         yOffset--;
                                         resulty -= 1;
@@ -1138,8 +1147,7 @@ class Tetromino {
                                         testBorders(resultx, resulty);
                                     }
                                     ;
-                                }
-                                ;
+                                };
                                 if ((f == 0) && (!gameZone[testResulty] || !gameZone[0][testResultx])) {
                                     testBorders(testResultx, testResulty);
                                 }
@@ -1179,9 +1187,9 @@ class Tetromino {
         if (collide === undefined)
             collide = false;
         return collide;
-    }
+    };
     ;
-    findOutermostSquare(angle) {
+    Tetromino.prototype.findOutermostSquare = function (angle) {
         var localArray = [];
         if (angle == 0 || angle == 180) {
             for (var i = 0; i < this.squareNbrClass.length; i++) {
@@ -1227,22 +1235,28 @@ class Tetromino {
         }
         ;
         return outermost;
-    }
+    };
     ;
-}
-Tetromino.instances = 0;
+    Tetromino.instances = 0;
+    return Tetromino;
+}());
 ;
-class Player {
-    constructor(rotate, left, right, drop, mute) {
+var Player = (function () {
+    function Player(rotateCode, leftCode, rightCode, dropCode, muteCode, rotate, left, right, drop, mute) {
         this.rotate = rotate;
         this.left = left;
         this.right = right;
         this.drop = drop;
         this.mute = mute;
+        this.rotateCode = rotateCode;
+        this.leftCode = leftCode;
+        this.rightCode = rightCode;
+        this.dropCode = dropCode;
+        this.muteCode = muteCode;
         this.moving = false;
     }
     ;
-    toggleMusic() {
+    Player.prototype.toggleMusic = function () {
         var music = document.getElementById("music");
         var muteIcon = document.getElementById("mutePath");
         switch (music.muted) {
@@ -1258,12 +1272,12 @@ class Player {
                 break;
         }
         ;
-    }
+    };
     ;
-    toggleSettingsMenu() {
+    Player.prototype.toggleSettingsMenu = function () {
         var _thisTetromino = currentTetromino;
-    }
-    controls(event) {
+    };
+    Player.prototype.controls = function (event) {
         var tetromino = Array.from(document.getElementsByClassName("falling"));
         var fill;
         if ((event.key || event.which) != 77 && tetromino[0] !== undefined) {
@@ -1274,8 +1288,8 @@ class Player {
         var indexes = _thisTetromino.squaresIndex;
         var timeout;
         var timer = 200;
-        switch (`${(event.key || event.which)} | ${event.type}`) {
-            case `${player.left} | keydown`:
+        switch ((event.keyCode || event.which) + " | " + event.type) {
+            case player.leftCode + " | keydown":
                 event.preventDefault();
                 if (!_thisTetromino.checkAll("tetromino-left") && !_thisTetromino.checkAll("left")) {
                     player.moving = true;
@@ -1300,7 +1314,7 @@ class Player {
                 }
                 ;
                 break;
-            case `${player.right} | keydown`:
+            case player.rightCode + " | keydown":
                 event.preventDefault();
                 if (!_thisTetromino.checkAll("tetromino-right") && !_thisTetromino.checkAll("right")) {
                     player.moving = true;
@@ -1327,16 +1341,16 @@ class Player {
                 }
                 ;
                 break;
-            case `${player.drop} | keyup`:
+            case player.dropCode + " | keyup":
                 event.preventDefault();
                 clearInterval(interval);
                 interval = undefined;
                 _thisTetromino.animate(0, true);
                 break;
-            case `${player.drop} | keydown`:
+            case player.dropCode + " | keydown":
                 event.preventDefault();
                 break;
-            case `${player.rotate} | keyup`:
+            case player.rotateCode + " | keyup":
                 event.preventDefault();
                 if (_thisTetromino.id.indexOf("O") != -1)
                     return;
@@ -1358,8 +1372,8 @@ class Player {
                     tetromino[e].setAttribute("class", "basicSquare");
                 }
                 ;
-                var cols = indexes.map(x => x[1]);
-                var rows = indexes.map(x => x[0]);
+                var cols = indexes.map(function (x) { return x[1]; });
+                var rows = indexes.map(function (x) { return x[0]; });
                 var smallRow = Math.min.apply(null, rows) + offsetRow;
                 var smallCol = Math.min.apply(null, cols) + offsetCol;
                 _thisTetromino.createFromSquares(smallRow, smallCol, false);
@@ -1368,15 +1382,16 @@ class Player {
                     player.moving = false;
                 }, timer);
                 break;
-            case `${player.mute} | keydown`:
+            case player.muteCode + " | keydown":
                 event.preventDefault();
                 player.toggleMusic();
                 break;
         }
         ;
-    }
+    };
     ;
-}
+    return Player;
+}());
 ;
 var gameZone = [];
 var previewZone = [];
@@ -1392,4 +1407,4 @@ var volume = 100;
 var game;
 var player;
 var userInterface = new UserInterface("svgArea", basicSquare, basicSquare);
-var player = new Player("ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
+var player = new Player(38, 37, 39, 40, 77, "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
