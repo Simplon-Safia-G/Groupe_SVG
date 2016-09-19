@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="1920px" height="1285px" viewBox="0 0 1920 1285" style="enable-background:new 0 0 1920 1285;" xml:space="preserve">
+	 viewBox="0 0 1920 1285" style="enable-background:new 0 0 1920 1285;" xml:space="preserve">
 <style type="text/css">
-	.st0{font-family:'GungsuhChe';}
+	.st0{font-family:'MicrosoftSansSerif';}
 	.st1{font-size:321.9569px;}
 	.st2{fill:#FE580F;}
 	.st3{fill:#FFFFFF;}
 	.st4{fill:#FE8B0A;}
-	.st5{font-size:308.3085px;}
-	.st6{font-family:'CourierNewPSMT';}
-	.st7{font-size:97.5247px;}
-	.st8{opacity:0.1091;enable-background:new    ;}
+	.st5{font-size:317.7061px;}
+	.st6{font-size:97.5247px;}
+	.st7{opacity:0.1091;enable-background:new    ;}
 </style>
-<text transform="matrix(0.7424 0 0 1 462.6357 1003.4873)" class="st0 st1">SIMPL</text>
-<ellipse class="st2" cx="1175.2" cy="897.2" rx="112.4" ry="119.6"/>
-<ellipse class="st3" cx="1172.6" cy="898" rx="109.9" ry="109.5"/>
-<rect x="1140.4" y="831.5" class="st4" width="64.5" height="51.9"/>
-<rect x="1141.6" y="922.9" class="st4" width="67.1" height="53.9"/>
-<text transform="matrix(1.1534 0 0 1 1274.0127 1003.4873)" class="st0 st5">N</text>
+<text transform="matrix(0.7424 0 0 1 288.6357 1003.4873)" class="st0 st1">SIMPL</text>
+<ellipse class="st2" cx="1130.2" cy="898.8" rx="112.4" ry="119.6"/>
+<ellipse class="st3" cx="1127.6" cy="899.6" rx="109.9" ry="109.5"/>
+<rect x="1095.4" y="833.1" class="st4" width="64.5" height="51.9"/>
+<rect x="1096.6" y="924.5" class="st4" width="67.1" height="53.9"/>
+<text transform="matrix(0.8051 0 0 1 1242.5996 1009.4277)" class="st0 st5">N</text>
 <ellipse class="st2" cx="929.8" cy="380.5" rx="414" ry="346.4"/>
 <ellipse class="st3" cx="920.5" cy="383" rx="404.8" ry="317.1"/>
 <rect x="839.5" y="455.1" class="st4" width="162.1" height="156.2"/>
 <rect x="839.5" y="185" class="st4" width="162.1" height="156.2"/>
 <circle cx="1182.8" cy="1073.8" r="10.2"/>
-<text transform="matrix(1.4413 0 0 1 1193.0332 1084.0479)" class="st6 st7">SVG</text>
+<text transform="matrix(1.1306 0 0 1 1193.0332 1084.0479)" class="st0 st6">SVG</text>
 <g>
 	<g>
 		<g>
-			<path class="st8" d="M1760.2,1241.9c-1.7-0.2-3.4-0.5-5.1-0.8C1756.8,1241.4,1758.5,1241.7,1760.2,1241.9z"/>
+			<path class="st7" d="M1760.2,1241.9c-1.7-0.2-3.4-0.5-5.1-0.8C1756.8,1241.4,1758.5,1241.7,1760.2,1241.9z"/>
 		</g>
 	</g>
 </g>
