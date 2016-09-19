@@ -2,7 +2,6 @@ var navbar = document.getElementById("navbar");
 var chapters = Array.from(document.getElementsByClassName("chapters"));
 for (let i = 0; i < chapters.length; i++) {
     let title = chapters[i].firstElementChild;
-    console.log(title);
     title.setAttribute("id", `${"chapter" + i}`);
     let li = document.createElement("li");
     navbar.appendChild(li);

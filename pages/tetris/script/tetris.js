@@ -297,9 +297,6 @@ class UserInterface {
         document.addEventListener("mouseup", volumeHandler);
         function volumeControl(event) {
             event.preventDefault();
-            console.log(event);
-            console.log(sliderCircle.getBoundingClientRect());
-            console.log(sliderRect.getBoundingClientRect());
             if (sliderCircle.getBoundingClientRect().right <= sliderRect.getBoundingClientRect().right + 5 && sliderCircle.getBoundingClientRect().left >= sliderRect.getBoundingClientRect().left - 5) {
                 cursorX = event.clientX - svgArea.getBoundingClientRect().right + gSettings.getBoundingClientRect().left - basicSquare * 0.6;
                 volume = Math.floor((cursorX / Number(sliderRect.getAttribute("width"))) * 100);
@@ -307,7 +304,6 @@ class UserInterface {
                     volume = 0;
                 if (volume > 100)
                     volume = 100;
-                console.log(volume);
                 sliderCircle.setAttribute("cx", `${cursorX}`);
             }
             ;

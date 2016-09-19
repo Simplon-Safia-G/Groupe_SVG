@@ -4,7 +4,6 @@ var chapters: Array<any> = Array.from(document.getElementsByClassName("chapters"
 
 for(let i: number = 0; i < chapters.length; i++){
   let title = chapters[i].firstElementChild;
-  console.log(title);
   title.setAttribute("id", `${"chapter" + i}`);
 
   let li: Element = document.createElement("li");
