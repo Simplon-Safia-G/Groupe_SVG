@@ -33,3 +33,10 @@ for(let i: number = 0; i < chapters.length; i++){
     li.appendChild(a);
   };
 };
+
+navbar.appendChild(document.createElement("hr"));
+var backToTop = document.createElement("a");
+backToTop.setAttribute("id", "toTop");
+backToTop.setAttribute("style", "cursor:pointer");
+backToTop.innerHTML = "Back to Top";
+navbar.appendChild(backToTop);
