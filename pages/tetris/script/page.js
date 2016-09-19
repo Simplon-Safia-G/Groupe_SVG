@@ -1,4 +1,3 @@
-;
 var navbar = document.getElementById("navbar");
 var chapters = Array.from(document.getElementsByClassName("chapter"));
 for (var i = 0; i < chapters.length; i++) {
