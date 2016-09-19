@@ -33,14 +33,16 @@ for(let i: number = 0; i < chapters.length; i++){
     li.appendChild(a);
   };
 };
-
-navbar.parentElement.appendChild(document.createElement("hr"));
+var divBack: Element = document.createElement("div");
+divBack.setAttribute("class", "back-container closed");
+navbar.parentElement.appendChild(divBack);
+divBack.appendChild(document.createElement("hr"));
 var backToTop = document.createElement("a");
 backToTop.setAttribute("id", "toTop");
 backToTop.setAttribute("style", "cursor:pointer");
 backToTop.innerHTML = "Back to Top";
 var ulBack: Element = document.createElement("ul");
-navbar.parentElement.appendChild(ulBack);
+divBack.appendChild(ulBack);
 var liBack: Element = document.createElement("li");
 ulBack.appendChild(liBack);
 liBack.appendChild(backToTop);
