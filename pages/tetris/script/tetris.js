@@ -32,8 +32,8 @@ var BasicSquare = (function () {
         newSquare.setAttribute("y", this.y + "px");
         newSquare.setAttribute("width", this.width.toString());
         newSquare.setAttribute("height", this.height.toString());
-        newSquare.setAttribute("fill", noFill);
-        newSquare.setAttribute("stroke", "black");
+        this.id.indexOf("basicSquare") != -1 ? newSquare.setAttribute("fill", noFill) : newSquare.setAttribute("fill", "none");
+        newSquare.setAttribute("stroke", defaultStroke);
         _thisGame.appendChild(newSquare);
     };
     return BasicSquare;
@@ -556,6 +556,11 @@ var Tetris = (function () {
             ;
         }
         ;
+        var rect = document.createElementNS(this.svgns, "rect");
+        rect.setAttribute("id", "gameAreaRect");
+        rect.setAttribute("width", g.getBBox().width.toString());
+        rect.setAttribute("height", g.getBBox().height.toString());
+        g.appendChild(rect);
     };
     ;
     Tetris.prototype.setUpPreview = function () {
@@ -568,10 +573,7 @@ var Tetris = (function () {
         gSideMenu.appendChild(text);
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "preview");
-        g.setAttribute("stroke", "black");
         g.setAttribute("transform", "translate(0, 10)");
-        g.setAttribute("width", width.toString());
-        g.setAttribute("height", height.toString());
         gSideMenu.appendChild(g);
         var newSquare;
         for (var i = 0; i < 4; i++) {
@@ -583,6 +585,11 @@ var Tetris = (function () {
             ;
         }
         ;
+        var rect = document.createElementNS(this.svgns, "rect");
+        rect.setAttribute("id", "previewRect");
+        rect.setAttribute("width", g.getBBox().width.toString());
+        rect.setAttribute("height", g.getBBox().height.toString());
+        g.appendChild(rect);
     };
     ;
     Tetris.prototype.displayScore = function () {
@@ -667,7 +674,7 @@ var Tetris = (function () {
     Tetris.prototype.updateScore = function () {
         var score = document.getElementById("score");
         score.innerHTML = this.score.toString();
-        if ((1000 * this.level) * (this.level / 2) <= this.score) {
+        if ((700 * this.level) * (this.level / 2) <= this.score) {
             this.updateLevel();
         }
         ;
@@ -683,8 +690,11 @@ var Tetris = (function () {
     ;
     Tetris.prototype.updateSpeed = function () {
         for (var i = 0; i < this.level; i++) {
-            if (this.speed > 0)
-                this.speed -= 50;
+            if (this.speed > 0) {
+                this.speed = 1000;
+                this.speed -= 100;
+            }
+            ;
         }
         ;
     };
@@ -863,9 +873,13 @@ var Tetromino = (function () {
             var c = 0;
             do {
                 var row = this.squareNbrClass[i - 1] ? this.squareNbrClass[i - 1][c] : false;
+                previewZone[i][c].setAttribute("class", "previewSquare");
                 previewZone[i][c].setAttribute("fill", "none");
-                if (row === true)
+                if (row === true) {
                     previewZone[i][c].setAttribute("fill", this.fill);
+                    previewZone[i][c].setAttribute("class", "previewSquare previewed");
+                }
+                ;
                 c++;
             } while (c < previewZone[i].length);
             i++;
@@ -927,7 +941,7 @@ var Tetromino = (function () {
             var indexArray = _this.squaresIndex;
             if (!_this.checkAll("bottom")) {
                 for (var e = 0; e < tetromino.length; e++) {
-                    tetromino[e].setAttribute("fill", "none");
+                    tetromino[e].setAttribute("fill", noFill);
                     tetromino[e].setAttribute("class", "basicSquare");
                 }
                 for (var i = indexArray.length - 1; i >= 0; i--) {
@@ -1394,6 +1408,7 @@ var Player = (function () {
 }());
 ;
 var gameZone = [];
+var gameZoneObjects = [];
 var previewZone = [];
 var tetrominos = [];
 var currentTetromino;
@@ -1402,8 +1417,9 @@ var basicSquare = 35;
 var basicWidth = 10;
 var basicHeight = 20;
 var userInterfaceWidth = 5;
-var noFill = "none";
 var volume = 100;
+var noFill = "rgba(0,163,191,.16)";
+var defaultStroke = "rgba(0,0,0,.67)";
 var game;
 var player;
 var userInterface = new UserInterface("svgArea", basicSquare, basicSquare);
