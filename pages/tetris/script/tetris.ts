@@ -833,22 +833,22 @@ class Tetris {
     // Just for the record, I add extra arrays with nothing but empty squares to simulate the SRS (Super Rotation System) of the original Tetris
     var tetrominosSchematics: Array<Object> =
     [
-      // new function() {
-      //   this.id = "I"
-      //   this.fill = "#00fdff"
-      //   this.squareNbr = [[O,O,O,O],
-      //   [X,X,X,X],
-      //   [O,O,O,O],
-      //   [O,O,O,O]];
-      // },
+      new function() {
+        this.id = "I"
+        this.fill = "#00fdff"
+        this.squareNbr = [[O,O,O,O],
+        [X,X,X,X],
+        [O,O,O,O],
+        [O,O,O,O]];
+      },
 
-      // new function() {
-      //   this.id = "O"
-      //   this.fill = "#ffff00"
-      //   this.squareNbr = [[O,X,X,O],
-      //   [O,X,X,O],
-      //   [O,O,O,O]];
-      // },
+      new function() {
+        this.id = "O"
+        this.fill = "#ffff00"
+        this.squareNbr = [[O,X,X,O],
+        [O,X,X,O],
+        [O,O,O,O]];
+      },
 
       new function() {
         this.id = "L"
@@ -866,29 +866,29 @@ class Tetris {
         [O,O,O]];
       },
 
-      // new function() {
-      //   this.id = "T"
-      //   this.fill = "#f0f"
-      //   this.squareNbr = [[O,X,O],
-      //   [X,X,X],
-      //   [O,O,O]];
-      // },
-      //
-      // new function() {
-      //   this.id = "Z"
-      //   this.fill = "#f00"
-      //   this.squareNbr = [[X,X,O],
-      //   [O,X,X],
-      //   [O,O,O]];
-      // },
-      //
-      // new function() {
-      //   this.id = "S"
-      //   this.fill = "#0f0"
-      //   this.squareNbr = [[O,X,X],
-      //   [X,X,O],
-      //   [O,O,O]];
-      // }
+      new function() {
+        this.id = "T"
+        this.fill = "#f0f"
+        this.squareNbr = [[O,X,O],
+        [X,X,X],
+        [O,O,O]];
+      },
+
+      new function() {
+        this.id = "Z"
+        this.fill = "#f00"
+        this.squareNbr = [[X,X,O],
+        [O,X,X],
+        [O,O,O]];
+      },
+
+      new function() {
+        this.id = "S"
+        this.fill = "#0f0"
+        this.squareNbr = [[O,X,X],
+        [X,X,O],
+        [O,O,O]];
+      }
     ];
 
     var tetromino: any = tetrominosSchematics[Math.floor(Math.random() * tetrominosSchematics.length)];

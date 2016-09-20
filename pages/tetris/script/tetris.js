@@ -707,6 +707,21 @@ var Tetris = (function () {
         var O = false;
         var tetrominosSchematics = [
             new function () {
+                this.id = "I";
+                this.fill = "#00fdff";
+                this.squareNbr = [[O, O, O, O],
+                    [X, X, X, X],
+                    [O, O, O, O],
+                    [O, O, O, O]];
+            },
+            new function () {
+                this.id = "O";
+                this.fill = "#ffff00";
+                this.squareNbr = [[O, X, X, O],
+                    [O, X, X, O],
+                    [O, O, O, O]];
+            },
+            new function () {
                 this.id = "L";
                 this.fill = "#ff8000";
                 this.squareNbr = [[O, O, X],
@@ -720,6 +735,27 @@ var Tetris = (function () {
                     [X, X, X],
                     [O, O, O]];
             },
+            new function () {
+                this.id = "T";
+                this.fill = "#f0f";
+                this.squareNbr = [[O, X, O],
+                    [X, X, X],
+                    [O, O, O]];
+            },
+            new function () {
+                this.id = "Z";
+                this.fill = "#f00";
+                this.squareNbr = [[X, X, O],
+                    [O, X, X],
+                    [O, O, O]];
+            },
+            new function () {
+                this.id = "S";
+                this.fill = "#0f0";
+                this.squareNbr = [[O, X, X],
+                    [X, X, O],
+                    [O, O, O]];
+            }
         ];
         var tetromino = tetrominosSchematics[Math.floor(Math.random() * tetrominosSchematics.length)];
         var id = tetromino.id;
