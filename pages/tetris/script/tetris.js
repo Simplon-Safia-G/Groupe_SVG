@@ -497,7 +497,7 @@ var UserInterface = (function () {
     ;
     UserInterface.prototype.newGame = function () {
         var level = Number(document.getElementById("levelInput").value);
-        level > 99 ? level = 99 : level;
+        level = 10;
         var _this = userInterface || this;
         while (_this.menu.firstChild) {
             _this.menu.removeChild(_this.menu.firstChild);
@@ -681,18 +681,20 @@ var Tetris = (function () {
     };
     ;
     Tetris.prototype.updateLevel = function () {
-        if (this.level < 99)
+        if (this.level < 99) {
             this.level++;
-        var level = document.getElementById("level");
-        level.innerHTML = this.level.toString();
-        this.updateSpeed();
+            var level = document.getElementById("level");
+            level.innerHTML = this.level.toString();
+            this.updateSpeed();
+        }
+        ;
     };
     ;
     Tetris.prototype.updateSpeed = function () {
         for (var i = 0; i < this.level; i++) {
             if (this.speed > 0) {
                 this.speed = 1000;
-                this.speed -= 100;
+                this.speed -= (100 * i);
             }
             ;
         }
@@ -704,21 +706,6 @@ var Tetris = (function () {
         var X = true;
         var O = false;
         var tetrominosSchematics = [
-            new function () {
-                this.id = "I";
-                this.fill = "#00fdff";
-                this.squareNbr = [[O, O, O, O],
-                    [X, X, X, X],
-                    [O, O, O, O],
-                    [O, O, O, O]];
-            },
-            new function () {
-                this.id = "O";
-                this.fill = "#ffff00";
-                this.squareNbr = [[O, X, X, O],
-                    [O, X, X, O],
-                    [O, O, O, O]];
-            },
             new function () {
                 this.id = "L";
                 this.fill = "#ff8000";
@@ -733,27 +720,6 @@ var Tetris = (function () {
                     [X, X, X],
                     [O, O, O]];
             },
-            new function () {
-                this.id = "T";
-                this.fill = "#f0f";
-                this.squareNbr = [[O, X, O],
-                    [X, X, X],
-                    [O, O, O]];
-            },
-            new function () {
-                this.id = "Z";
-                this.fill = "#f00";
-                this.squareNbr = [[X, X, O],
-                    [O, X, X],
-                    [O, O, O]];
-            },
-            new function () {
-                this.id = "S";
-                this.fill = "#0f0";
-                this.squareNbr = [[O, X, X],
-                    [X, X, O],
-                    [O, O, O]];
-            }
         ];
         var tetromino = tetrominosSchematics[Math.floor(Math.random() * tetrominosSchematics.length)];
         var id = tetromino.id;
@@ -890,7 +856,7 @@ var Tetromino = (function () {
         if (row === void 0) { row = 0; }
         if (col === void 0) { col = 0; }
         if (spawn === void 0) { spawn = true; }
-        var squareArray = this.squareNbrClass;
+        var squareArray = spawn ? this.squareNbrClass : this.rotatedSquares;
         var oldSquaresIndex;
         if (!spawn)
             oldSquaresIndex = this.squaresIndex;
@@ -916,6 +882,12 @@ var Tetromino = (function () {
         if (!spawn) {
             if (this.checkAll("rotate")) {
                 this.squaresIndex = oldSquaresIndex;
+            }
+            else {
+                this.squareNbrClass = this.rotatedSquares;
+                this.rotation += 90;
+                if (this.rotation == 360)
+                    this.rotation = 0;
             }
             ;
         }
@@ -985,7 +957,8 @@ var Tetromino = (function () {
     Tetromino.prototype.rotate = function (squareNbr) {
         var rotatedArray = [];
         for (var i = squareNbr.length - 1; i >= 0; i--) {
-            var reverse = squareNbr[i].reverse();
+            var failsafe = Array.prototype.slice.call(squareNbr[i]);
+            var reverse = failsafe.reverse();
             for (var j = reverse.length - 1, e = 0; j >= 0; j--, e++) {
                 if (i == squareNbr.length - 1)
                     rotatedArray.push([]);
@@ -1083,6 +1056,9 @@ var Tetromino = (function () {
                 }
                 break;
             case "rotate":
+                var rotation = this.rotation + 90;
+                if (rotation == 360)
+                    rotation = 0;
                 var units = ({
                     3: {
                         90: {
@@ -1120,7 +1096,7 @@ var Tetromino = (function () {
                             y: [0, 0, 0, -1, 2]
                         }
                     }
-                })[this.squareNbrClass.length][this.rotation];
+                })[this.squareNbrClass.length][rotation];
                 var calc = new function () {
                     this.resultx = 0;
                     this.resulty = 0;
@@ -1191,7 +1167,12 @@ var Tetromino = (function () {
                     };
                 };
                 var _thisSquaresIndex = this.squaresIndex;
-                this.squaresIndex = !collide ? calc.run(_thisSquaresIndex, units) : _thisSquaresIndex;
+                if (!collide) {
+                    this.squaresIndex = calc.run(_thisSquaresIndex, units);
+                }
+                ;
+                if (this.squaresIndex === undefined)
+                    this.squaresIndex = _thisSquaresIndex;
                 break;
             default:
                 collide = false;
@@ -1370,15 +1351,10 @@ var Player = (function () {
                     return;
                 var offsetRow = 0;
                 var offsetCol = 0;
-                var rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
-                _thisTetromino.squareNbrClass = rotatedSquares;
+                console.log(_thisTetromino);
+                _thisTetromino.rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
                 player.moving = true;
                 offsetRow = _thisTetromino.findOutermostSquare(_thisTetromino.rotation);
-                _thisTetromino.rotation += 90;
-                if (_thisTetromino.rotation == 360) {
-                    _thisTetromino.rotation = 0;
-                }
-                ;
                 if (timeout)
                     clearTimeout(timeout);
                 for (var e = 0; e < indexes.length; e++) {
@@ -1424,3 +1400,11 @@ var game;
 var player;
 var userInterface = new UserInterface("svgArea", basicSquare, basicSquare);
 var player = new Player(38, 37, 39, 40, 77, "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
+document.addEventListener("keyup", fuckEverything);
+function fuckEverything(event) {
+    if (event.key == "p") {
+        game.spawnTetromino = undefined;
+    }
+    ;
+}
+;
