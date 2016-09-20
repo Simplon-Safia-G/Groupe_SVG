@@ -497,7 +497,7 @@ var UserInterface = (function () {
     ;
     UserInterface.prototype.newGame = function () {
         var level = Number(document.getElementById("levelInput").value);
-        level = 10;
+        level > 99 ? level = 99 : level;
         var _this = userInterface || this;
         while (_this.menu.firstChild) {
             _this.menu.removeChild(_this.menu.firstChild);

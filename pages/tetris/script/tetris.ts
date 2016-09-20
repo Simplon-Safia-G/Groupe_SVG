@@ -580,8 +580,7 @@ class UserInterface {
 
   private newGame(){
     var level: number = Number((<HTMLInputElement>document.getElementById("levelInput")).value);
-    // level > 99 ? level = 99 : level;
-    level = 10;
+    level > 99 ? level = 99 : level;
 
     var _this: any = userInterface || this;
     while(_this.menu.firstChild){
