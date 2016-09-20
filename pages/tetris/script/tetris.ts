@@ -42,8 +42,8 @@ class BasicSquare {
     newSquare.setAttribute("y", this.y + "px");
     newSquare.setAttribute("width", this.width.toString());
     newSquare.setAttribute("height", this.height.toString());
-    newSquare.setAttribute("fill", noFill);
-    newSquare.setAttribute("stroke", "black");
+    this.id.indexOf("basicSquare") != -1 ? newSquare.setAttribute("fill", noFill) : newSquare.setAttribute("fill", "none");
+    newSquare.setAttribute("stroke", defaultStroke);
 
     _thisGame.appendChild(newSquare);
 
@@ -631,7 +631,7 @@ class Tetris {
   private createGameArea(){
     var svgArea: Element = document.getElementById("svgArea");
 
-    var g: Element = document.createElementNS(this.svgns, "g");
+    var g: any = document.createElementNS(this.svgns, "g");
     g.setAttribute("id", "gameZone");
     svgArea.appendChild(g);
 
@@ -657,6 +657,12 @@ class Tetris {
         gameZone[i].push(this.getHtmlSquare(newSquare));
       };
     };
+
+    var rect: Element = document.createElementNS(this.svgns, "rect");
+    rect.setAttribute("id", "gameAreaRect");
+    rect.setAttribute("width", g.getBBox().width.toString());
+    rect.setAttribute("height", g.getBBox().height.toString());
+    g.appendChild(rect);
   };
 
   private setUpPreview(){
@@ -668,12 +674,9 @@ class Tetris {
     text.innerHTML = "NEXT";
     gSideMenu.appendChild(text);
 
-    var g: Element = document.createElementNS(this.svgns, "g");
+    var g: any = document.createElementNS(this.svgns, "g");
     g.setAttribute("id", "preview");
-    g.setAttribute("stroke", "black");
     g.setAttribute("transform", `translate(0, 10)`)
-    g.setAttribute("width", width.toString());
-    g.setAttribute("height", height.toString());
     gSideMenu.appendChild(g);
 
     var newSquare: BasicSquare;
@@ -684,6 +687,12 @@ class Tetris {
         previewZone[i].push(this.getHtmlSquare(newSquare));
       };
     };
+
+    var rect: Element = document.createElementNS(this.svgns, "rect");
+    rect.setAttribute("id", "previewRect");
+    rect.setAttribute("width", g.getBBox().width.toString());
+    rect.setAttribute("height", g.getBBox().height.toString());
+    g.appendChild(rect);
   };
 
   private displayScore(){
@@ -789,7 +798,7 @@ class Tetris {
     var score: Element = document.getElementById("score");
     score.innerHTML = this.score.toString();
 
-    if((1000 * this.level) * (this.level / 2) <= this.score){
+    if((700 * this.level) * (this.level / 2) <= this.score){
       this.updateLevel();
     };
 
@@ -805,7 +814,10 @@ class Tetris {
 
   private updateSpeed(){
     for(var i = 0; i < this.level; i++){
-      if(this.speed > 0) this.speed -= 50;
+      if(this.speed > 0) {
+        this.speed = 1000;
+        this.speed -= 100;
+      };
     };
   };
 
@@ -1001,8 +1013,12 @@ class Tetromino {
       var c = 0;
       do{
         var row: boolean = this.squareNbrClass[i-1] ? this.squareNbrClass[i-1][c] : false;
+        previewZone[i][c].setAttribute("class", "previewSquare");
         previewZone[i][c].setAttribute("fill", "none");
-        if(row === true) previewZone[i][c].setAttribute("fill", this.fill);
+        if(row === true) {
+          previewZone[i][c].setAttribute("fill", this.fill);
+          previewZone[i][c].setAttribute("class", "previewSquare previewed");
+        };
         c++
       } while(c < previewZone[i].length);
       i++;
@@ -1069,7 +1085,7 @@ class Tetromino {
       if(!_this.checkAll("bottom")){
         // Disable the current squares of the tetromino
         for(var e = 0; e < tetromino.length; e++){
-          tetromino[e].setAttribute("fill", "none");
+          tetromino[e].setAttribute("fill", noFill);
           tetromino[e].setAttribute("class", "basicSquare");
         }
 
@@ -1597,6 +1613,7 @@ class Tetromino {
   };
 
   var gameZone: Array<Array<HTMLElement>> = [];
+  var gameZoneObjects: Array<BasicSquare> = [];
   var previewZone: Array<Array<HTMLElement>> = [];
 
   var tetrominos: Array<Tetromino> = [];
@@ -1609,8 +1626,9 @@ class Tetromino {
   var basicWidth: number = 10;
   var basicHeight: number = 20;
   var userInterfaceWidth: number = 5;
-  var noFill: string = "none";
   var volume: number = 100;
+  var noFill: string = "rgba(0,163,191,.16)";
+  var defaultStroke: string = "rgba(0,0,0,.67)"
 
   // Create new game
   var game;
