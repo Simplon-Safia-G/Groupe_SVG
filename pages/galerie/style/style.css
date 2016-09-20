@@ -36,7 +36,7 @@
 	background-position: 50% 0%;
 	background-repeat: no-repeat;
 	border-width: 1px;
-	background-image: url(../assets/images/illu-princi2.svg);
+	background-image: url();
 	top: 72px;
 	height: 706px;
 	width: 100%;
@@ -53,7 +53,7 @@
 	background-repeat: repeat;
 	border-width: 1px;
 	background-image: url(http://media.lpgenerator.ru/images/130357/wh-3-bg.png#size_2560x1105);
-	top: 100%;
+	top:20%;
 	height: 1120px;
 	width: 100%;
 	z-index: 1;
