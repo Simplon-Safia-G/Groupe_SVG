@@ -1,0 +1,36 @@
+#cat{
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  max-height: 300px;
+}
+
+.cat-invisible{
+  display: none !important;
+}
+
+.cat-animated{
+  display: block !important;
+  stroke-dasharray: 3000;
+  stroke-dashoffset: 3000;
+  fill-opacity: 0;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 0s, 2.5s;
+  animation-duration: 4s, 2s;
+  animation-name: dashIn, fillIn
+}
+
+@-webkit-keyframes dashIn {
+  from {
+    stroke-dashoffset:3000;
+  }
+  to {
+    stroke-dashoffset:0;
+  }
+}
+
+@-webkit-keyframes fillIn {
+  from { fill-opacity : 0; }
+  to { fill-opacity : 1; }
+}
