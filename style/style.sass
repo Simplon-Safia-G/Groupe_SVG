@@ -1,3 +1,4 @@
+$orange: #fe8b0a
 @font-face
   font-family: "Muli"
   src: url(/lib/Fonts/fonts-muli/Muli-Regular.ttf)
@@ -10,52 +11,58 @@
 body
 	overflow-x: hidden
 
-
-
 #block1
-	position: absolute
-	display: block
-	background-position: 50% 100%
-	background-repeat: repeat-x
-	border-width: 1px
-	background-image: url(http://media.lpgenerator.ru/images/130357/wh-1-line.png#size_2x10)
-	height: 72px
-	width: 100%
-	z-index: 1
-	background-color: #fcfcfc
-	left: 0
-	top: 0
+  display: flex
+  flex-direction: row
+  align-content: center
+  background-position: 50% 100%
+  background-repeat: repeat-x
+  border-width: 1px
+  background-image: url(http://media.lpgenerator.ru/images/130357/wh-1-line.png#size_2x10)
+  height: 72px
+  width: 100%
+  z-index: 1
+  background-color: #fcfcfc
 
 #logo
-	position: absolute
-	margin-left: 21%
-	margin-top: 1%
+  margin-left: 20%
+  margin-top: 1%
+  width: auto
+  height: 70%
 
-#block1 span
-	display: flex
-	position: absolute
-	margin-left: 25%
-	margin-top: 2%
+#block1 p
 	font-family: 'Archivo Narrow', sans-serif
 	font-size: 1.5em
 	color: #797979
 
 #block2
-	position: absolute
-	display: block
-	background-position: 50% 0%
+	background-position: center
 	background-repeat: no-repeat
-	background-size: 50%
+	background-size: contain
 	border-width: 1px
 	background-image: url(../assets/images/AAAA.svg)
-	top: 72px
-	height: 706px
+	height: 50vh
 	width: 100%
 	z-index: 1
 	left: 0
 
-#block2 p
-	font-family: 'Muli', sans-serif
+#block2
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+
+#block2 h1
+  background-color: #fff
+  width: auto
+  float: none
+  font-size: 2em
+  margin-top: 0
+  font-family: 'Muli', sans-serif
+  padding: 15px
+  border: 3px solid $orange
+  color: black
+
 
 #block3
 	display: block
@@ -93,8 +100,8 @@ a:visited
 	text-decoration: none
 
 a:hover
-	color : #fe8b0a
-	text-decoration: none
+  color: $orange
+  text-decoration: none
 
 /*--------------------------------------------------------------------------------------------------------*/
 *,*:before,*:after
