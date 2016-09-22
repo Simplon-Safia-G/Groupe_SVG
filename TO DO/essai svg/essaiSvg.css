@@ -1,0 +1,16 @@
+.ordilogo{fill:none;stroke:#000000;stroke-width:1;stroke-misterlimit:5; }
+
+  .ordilogo{
+    stroke-dasharray: 3000;
+    stroke-dashoffset:3000;
+    animation: dash 10s linear forwards;
+  }
+
+  @-webkit-keyframes dash {
+      from {
+        stroke-dashoffset:3000;
+      }
+      to {
+        stroke-dashoffset:0;
+      }
+  }
