@@ -1,0 +1,31 @@
+.coeur{fill:none;stroke:#000000;stroke-width:5;stroke-misterlimit:5; }
+
+  .coeur {
+    stroke-dasharray: 1300;
+    stroke-dashoffset:1300;
+    animation: dash 1s linear alternate infinite;
+  }
+
+  @-webkit-keyframes dash {
+      from {
+        stroke-dashoffset:1300;
+      }
+      to {
+        stroke-dashoffset:0;
+      }
+  }
+
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 2s linear alternate infinite;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
