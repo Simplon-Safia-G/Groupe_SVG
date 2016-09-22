@@ -216,77 +216,77 @@
             };
           </code>
         </pre>
-          J'utilise la deuxième manière mentionnée de générer du SVG. De base, le fichier HTML de la page contient une <samp>&lsaquo;div&rsaquo;</samp> avec l'id <samp>container</samp>. Son seul but dans la vie est de contenir la fenêtre du jeu en injectant dans son <samp>innerHTML</samp> la balise de base du SVG avec tous les attributs donnés au constructeur de la classe.<br />
-          Remarquez aussi le retour triomphant de notre propriété <samp>menu</samp>, qui se voit donner la dure tâche de retenir la balise SVG nouvellement créée afin que je n'aie plus à écrire <code class="language-typescript inline-code">document.getElementById(this.id)</code>.<br />
-          <div class="imageEx">
-            <img src="assets/images/createSvgArea.png" />
-            <p>
-              Ce code nous donne un gros rectangle complètement blanc, la bordure est ajoutée en CSS.
-            </p>
-          </div>
-        </p>
+        J'utilise la deuxième manière mentionnée de générer du SVG. De base, le fichier HTML de la page contient une <samp>&lsaquo;div&rsaquo;</samp> avec l'id <samp>container</samp>. Son seul but dans la vie est de contenir la fenêtre du jeu en injectant dans son <samp>innerHTML</samp> la balise de base du SVG avec tous les attributs donnés au constructeur de la classe.<br />
+        Remarquez aussi le retour triomphant de notre propriété <samp>menu</samp>, qui se voit donner la dure tâche de retenir la balise SVG nouvellement créée afin que je n'aie plus à écrire <code class="language-typescript inline-code">document.getElementById(this.id)</code>.<br />
+      </p>
+      <div class="imageEx">
+        <img src="assets/images/createSvgArea.png" />
         <p>
-          Une deuxième méthode est ensuite appelée dans le constructeur après que la balise SVG est générée. Son but est de mettre en place le menu principal avec le titre, l'option pour choisir le niveau et les boutons. Regardons d'abord la génération du titre :
-          <pre>
-            <code class="language-typescript code">
-              class UserInterface {
-                ...
-                private createMenu(): void {
-                  var svgArea: Element = this.menu;
+          Ce code nous donne un gros rectangle complètement blanc, la bordure est ajoutée en CSS.
+        </p>
+      </div>
+      <p>
+        Une deuxième méthode est ensuite appelée dans le constructeur après que la balise SVG est générée. Son but est de mettre en place le menu principal avec le titre, l'option pour choisir le niveau et les boutons. Regardons d'abord la génération du titre :
+        <pre>
+          <code class="language-typescript code">
+            class UserInterface {
+              ...
+              private createMenu(): void {
+                var svgArea: Element = this.menu;
 
-                  var g: Element = document.createElementNS(this.svgns, "g");
-                  g.setAttribute("id", "gContainer");
-                  g.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 4})`);
-                  svgArea.appendChild(g);
+                var g: Element = document.createElementNS(this.svgns, "g");
+                g.setAttribute("id", "gContainer");
+                g.setAttribute("transform", `translate(${basicSquare * 2}, ${basicSquare * 4})`);
+                svgArea.appendChild(g);
 
 
-                  // TITLE
-                  var gTitle: Element = document.createElementNS(this.svgns, "g");
-                  g.appendChild(gTitle);
+                // TITLE
+                var gTitle: Element = document.createElementNS(this.svgns, "g");
+                g.appendChild(gTitle);
 
-                  var fill: Array&lsaquo;string&rsaquo; = ["#ef76ae", "#6dc358", "#f56926", "#9c79b7", "#04bbf2", "#f0543d"];
-                  var stroke: Array&lsaquo;string&rsaquo; = ["#910758", "#005715", "#c14711", "#530c60", "#126c93", "#940d12"];
-                  var letters: Array&lsaquo;string&rsaquo; = ["T", "E", "T", "R", "I", "S"];
+                var fill: Array&lsaquo;string&rsaquo; = ["#ef76ae", "#6dc358", "#f56926", "#9c79b7", "#04bbf2", "#f0543d"];
+                var stroke: Array&lsaquo;string&rsaquo; = ["#910758", "#005715", "#c14711", "#530c60", "#126c93", "#940d12"];
+                var letters: Array&lsaquo;string&rsaquo; = ["T", "E", "T", "R", "I", "S"];
 
-                  for(let i = 0; i < letters.length; i++){
-                    let title: Element = document.createElementNS(this.svgns, "text");
-                    title.setAttribute("style", `font-size:100px; fill:${fill[i]}; stroke:${stroke[i]}`);
-                    if(letters[i] == "I"){
-                      title.setAttribute("transform", `translate(${((basicSquare*2) * i) + 5})`);
-                    } else if(letters[i] == "S"){
-                      title.setAttribute("transform", `translate(${((basicSquare*2) * i) - 30})`);
-                    } else {
-                      title.setAttribute("transform", `translate(${(basicSquare*2) * i})`);
-                    };
-
-                    title.innerHTML = letters[i];
-                    gTitle.appendChild(title);
+                for(let i = 0; i < letters.length; i++){
+                  let title: Element = document.createElementNS(this.svgns, "text");
+                  title.setAttribute("style", `font-size:100px; fill:${fill[i]}; stroke:${stroke[i]}`);
+                  if(letters[i] == "I"){
+                    title.setAttribute("transform", `translate(${((basicSquare*2) * i) + 5})`);
+                  } else if(letters[i] == "S"){
+                    title.setAttribute("transform", `translate(${((basicSquare*2) * i) - 30})`);
+                  } else {
+                    title.setAttribute("transform", `translate(${(basicSquare*2) * i})`);
                   };
 
-                  var subtitle: Element = document.createElementNS(this.svgns, "text");
-                  subtitle.setAttribute("style", "font-family: sans-serif; font-size:100px; stroke: #755f25; fill: #fcc82d; font-weight: bold");
-                  subtitle.setAttribute("transform", `translate(${basicSquare * 3.5}, ${basicSquare * 2.5})`);
-                  subtitle.innerHTML = "TS";
-                  gTitle.appendChild(subtitle);
-                  ...
+                  title.innerHTML = letters[i];
+                  gTitle.appendChild(title);
                 };
+
+                var subtitle: Element = document.createElementNS(this.svgns, "text");
+                subtitle.setAttribute("style", "font-family: sans-serif; font-size:100px; stroke: #755f25; fill: #fcc82d; font-weight: bold");
+                subtitle.setAttribute("transform", `translate(${basicSquare * 3.5}, ${basicSquare * 2.5})`);
+                subtitle.innerHTML = "TS";
+                gTitle.appendChild(subtitle);
                 ...
               };
-            </code>
-          </pre>
-          <p>
-            Par soucis d'organisation, je crée d'abord une balise <samp>&lsaquo;g&rsaquo;</samp> pour regrouper l'intégralité du menu principal.<br />
-            Notez la première limitation selon moi du SVG - les groupes <samp>&lsaquo;g&rsaquo;</samp> ne prennent pas d'attributs spécifiques pour déterminer leur positionnement. Par défaut, ils se positionnent là où leurs éléments enfants se trouvent. Par conséquent, le plus gros du problème réside dans le fait qu'on doive déplacer chaque élément enfant un à un au lieu de déplacer le groupe entier en une fois, ce qui est une perte de temps et des calculs supplémentaires superflus. Il est en revanche possible d'utiliser la propriété CSS <samp>transform:translate(...)</samp> pour atteindre ce but.<br />
-            Le groupe général est suivi ensuite de
-          </p>
-
-          <div class="imageEx">
-            <img src="assets/images/createMenu-Title.png" />
-            <p>
-              Notre gros rectangle a maintenant un titre multicolore !
-            </p>
-          </div>
+              ...
+            };
+          </code>
+        </pre>
+        <p>
+          Par soucis d'organisation, je crée d'abord une balise <samp>&lsaquo;g&rsaquo;</samp> pour regrouper l'intégralité du menu principal.<br />
+          Notez la première limitation du SVG - les groupes <samp>&lsaquo;g&rsaquo;</samp> ne prennent pas d'attributs spécifiques pour déterminer leur positionnement. Par défaut, ils se positionnent là où leurs éléments enfants se trouvent. Par conséquent, le plus gros du problème réside dans le fait qu'on doive déplacer chaque élément enfant un à un au lieu de déplacer le groupe entier en une fois, ce qui est une perte de temps et des calculs supplémentaires superflus. Il est en revanche possible d'utiliser la propriété CSS <samp>transform:translate(...)</samp> pour atteindre ce but.<br />
+          Le groupe général est suivi ensuite de
         </p>
+
+        <div class="imageEx">
+          <img src="assets/images/createMenu-Title.png" />
+          <p>
+            Notre gros rectangle a maintenant un titre multicolore !
+          </p>
+        </div>
+      </p>
 
       <div class="part">
         <h4>Les BasicSquare</h4>

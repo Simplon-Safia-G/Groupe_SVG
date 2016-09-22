@@ -805,18 +805,19 @@ class Tetris {
   };
 
   private updateLevel(){
-    if(this.level < 99) this.level++;
-    var level: Element = document.getElementById("level");
-    level.innerHTML = this.level.toString();
-
-    this.updateSpeed();
+    if(this.level < 99) {
+      this.level++;
+      var level: Element = document.getElementById("level");
+      level.innerHTML = this.level.toString();
+      this.updateSpeed();
+    };
   };
 
   private updateSpeed(){
     for(var i = 0; i < this.level; i++){
       if(this.speed > 0) {
         this.speed = 1000;
-        this.speed -= 100;
+        this.speed -= (100 * i);
       };
     };
   };
@@ -974,6 +975,7 @@ class Tetromino {
   fill: string;
   rotation: number;
   squareNbrClass: Array<Array<boolean>>;
+  rotatedSquares: Array<Array<boolean>>;
   squaresIndex: Array<Array<number>> = [];
 
   constructor(id:string, fill:string, squareNbr:Array<Array<boolean>>){
@@ -1027,7 +1029,7 @@ class Tetromino {
 
   // Assemble the tetromino behind the scene - row and col arguments determine where to start drawing in the game area
   private createFromSquares(row: number = 0, col: number = 0, spawn: boolean = true) {
-    var squareArray: Array<Array<boolean>> = this.squareNbrClass;
+    var squareArray: Array<Array<boolean>> = spawn ? this.squareNbrClass : this.rotatedSquares;
     var oldSquaresIndex: Array<Array<number>>;
     if(!spawn) oldSquaresIndex = this.squaresIndex;
     this.squaresIndex = [];      // Make sure this.squaresIndex is empty
@@ -1057,6 +1059,10 @@ class Tetromino {
     if(!spawn){
       if(this.checkAll("rotate")){
         this.squaresIndex = oldSquaresIndex;
+      } else {
+        this.squareNbrClass = this.rotatedSquares;
+        this.rotation += 90;
+        if(this.rotation == 360) this.rotation = 0;
       };
     };
   };
@@ -1139,7 +1145,8 @@ class Tetromino {
   private rotate(squareNbr: Array<Array<number>>){
     var rotatedArray: Array<Array<number>> = [];
     for(var i = squareNbr.length - 1; i >= 0; i--){
-      var reverse = squareNbr[i].reverse();
+      var failsafe: Array<number> = Array.prototype.slice.call(squareNbr[i]);
+      var reverse = failsafe.reverse();
 
       for(var j = reverse.length - 1, e = 0; j >= 0; j--, e++){
         if(i == squareNbr.length - 1) rotatedArray.push([]);
@@ -1253,6 +1260,8 @@ class Tetromino {
         break;
 
         case "rotate":
+        var rotation = this.rotation + 90;
+        if(rotation == 360) rotation = 0;
         // Cf http://web.archive.org/web/20080226183843/http://www.the-shell.net/img/srs_study.html
         var units: Array<Object> = ( {
           3: {
@@ -1292,7 +1301,7 @@ class Tetromino {
               y:[0, 0, 0, -1, 2]
             }
           }
-        } ) [this.squareNbrClass.length][this.rotation];
+        } ) [this.squareNbrClass.length][rotation];
 
         var calc = new function(){
           this.resultx = 0;
@@ -1301,7 +1310,7 @@ class Tetromino {
           this.run = function(a,b) {
             const indexes: Array<Array<number>> = a;
             var _a: Array<Array<number>> = [];
-            // alert("Entering with a as " + a);
+            alert("Entering with a as " + a);
             for(var i = 0; i < b.x.length && i < b.y.length; i++){
               var noCollide: number = 0;
               var yOffset: number = 0;
@@ -1319,17 +1328,17 @@ class Tetromino {
                 var testBorders = function(resultx, resulty){
                   if(yOffset != a.length * -1 && !gameZone[resulty]){
                     yOffset--;
-                    resulty -= 1;
-                    // alert("resulty = " + resulty);
+                    resulty += 1;
+                    alert("resulty = " + resulty);
                   };
 
                   if(xOffset != a.length * -1 && (!gameZone[0][resultx])){
                     xOffset--;
                     resultx -= 1;
-                    // alert("resultx = " + resultx);
+                    alert("resultx = " + resultx);
                   };
 
-                  // alert("yOffset = " + yOffset + " and xOffset = " + xOffset);
+                  alert("yOffset = " + yOffset + " and xOffset = " + xOffset);
 
                   if(gameZone[resulty] && gameZone[0][resultx]){
                     _thisresulty = row + b.y[i] + yOffset;
@@ -1348,20 +1357,19 @@ class Tetromino {
                 _thisresulty = row + b.y[i] + yOffset;
                 _thisresultx = col + b.x[i] + xOffset;
 
-
                 if(gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("class") != "basicSquare stopped") {
                   _a.push(new Array(_thisresulty, _thisresultx));
                   noCollide++;
-                  // gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                  // alert("Loop at " + i + ", _a is " + _a);
-                  // gameZone[_thisresulty][_thisresultx].setAttribute("fill", "none");
+                  gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
+                  alert("Loop at " + i + ", _a is " + _a);
+                  gameZone[_thisresulty][_thisresultx].setAttribute("fill", "none");
                 } else {
                   collide = true;
-                  // _a.push(new Array(_thisresulty, _thisresultx));
-                  // var temp = gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("fill");
-                  // gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                  // alert("Colliding in loop " + i + ", with _a as " + _a);
-                  // gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", temp);
+                  _a.push(new Array(_thisresulty, _thisresultx));
+                  var temp = gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("fill");
+                  gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
+                  alert("Colliding in loop " + i + ", with _a as " + _a);
+                  gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", temp);
                   _a = [];
                   break;
                 };
@@ -1375,7 +1383,11 @@ class Tetromino {
           };
         };
         var _thisSquaresIndex: Array<Array<number>> = this.squaresIndex;
-        this.squaresIndex = !collide ? calc.run(_thisSquaresIndex, units) : _thisSquaresIndex;
+        if(!collide) {
+          this.squaresIndex = calc.run(_thisSquaresIndex, units);
+        };
+
+        if(this.squaresIndex === undefined) this.squaresIndex = _thisSquaresIndex;
         break;
 
         default:
@@ -1573,15 +1585,13 @@ class Tetromino {
         var offsetRow: number = 0;
         var offsetCol: number = 0;
 
-        var rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
-        _thisTetromino.squareNbrClass = rotatedSquares;
+        console.log(_thisTetromino);
+
+        _thisTetromino.rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
 
         player.moving = true;
 
         offsetRow = _thisTetromino.findOutermostSquare(_thisTetromino.rotation);
-
-        _thisTetromino.rotation += 90;
-        if(_thisTetromino.rotation == 360) { _thisTetromino.rotation = 0 };
 
         if(timeout) clearTimeout(timeout);
 
@@ -1639,6 +1649,14 @@ class Tetromino {
   // Create new player
   //Key codes = up: 38, left : 37, right: 39, down: 40, m: 77
   var player: any = new Player(38, 37, 39, 40, 77, "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
+
+  document.addEventListener("keyup", fuckEverything);
+
+  function fuckEverything(event){
+    if(event.key == "p"){
+      game.spawnTetromino = undefined;
+    };
+  };
 
   // document.addEventListener('keyup', player.controls);
   // document.addEventListener('keydown', player.controls);
