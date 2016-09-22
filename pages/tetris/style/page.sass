@@ -1,0 +1,123 @@
+$sampColor: rgba(154,224,254,.4)
+$orange: #fe8b0a
+// rgb(255,222,149)
+$height: 50px
+// 'Muli', sans-serif;
+// 'Lobster', cursive; (cette police est a modifié)
+// 'Archivo Narrow', sans-serif;
+
+@font-face
+  font-family: "Muli"
+  src: url(../../../lib/Fonts/fonts-muli/Muli-Regular.ttf)
+
+@font-face
+  font-family: "Archivo"
+  src: url(../../../lib/Fonts/archivo-narrow/ArchivoNarrow-Regular.otf)
+
+@font-face
+  font-family: "Lobster"
+  src: url(../../../lib/Fonts/Lobster/Lobster.otf)
+
+*
+  font-family: Muli, sans-serif
+
+body
+  transition: all 1s ease-out
+
+.imageEx
+  margin-top: 10px
+  text-align: center
+  display: block
+  img
+    height: 300px
+    width: auto
+  p
+    margin: 0
+    text-indent: 0
+    text-align: center
+    font-size: 13px
+    font-family: Roboto, sans-serif
+    font-style: italic
+
+h1
+  font-size: 50px
+  font-family: Lobster, sans-serif
+  font-weight: normal
+
+h3
+  font-size: 30px
+  font-family: Lobster, sans-serif
+  font-weight: normal
+
+h4
+  font-size: 25px
+  font-family: Lobster, sans-serif
+  font-weight: normal
+
+p
+  text-indent: 70px
+  text-align: justify
+
+a
+  color: $orange
+  text-decoration: none
+
+  &:hover
+    color: #fe580f
+
+
+code[class*="language-"],
+pre[class*="language-"]
+  margin-top: 10px !important
+  margin-bottom: 10px !important
+
+samp
+  font-family: Courier, sans-serif
+  background-color: $sampColor
+
+.code
+  font-family: Muri, sans-serif !important
+
+.inline-code
+  background-color: rgb(48,48,48) !important
+  text-shadow: none !important
+
+#backToIndex
+  position: absolute
+  border: 3px solid $orange
+  margin-left: 10px
+  margin-top: 5px
+  padding-left: 10px
+  padding-right: 10px
+  padding-top: 10px
+  height: 30px
+  width: 50px
+
+  a
+    color: black
+    text-decoration: none
+    font-weight: bold
+
+#separator
+  position: absolute
+  margin-top: $height
+  left: 0
+  width: 100%
+  height: $height
+  background-color: $orange
+
+#explanation-container
+  margin-top: $height * 3
+  margin-bottom: $height * 3
+  margin-right: auto
+  margin-left: 15%
+  width: 70%
+
+#title
+  text-align: center
+
+.subtitle
+  margin-left: 30px
+
+.part
+  margin-left: 50px

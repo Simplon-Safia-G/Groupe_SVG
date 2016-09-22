@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="4000px" height="2000px" viewBox="0 0 4000 2000" style="enable-background:new 0 0 4000 2000;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#1D1D1B;stroke-width:4;}
+	.st1{fill:#E42520;stroke:#E42520;stroke-width:4;}
+	.st2{font-family:'ArialMT';}
+	.st3{font-size:94.6287px;}
+	.st4{font-size:85.1839px;}
+	.st5{letter-spacing:230.9;}
+	.st6{font-size:117.3325px;}
+	.st7{letter-spacing:319;}
+	.st8{font-size:119.7586px;}
+	.st9{font-size:114.436px;}
+	.st10{font-size:99.5034px;}
+</style>
+<path class="st0" d="M508.1,153c1000.6-561.8,667.1,1123.6,1334.1,1685.4s0-561.8,1334.1-1123.6"/>
+<ellipse class="st1" cx="2062.6" cy="1322.9" rx="24.6" ry="27.4"/>
+<ellipse class="st1" cx="3176.3" cy="708.2" rx="22" ry="24.5"/>
+<ellipse class="st1" cx="2758.7" cy="1238.9" rx="24.8" ry="27.6"/>
+<ellipse class="st1" cx="1506.1" cy="425.7" rx="17.9" ry="20"/>
+<ellipse class="st1" cx="1468.9" cy="1846.9" rx="19.3" ry="21.5"/>
+<ellipse class="st1" cx="508.1" cy="154.5" rx="21.3" ry="23.7"/>
+<text transform="matrix(1.128 0 0 1 152.0005 147.119)" class="st2 st3">Moveto</text>
+<ellipse class="st1" cx="2083.2" cy="1991.5" rx="20.6" ry="22.9"/>
+<text transform="matrix(0.6973 0 0 1 1381.6001 371.7699)"><tspan x="0" y="0" class="st2 st4">1er point de contrôle </tspan><tspan x="0" y="102.2" class="st2 st4 st5">	</tspan><tspan x="255.6" y="102.2" class="st2 st4">de la 1ère coube</tspan></text>
+<text transform="matrix(0.602 0 0 1 1324 1769.3353)"><tspan x="0" y="0" class="st2 st6">2ème point de contrôle </tspan><tspan x="0" y="140.8" class="st2 st6 st7">	</tspan><tspan x="352" y="140.8" class="st2 st6">de la 1ère coube</tspan></text>
+<text transform="matrix(0.9111 0 0 1 2062.6455 2111.0461)"><tspan x="0" y="0" style="font-family:'MyriadPro-Regular'; font-size:83.4978px;">fin de la</tspan><tspan x="0" y="100.2" style="font-family:'MyriadPro-Regular'; font-size:83.4978px; letter-spacing:232.7;">	</tspan><tspan x="250.5" y="100.2" style="font-family:'MyriadPro-Regular'; font-size:83.4978px;">1ère courbe</tspan></text>
+<text transform="matrix(0.4608 0 0 1 1506.1438 1105.3607)" class="st2 st8">2ème point de contrôle de la 2ème courbe</text>
+<text transform="matrix(0.4955 0 0 1 2883.7129 1238.8981)" class="st2 st9">2ème courbe(sà</text>
+<text transform="matrix(0.6961 0 0 1 3217.3379 683.6908)" class="st2 st10">fin de la 2ème courbe</text>
+</svg>

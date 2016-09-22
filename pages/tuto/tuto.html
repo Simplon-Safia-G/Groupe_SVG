@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../../lib/PrismJS/prism.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="../../lib/jquery.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="jquery.tiltedpage-scroll.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Lobster|Muli" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/font-style.css">
+	<link rel="stylesheet" href="../../style/navbar.min.css" />
+	<title>Tutoriel SVG</title>
+</head>
+<body id="body">
+
+	<!-- <pre>
+		<code class="language-javascript">
+			function Dog(id){
+				this.id = id;
+			}
+		</code>
+	</pre>
+
+	<p>
+		C'est un bout de <code class="language-javascript inline-code">code</code> en inline.
+	</p> -->
+			<div id="block1">
+			<div class="back paragraphe">
+				<a href="../../index.html">Retour</a>
+			</div>
+				<img id ="logo" src="assets/images/logo1.png">
+				<span> - Scalable Vector Graphic</span>
+
+			</div>
+			<div class="back paragraphe">
+				<a href="../../index.html">Retour</a>
+			</div>
+	<nav id="navbar-container">
+    <div class="heading-container closed">
+      <h3 class="ul-heading">Tutoriel SVG</h3>
+      <hr />
+    </div>
+    <ul id="navbar">
+    </ul>
+  </nav>
+		<div id="partieTuto">
+			<div class="chapters">
+			
+				<h3 class="titre">Intro</h3>
+
+				<p class="paragraphe">
+					Le SVG, abbréviation de "Scalable Vector Graphics" (graphiques vectoriels
+					adaptables), est un langage simple qui permet de créer des dessins vectoriels
+				</p>
+
+				<h5 class="sous-titre">Avantages :</h5>
+
+				<ul>
+					<li>Contrairement au bitmap, on peut zoomer sur les images sans perdre en qualité.</li>
+					<li>On peut aussi imprimer à très haute résolution.</li>
+					<li>Contrairement au Flash (avant Flash 8), il existe des balises en SVG qui favorisent le référencement de documents par les moteurs de recherche.</li>
+				</ul>
+
+				<h5 class="sous-titre">Désavantages :</h5>
+				<ul>
+					<li>
+						Les utilisateurs d'IE doivent se procurer un plug-in.
+					</li>
+					<li>
+						Ce plug-in est assez lourd.
+					</li>
+				</ul>
+			</div>
+				<!--1er chapitre-->
+				<div class="chapters">
+					<h3 class="titre">Structure d'un doc SVG</h3>
+
+					<p class="paragraphe">Le SVG est un langage basé sur le XML, donc tout document SVG doit commencer par la déclaration XML :
+					<pre>
+						<code class="language-markup">
+						<span class="token punctuation"><</span>?xml version=\"1.0\" standalone=\"no\"? <span class="token punctuation">></span>
+						</code>
+					</pre></p>
+
+					<pre id="editor"></pre>
+					<p class="paragraphe">
+						l'attribut <code class="language-markup">standalone="no"</code>
+						indique que le document n'est pas indépendent, il fait référence à des fichiers externes, entre autres une DTD. Une DTD est un fichier qui indique quelles balises ont le droit d'être utilisées, avec quels attributs, etc.
+						Le DTD du svg s'inclue dans la balise <!DOCTYPE>
+					</p>
+					<pre id="editor1"></pre>
+					<p class="paragraphe">
+						Finalement la balise dans laquelle nous allons inscrire notre code est tout simplement :
+						<code class="language-markup">
+						<span class="token punctuation"><</span>svg<span class="token punctuation">></span><span class="token punctuation"><</span>/svg<span class="token punctuation">></span>
+						</code>
+					</p>
+
+					<pre id="editor2"></pre>
+
+					<p class="paragraphe">Cette balise prend (au moins) 4 attributs :</p>
+					<ul class="listAPuce">
+						<li><code class="language-markup">XMLNS</code> l'espace de nom du SVG (une page où trouver l'information à son sujet);</li>
+						<li><code class="language-markup">version</code>
+						, la version du langage (dans ce cas le SVG 1.1);</li>
+						<li><code class="language-markup">height</code>
+, la hauteur du doc (en px aussi);</li>
+						<li><code class="language-markup">width</code>, la largeur du doc (en px);</li>
+					</ul>
+					<h3 class="sous-titre">Récapitulatif :</h3>
+<pre>
+<code class="language-markup">
+<span class="token punctuation"><</span>?xml version="1.0"standalone="no"?<span class="token punctuation">></span>
+<span class="token punctuation"><</span>svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500" height="500"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>/svg<span class="token punctuation">></span>
+</code>
+</pre>
+					<p class="paragraphe">Nous avons quelques autres balises pour indenter notre code telles que :
+						<ul>
+							<li>
+								La balise <code class="language-markup"><span class="token punctuation"><</span>defs<span class="token punctuation">></span></code> qui sert de "bazar" pour mettre les lignes de code qui vont être utilisées plusieurs fois, cela permet d'éviter les répétitions et de gagner du temps.
+							</li>
+							<li>
+								La balise <code class="language-markup"><span class="token punctuation"><</span>g<span class="token punctuation">></span></code>, cette balise sert a grouper des éléments de la même manière que les "div" et les "span" en HTML5.
+							</li>
+						</ul>
+					</p>
+				</div>
+			<!--2eme chapitre-->
+			<div class="chapters">
+				<h3 class="titre">Base du dessin en SVG</h3>
+				<p class="paragraphe">Comme nous en avons rapidement parlé dans le chapitre précédent le SVG est un langage qui permet de "dessiner" et animer des formes plus ou moins complexes. Pour ce faire il existe plusieurs balises telles que :</p>
+				<ul>
+					<li>
+<code class="language-markup">
+	<span class="token punctuation"><</span>rect x="100" y="100" height="50" width="100"/<span class="token punctuation">></span>
+</code> qui permet de créer un rectangle par rapport a l'axe X/Y.
+					</li>
+					<li>
+<code class="language-markup">
+	<span class="token punctuation"><</span>ellipse cx="30" cy="150" rx="40" ry="100"/<span class="token punctuation">></span>
+</code> qui permet de créer une ellipse dont on peut influencer la position avec les attributs cx/cy et le rayon avec rx/ry
+					</li>
+					<li>
+<code class="language-markup">
+<span class="token punctuation"><</span>circle cx="" cy="" r="" /<span class="token punctuation">></span>
+</code> même fonctionnement que l'ellipse mais celui-ci permet de dessiner des cercles.
+					</li>
+					<li>
+<code class="language-markup">
+	<span class="token punctuation"><</span>polyline points="50,50 200,100 20,200 200,40 300,50 400,60"/<span class="token punctuation">></span>
+</code>Polyline ou ligne brisée, est un ensemble de droites reliées, un seul attribut est requis : "points". Il permet d'indiquer chaque point sur la ligne brisée, chacun de ces points séparé par une virgule et chacun de leurs axes séparé par un espace."
+					</li>
+					<li>
+<code class="language-markup">
+	<span class="token punctuation"><</span>polygon points="0,0 40,20 20,20 20,40 30,50 40,60" /<span class="token punctuation">></span>
+</code></pre>fonctionne aussi avec l'attribut "points", la diférence régit dans le navigateur qui trace lui-même une ligne du dernier au premier point pour fermer le polygon.
+					</li>
+					<li>
+<code class="language-markup">
+<span class="token punctuation"><</span>circle cx="" cy="" r="" /<span class="token punctuation">></span>
+</code> même fonctionnement que l'ellipse mais celui-ci permet de dessiner des cercles.
+					</li>
+					<li>
+<code class="language-markup">
+	<span class="language-markup"><</span>line x1="10" y1="50" x2="200" y2="80"<span class="token punctuation">></span>
+</code> permet de créer un segment du point 1 à 2.
+					</li>
+				</ul>
+				<p class="paragraphe">Nous pouvons aussi styliser nos formes en leur ajoutant l'attribut<code class="language-markup">style</code> qui comporte <code class="language-markup">fill</code> pour l'intérieur de la forme et <code class="language-markup">stroke</code> pour son contour, l'opacité de chaque peut être également modifiée avec respectivement <code class="language-markup">fill-opacity</code> et <code class="language-markup">stroke-opacity</code>.</p>
+			</div>
+		<!--1ere exercice sur les formes-->
+			<!--chapitre 3-->
+			<div class="chapters">
+				<h3 class="titre">Les tracés</h3>
+				<p class="paragraphe">
+					Un tracé est plus général qu'une ligne brisée. En effet, il permet non seulement de dessiner des droites, mais aussi des courbes. On l'introduit avec la balise "path"
+					il prend l'attribut "d" qui indique les commande (ligne, courbe, etc) à effectuer pour dessiner le tracé. Ces commandes sont sensibles à la casse et sont très variées...
+				</p>
+
+				<p class="paragraphe">
+					Un point courant est la dernière coordonnée indiquée dans l'attribut "d". Cela peut être soit un "moveto", ou la fin d'une courbe, d'une ligne, etc
+				</p>
+
+				<h5 class="sous-titre">Moveto</h5>
+				<p class="paragraphe">
+					La commande moveto ('Move to', 'bouger vers' en anglais) établit un nouveau point courant, on note :
+				</p>
+<code class="language-markup">
+	<span class="token punctuation"><</span>path d="M100,500" /<span class="token punctuation">></span>
+</code>				<!--<path d="M100,500" />-->
+				<h5 class="sous-titre">Lineto</h5>
+				<p class="paragraphe">Elle trace une ligne  du point courant vers un autre</p>
+
+				Exemple:
+<code class="language-markup">
+	<span class="token punctuation"><</span>path d="M100,100 l400,150"/<span class="token punctuation">></span>
+</code><!--<path d="M100,100 l400,150"/>-->
+
+				<h5 class="sous-titre">Les commandes h et v</h5>
+				<p class="paragraphe">Elles sont utilisées pour dessiner des lignes horizontales (H) et verticales (V) seulement. Je vous conseille de les utiliser, car elles reduisent la taille de vos fichiers. Leur fonctionnement est similaire à lineto.
+				</p>
+				<h5 class="sous-titre">La commande z</h5>
+				<p class="paragraphe">
+					La commande closepath (Z) est un raccourci qui trace une ligne vers le point spécifié avec la dernière commande moveto. Il n'a besoin d'aucune coordonnée.
+				</p>
+				Exemple:
+<code class="language-markup">
+	<span class="token punctuation"><</span>path d="M200,200 l10,10 h10,20 v50,20 z"/<span class="token punctuation">></span>
+</code><!--<path d="M200,200 l10,10 h10,20 v50,20 z"/>-->
+			</div>
+
+			<div class="chapters">
+				<h4 class="titre">Les courbes</h4>
+				<p class="paragraphe">Les courbes sont un peu plus difficiles à assimiler. En effet, vous devez savoir quel type de courbe vous souhaitez dessiner. Et il en existe trois :</p>
+
+				<h5 class="sous-titre">Les courbes quadratiques</h5>
+				<p class="paragraphe">Les courbes quadratiques de Bézier ressemble à cela:
+				</p>
+				<img src="assets/images/courbeQuadra.svg" alt="courbe quadratiques" height="200px" width="300px" />
+				<p class="paragraphe">On introduit ce type de courbe avec la commande Q qui trace une courbe à partir d'un point courant. Vous devez indiquer deux coordonées :
+					<ul>
+						<li>Un point de contrôle</li>
+						<li>Le point de fin de la courbe</li>
+					</ul>
+					<p class="paragraphe">Un point de contrôle est un point qui "tire sur la courbe", voici un exemple en visuel :</p>
+				</p>
+				<img src="assets/images/schemacourbequadra.svg" alt="shcéma" courbe quadratique />
+				<p class="paragraphe">
+					Il existe une derniere commande pour dessiner des courbes quadratiques : (T). C'est une sorte de raccourci. Vous devez seulement indiquer une coordonnée, le point de fin de la courbe. Le point de contrôle est calculé comme étant le point image selon une symétrie centrale du point de contrôle de la courbe q précédente.
+					Petit schéma imagé...
+				</p>
+				<!-- schéma illustrator-->
+				<img src="assets/images/courbeT.svg" alt="raccourci T">
+				<h5 class="sous-titre">Les courbes cubiques</h5>
+
+				<p class="paragraphe">Ici cela devient un peu plus compliqué... Une courbe de Bézier cubique ressemble a cela :
+				</p>
+				<!--Image IA d'une courbe cubiques de bézier-->
+
+				<svg  height="150" width="300">
+					<path d="M10 80 Q 52.5 10, 95 80 T 180 80"  style="fill:none; stroke:black; stroke-width:5px"/>
+				</svg>
+				<p class="paragraphe">Nouvelle commande (C), elle a besoin de 3 coordonnées :<ul>
+					<li>Un point de contrôle en début de courbe</li>
+					<li>
+						Un point de contrôle en fin de courbe
+					</li>
+					<li>
+						Un point de fin de courbe
+					</li>
+				</ul>
+				<p class="paragraphe">Chaque point de contrôle tire la moité de la courbe vers lui.
+					Exemple:
+				</p>
+
+
+				<p class="paragraphe">
+					Il existe aussi une commande de raccourci (comme (T)), mais pour les courbes cubiques. C'est 'S'. Vous devez seulement indiquer le deuxième point de contrôle et le point de fin de courbe, le premier point de contrôle étant l'image par symétrie centrale du deuxième point de contrôle de la courbe précédente.
+					Encore un schéma:
+				</p>
+					<img src="assets/images/path.svg" alt="path" height="600px" width="800px">
+					<!--Schéma de courbe cubique a faire <path d="M100,100 c150,-50 100,200 200,200 s0,-100 100,-200" />-->
+
+
+					<!--Ici mettre un exercice de base sur les formes (a discuter en groupe)-->
+
+					<h5 class="sous-titre">Les arcs elliptiques</h5>
+					<p class="paragraphe">Un arc elliptique est une partie d'une ellipse, comme ceci:
+						<!-- image d'arc elliptique--></p>
+						<p class="paragraphe">Ces arcs sont introduits par la commande "A", qui est probablement la plus compliquée, car elle prend 6 paramètres :</p>
+						<img src="assets/images/pathElliptiques.svg" alt="arc elliptique" />
+							<ul>
+								<li>le rayon horizontal de l'ellipse</li>
+								<li>le rayon vertical de l'ellipse</li>
+								<li>l'angle de rotation de l'ellipse par rapport à l'horizontal</li>
+								<li>la valeur du drapeau-large de l'arc (0 ou 1)</li>
+								<li>la valeur du drapeau-balayage de l'arc (0 ou 1)</li>
+								<li>le point de fin de l'arc elliptique</li>
+							</ul>
+							En code cela donne ceci :
+							<p class="paragraphe"><code class="language-markup">
+	<span class="token punctuation"><</span>path d="M200,450 a25,100 -30 0,1 50,-25" /<span class="token punctuation">></span>
+</code><!--<path d="M200,450 a25,100 -30 0,1 50,-25 " />-->
+							<!--Schéma pour décomposer le code-->
+						</p>
+
+					</div>
+					
+					<div class="chapters">
+						<h3 class="titre">Animations</h3>
+
+						<p class="paragraphe">Le plus gros interêt du SVG est l'animation de forme plus ou moins complexe de façon simple et efficace.
+							Pour animer nos formes, nous allons simplement utiliser la balise :
+						</p>
+						<code class="language-markup">
+							<span class="token punctuation"><</span>animation<span class="token punctuation">></span>
+						</code>
+
+						<p> Cette balise prend plusieurs attributs :</p>
+
+						<ul>
+							<li><code class="language-markup">xlink:href</code>, cet attribut defini un lien vers une ressource de référence (avec un ID ou une classe)</li>
+							</br>
+							<li><code class="language-markup">attributeName</code>, qui sert à séléctionner l'attribut sur lequel on veut influer (x, y, fill, stroke, opacity, etc).</li>
+							</br>
+							<li><code class="language-markup">attributeType</code>, cet atribut permet d'indiquer selon l'élément sur lequel on influe est du XML ou du CSS.</li>
+							</br>
+							<li><code class="language-markup">from</code>, position de départ de l'animation.</li>
+							</br>
+							<li><code class="language-markup">to</code>, positon de fin de l'animation.</li>
+							</br>
+							<li><code class="language-markup">value</code>, il est possible d'utiliser value pour donner plusieurs coordonnées. </li>
+							</br>
+							<li><code class="language-markup">begin</code>, le moment auquel commence l'animation, en seconde (il est possible d'utiliser .start et .end pour faciliter la synchronisation avec les autres animations).</li>
+							</br>
+							<li><code class="language-markup">dur</code>, indique la durée de l'animation.</li>
+							</br>
+							<li><code class="language-markup">repeatCount</code>, il prend comme valeur "indefinite" si l'on veut que l'animation se fasse en boucle (dans ce cas, une animation avec value permet de faire une animation simple fluide avec une ligne de code), on peut bien sûr lui donner une valeur numérique si l'on veut un nombre defini d'itérations.</li>
+							</br>
+							<li>
+<code class="language-markup">restart</code>
+, il peut prendre plusieurs valeurs :
+								<ul>
+									<li>
+										<code class="language-markup">always</code> : l'animation peut redémmarer quand on le souhaite
+									</li>
+									<li>
+										<code class="language-markup">whenNotActive</code> : l'animation ne peut redémarrer que quand elle n'est pas active
+									</li>
+									<li>
+									<code class="language-markup">never</code> : l'animation ne peut jamais redémarrer.
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<p>Il existe d'autres balises d'animations telles que :</p>
+
+						<ul>
+
+							<li><code class="language-markup">
+	<span class="token punctuation"><</span>animateMotion<span class="token punctuation">></span>
+</code>, qui permet d'effectuer une animation par rapport à un path. Un petit exemple :</li>
+<code class="language-markup">
+	<span class="token punctuation"><</span>animateMotion d="M200,300 t200,300 "/<span class="token punctuation">></span>
+</code><!-- <animateMotion d="M200,300 t200,300" /> " -->
+							</br><li><code class="language-markup">
+	<span class="token punctuation"><</span>animateTransform<span class="token punctuation">></span>
+</code>, l'élément permet d'animer un élément soit par translation, mise à l'échelle, rotation et/ou inclinaison.</li>
+						</ul>
+						<!--Mettre un exemple d'animation part apport a une path.(a discuter en groupe).-->
+						<p class="paragraphe">Avec ceci, nous pouvons donc réaliser des animations plus poussées.</p>
+
+						<!--Exo sur l'animation ici-->
+
+					</div>
+					<!--Chapitre4-->
+					<div class="chapters">
+
+						<h3 class="titre">Le texte</h3>
+
+						<p class="paragraphe">La première chose a savoir avec le texte en SVG, c'est que la version actuelle ne gère pas les blocs. Heureusement, il existe des techniques pour contourner les lacunes du SVG. </p>
+
+						<p class="paragraphe">
+							Pour écrire notre texte nous allons utiliser la balise <code class="language-markup">
+	<span class="token punctuation"><</span>texte<span class="token punctuation">></span>
+</code> . Cette balise permet donc d'afficher des lignes de texte dans nos documents. Comme vous pouvez le voir, elle contient les attributs x et y qui nous servent à positionner le texte. L'origine des points x et y se trouve au bas gauche de la première lettre de la phrase.
+							Comme pour les formes, il est possible de styliser vos textes :
+						</p>
+						<ul class="listAPuce">
+							<li>
+								la couleur est remplacée avec <code class="language-markup">fill</code> et <code class="language-markup">stroke</code>.
+							</li>
+							<li>
+								la taille du texte avec <code class="language-markup">font-size</code>.
+							</li>
+							<li>
+								les italiques se font avec <code class="language-markup">font-style</code>.
+							</li>
+							<li>
+								le gras avec <code class="language-markup">font-weight</code>.
+							</li>
+							<li>
+								le changement de police avec <code class="language-markup">font-family</code>.
+							</li>
+							<li>
+								les surlignages et soulignages avec <code class="language-markup">text-decoration</code>.
+							</li>
+							<li>
+								l'alignement du texte avec <code class="language-markup">texte anchor</code>(change la position de X/Y) exemple imagé conseillé ici(a discuter).
+							</li>
+							<li>
+								l'espacement des lettres entre les mots avec <code class="language-markup">letter-spacing</code> (pour l'espacement entre chaque lettre) et <code class="language-markup">word-spacing</code> (pour l'espacement entre chaque mot).
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+	<script src="../../lib/PrismJS/prism.js"></script>
+	<script src="script/script.js"></script>
+	<script src="../../script/navbar.js"></script>
+</body>
+</html>
