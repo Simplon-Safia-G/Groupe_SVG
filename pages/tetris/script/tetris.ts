@@ -1310,7 +1310,7 @@ class Tetromino {
           this.run = function(a,b) {
             const indexes: Array<Array<number>> = a;
             var _a: Array<Array<number>> = [];
-            // alert("Entering with a as " + a);
+            alert("Entering with a as " + a);
             for(var i = 0; i < b.x.length && i < b.y.length; i++){
               var noCollide: number = 0;
               var yOffset: number = 0;
@@ -1328,17 +1328,17 @@ class Tetromino {
                 var testBorders = function(resultx, resulty){
                   if(yOffset != a.length * -1 && !gameZone[resulty]){
                     yOffset--;
-                    resulty -= 1;
-                    // alert("resulty = " + resulty);
+                    resulty += 1;
+                    alert("resulty = " + resulty);
                   };
 
                   if(xOffset != a.length * -1 && (!gameZone[0][resultx])){
                     xOffset--;
                     resultx -= 1;
-                    // alert("resultx = " + resultx);
+                    alert("resultx = " + resultx);
                   };
 
-                  // alert("yOffset = " + yOffset + " and xOffset = " + xOffset);
+                  alert("yOffset = " + yOffset + " and xOffset = " + xOffset);
 
                   if(gameZone[resulty] && gameZone[0][resultx]){
                     _thisresulty = row + b.y[i] + yOffset;
@@ -1357,20 +1357,19 @@ class Tetromino {
                 _thisresulty = row + b.y[i] + yOffset;
                 _thisresultx = col + b.x[i] + xOffset;
 
-
                 if(gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("class") != "basicSquare stopped") {
                   _a.push(new Array(_thisresulty, _thisresultx));
                   noCollide++;
-                  // gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                  // alert("Loop at " + i + ", _a is " + _a);
-                  // gameZone[_thisresulty][_thisresultx].setAttribute("fill", "none");
+                  gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
+                  alert("Loop at " + i + ", _a is " + _a);
+                  gameZone[_thisresulty][_thisresultx].setAttribute("fill", "none");
                 } else {
                   collide = true;
-                  // _a.push(new Array(_thisresulty, _thisresultx));
-                  // var temp = gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("fill");
-                  // gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                  // alert("Colliding in loop " + i + ", with _a as " + _a);
-                  // gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", temp);
+                  _a.push(new Array(_thisresulty, _thisresultx));
+                  var temp = gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("fill");
+                  gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
+                  alert("Colliding in loop " + i + ", with _a as " + _a);
+                  gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", temp);
                   _a = [];
                   break;
                 };
