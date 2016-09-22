@@ -32,8 +32,8 @@ var BasicSquare = (function () {
         newSquare.setAttribute("y", this.y + "px");
         newSquare.setAttribute("width", this.width.toString());
         newSquare.setAttribute("height", this.height.toString());
-        newSquare.setAttribute("fill", noFill);
-        newSquare.setAttribute("stroke", "black");
+        this.id.indexOf("basicSquare") != -1 ? newSquare.setAttribute("fill", noFill) : newSquare.setAttribute("fill", "none");
+        newSquare.setAttribute("stroke", defaultStroke);
         _thisGame.appendChild(newSquare);
     };
     return BasicSquare;
@@ -556,6 +556,11 @@ var Tetris = (function () {
             ;
         }
         ;
+        var rect = document.createElementNS(this.svgns, "rect");
+        rect.setAttribute("id", "gameAreaRect");
+        rect.setAttribute("width", g.getBBox().width.toString());
+        rect.setAttribute("height", g.getBBox().height.toString());
+        g.appendChild(rect);
     };
     ;
     Tetris.prototype.setUpPreview = function () {
@@ -568,10 +573,7 @@ var Tetris = (function () {
         gSideMenu.appendChild(text);
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "preview");
-        g.setAttribute("stroke", "black");
         g.setAttribute("transform", "translate(0, 10)");
-        g.setAttribute("width", width.toString());
-        g.setAttribute("height", height.toString());
         gSideMenu.appendChild(g);
         var newSquare;
         for (var i = 0; i < 4; i++) {
@@ -583,6 +585,11 @@ var Tetris = (function () {
             ;
         }
         ;
+        var rect = document.createElementNS(this.svgns, "rect");
+        rect.setAttribute("id", "previewRect");
+        rect.setAttribute("width", g.getBBox().width.toString());
+        rect.setAttribute("height", g.getBBox().height.toString());
+        g.appendChild(rect);
     };
     ;
     Tetris.prototype.displayScore = function () {
@@ -667,24 +674,29 @@ var Tetris = (function () {
     Tetris.prototype.updateScore = function () {
         var score = document.getElementById("score");
         score.innerHTML = this.score.toString();
-        if ((1000 * this.level) * (this.level / 2) <= this.score) {
+        if ((700 * this.level) * (this.level / 2) <= this.score) {
             this.updateLevel();
         }
         ;
     };
     ;
     Tetris.prototype.updateLevel = function () {
-        if (this.level < 99)
+        if (this.level < 99) {
             this.level++;
-        var level = document.getElementById("level");
-        level.innerHTML = this.level.toString();
-        this.updateSpeed();
+            var level = document.getElementById("level");
+            level.innerHTML = this.level.toString();
+            this.updateSpeed();
+        }
+        ;
     };
     ;
     Tetris.prototype.updateSpeed = function () {
         for (var i = 0; i < this.level; i++) {
-            if (this.speed > 0)
-                this.speed -= 50;
+            if (this.speed > 0) {
+                this.speed = 1000;
+                this.speed -= (100 * i);
+            }
+            ;
         }
         ;
     };
@@ -863,9 +875,13 @@ var Tetromino = (function () {
             var c = 0;
             do {
                 var row = this.squareNbrClass[i - 1] ? this.squareNbrClass[i - 1][c] : false;
+                previewZone[i][c].setAttribute("class", "previewSquare");
                 previewZone[i][c].setAttribute("fill", "none");
-                if (row === true)
+                if (row === true) {
                     previewZone[i][c].setAttribute("fill", this.fill);
+                    previewZone[i][c].setAttribute("class", "previewSquare previewed");
+                }
+                ;
                 c++;
             } while (c < previewZone[i].length);
             i++;
@@ -876,7 +892,7 @@ var Tetromino = (function () {
         if (row === void 0) { row = 0; }
         if (col === void 0) { col = 0; }
         if (spawn === void 0) { spawn = true; }
-        var squareArray = this.squareNbrClass;
+        var squareArray = spawn ? this.squareNbrClass : this.rotatedSquares;
         var oldSquaresIndex;
         if (!spawn)
             oldSquaresIndex = this.squaresIndex;
@@ -903,6 +919,12 @@ var Tetromino = (function () {
             if (this.checkAll("rotate")) {
                 this.squaresIndex = oldSquaresIndex;
             }
+            else {
+                this.squareNbrClass = this.rotatedSquares;
+                this.rotation += 90;
+                if (this.rotation == 360)
+                    this.rotation = 0;
+            }
             ;
         }
         ;
@@ -927,7 +949,7 @@ var Tetromino = (function () {
             var indexArray = _this.squaresIndex;
             if (!_this.checkAll("bottom")) {
                 for (var e = 0; e < tetromino.length; e++) {
-                    tetromino[e].setAttribute("fill", "none");
+                    tetromino[e].setAttribute("fill", noFill);
                     tetromino[e].setAttribute("class", "basicSquare");
                 }
                 for (var i = indexArray.length - 1; i >= 0; i--) {
@@ -971,7 +993,8 @@ var Tetromino = (function () {
     Tetromino.prototype.rotate = function (squareNbr) {
         var rotatedArray = [];
         for (var i = squareNbr.length - 1; i >= 0; i--) {
-            var reverse = squareNbr[i].reverse();
+            var failsafe = Array.prototype.slice.call(squareNbr[i]);
+            var reverse = failsafe.reverse();
             for (var j = reverse.length - 1, e = 0; j >= 0; j--, e++) {
                 if (i == squareNbr.length - 1)
                     rotatedArray.push([]);
@@ -1069,6 +1092,9 @@ var Tetromino = (function () {
                 }
                 break;
             case "rotate":
+                var rotation = this.rotation + 90;
+                if (rotation == 360)
+                    rotation = 0;
                 var units = ({
                     3: {
                         90: {
@@ -1106,7 +1132,7 @@ var Tetromino = (function () {
                             y: [0, 0, 0, -1, 2]
                         }
                     }
-                })[this.squareNbrClass.length][this.rotation];
+                })[this.squareNbrClass.length][rotation];
                 var calc = new function () {
                     this.resultx = 0;
                     this.resulty = 0;
@@ -1177,7 +1203,12 @@ var Tetromino = (function () {
                     };
                 };
                 var _thisSquaresIndex = this.squaresIndex;
-                this.squaresIndex = !collide ? calc.run(_thisSquaresIndex, units) : _thisSquaresIndex;
+                if (!collide) {
+                    this.squaresIndex = calc.run(_thisSquaresIndex, units);
+                }
+                ;
+                if (this.squaresIndex === undefined)
+                    this.squaresIndex = _thisSquaresIndex;
                 break;
             default:
                 collide = false;
@@ -1356,15 +1387,10 @@ var Player = (function () {
                     return;
                 var offsetRow = 0;
                 var offsetCol = 0;
-                var rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
-                _thisTetromino.squareNbrClass = rotatedSquares;
+                console.log(_thisTetromino);
+                _thisTetromino.rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
                 player.moving = true;
                 offsetRow = _thisTetromino.findOutermostSquare(_thisTetromino.rotation);
-                _thisTetromino.rotation += 90;
-                if (_thisTetromino.rotation == 360) {
-                    _thisTetromino.rotation = 0;
-                }
-                ;
                 if (timeout)
                     clearTimeout(timeout);
                 for (var e = 0; e < indexes.length; e++) {
@@ -1394,6 +1420,7 @@ var Player = (function () {
 }());
 ;
 var gameZone = [];
+var gameZoneObjects = [];
 var previewZone = [];
 var tetrominos = [];
 var currentTetromino;
@@ -1402,9 +1429,18 @@ var basicSquare = 35;
 var basicWidth = 10;
 var basicHeight = 20;
 var userInterfaceWidth = 5;
-var noFill = "none";
 var volume = 100;
+var noFill = "rgba(0,163,191,.16)";
+var defaultStroke = "rgba(0,0,0,.67)";
 var game;
 var player;
 var userInterface = new UserInterface("svgArea", basicSquare, basicSquare);
 var player = new Player(38, 37, 39, 40, 77, "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
+document.addEventListener("keyup", fuckEverything);
+function fuckEverything(event) {
+    if (event.key == "p") {
+        game.spawnTetromino = undefined;
+    }
+    ;
+}
+;

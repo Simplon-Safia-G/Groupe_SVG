@@ -42,8 +42,8 @@ class BasicSquare {
     newSquare.setAttribute("y", this.y + "px");
     newSquare.setAttribute("width", this.width.toString());
     newSquare.setAttribute("height", this.height.toString());
-    newSquare.setAttribute("fill", noFill);
-    newSquare.setAttribute("stroke", "black");
+    this.id.indexOf("basicSquare") != -1 ? newSquare.setAttribute("fill", noFill) : newSquare.setAttribute("fill", "none");
+    newSquare.setAttribute("stroke", defaultStroke);
 
     _thisGame.appendChild(newSquare);
 
@@ -631,7 +631,7 @@ class Tetris {
   private createGameArea(){
     var svgArea: Element = document.getElementById("svgArea");
 
-    var g: Element = document.createElementNS(this.svgns, "g");
+    var g: any = document.createElementNS(this.svgns, "g");
     g.setAttribute("id", "gameZone");
     svgArea.appendChild(g);
 
@@ -657,6 +657,12 @@ class Tetris {
         gameZone[i].push(this.getHtmlSquare(newSquare));
       };
     };
+
+    var rect: Element = document.createElementNS(this.svgns, "rect");
+    rect.setAttribute("id", "gameAreaRect");
+    rect.setAttribute("width", g.getBBox().width.toString());
+    rect.setAttribute("height", g.getBBox().height.toString());
+    g.appendChild(rect);
   };
 
   private setUpPreview(){
@@ -668,12 +674,9 @@ class Tetris {
     text.innerHTML = "NEXT";
     gSideMenu.appendChild(text);
 
-    var g: Element = document.createElementNS(this.svgns, "g");
+    var g: any = document.createElementNS(this.svgns, "g");
     g.setAttribute("id", "preview");
-    g.setAttribute("stroke", "black");
     g.setAttribute("transform", `translate(0, 10)`)
-    g.setAttribute("width", width.toString());
-    g.setAttribute("height", height.toString());
     gSideMenu.appendChild(g);
 
     var newSquare: BasicSquare;
@@ -684,6 +687,12 @@ class Tetris {
         previewZone[i].push(this.getHtmlSquare(newSquare));
       };
     };
+
+    var rect: Element = document.createElementNS(this.svgns, "rect");
+    rect.setAttribute("id", "previewRect");
+    rect.setAttribute("width", g.getBBox().width.toString());
+    rect.setAttribute("height", g.getBBox().height.toString());
+    g.appendChild(rect);
   };
 
   private displayScore(){
@@ -789,23 +798,27 @@ class Tetris {
     var score: Element = document.getElementById("score");
     score.innerHTML = this.score.toString();
 
-    if((1000 * this.level) * (this.level / 2) <= this.score){
+    if((700 * this.level) * (this.level / 2) <= this.score){
       this.updateLevel();
     };
 
   };
 
   private updateLevel(){
-    if(this.level < 99) this.level++;
-    var level: Element = document.getElementById("level");
-    level.innerHTML = this.level.toString();
-
-    this.updateSpeed();
+    if(this.level < 99) {
+      this.level++;
+      var level: Element = document.getElementById("level");
+      level.innerHTML = this.level.toString();
+      this.updateSpeed();
+    };
   };
 
   private updateSpeed(){
     for(var i = 0; i < this.level; i++){
-      if(this.speed > 0) this.speed -= 50;
+      if(this.speed > 0) {
+        this.speed = 1000;
+        this.speed -= (100 * i);
+      };
     };
   };
 
@@ -962,6 +975,7 @@ class Tetromino {
   fill: string;
   rotation: number;
   squareNbrClass: Array<Array<boolean>>;
+  rotatedSquares: Array<Array<boolean>>;
   squaresIndex: Array<Array<number>> = [];
 
   constructor(id:string, fill:string, squareNbr:Array<Array<boolean>>){
@@ -1001,8 +1015,12 @@ class Tetromino {
       var c = 0;
       do{
         var row: boolean = this.squareNbrClass[i-1] ? this.squareNbrClass[i-1][c] : false;
+        previewZone[i][c].setAttribute("class", "previewSquare");
         previewZone[i][c].setAttribute("fill", "none");
-        if(row === true) previewZone[i][c].setAttribute("fill", this.fill);
+        if(row === true) {
+          previewZone[i][c].setAttribute("fill", this.fill);
+          previewZone[i][c].setAttribute("class", "previewSquare previewed");
+        };
         c++
       } while(c < previewZone[i].length);
       i++;
@@ -1011,7 +1029,7 @@ class Tetromino {
 
   // Assemble the tetromino behind the scene - row and col arguments determine where to start drawing in the game area
   private createFromSquares(row: number = 0, col: number = 0, spawn: boolean = true) {
-    var squareArray: Array<Array<boolean>> = this.squareNbrClass;
+    var squareArray: Array<Array<boolean>> = spawn ? this.squareNbrClass : this.rotatedSquares;
     var oldSquaresIndex: Array<Array<number>>;
     if(!spawn) oldSquaresIndex = this.squaresIndex;
     this.squaresIndex = [];      // Make sure this.squaresIndex is empty
@@ -1041,6 +1059,10 @@ class Tetromino {
     if(!spawn){
       if(this.checkAll("rotate")){
         this.squaresIndex = oldSquaresIndex;
+      } else {
+        this.squareNbrClass = this.rotatedSquares;
+        this.rotation += 90;
+        if(this.rotation == 360) this.rotation = 0;
       };
     };
   };
@@ -1069,7 +1091,7 @@ class Tetromino {
       if(!_this.checkAll("bottom")){
         // Disable the current squares of the tetromino
         for(var e = 0; e < tetromino.length; e++){
-          tetromino[e].setAttribute("fill", "none");
+          tetromino[e].setAttribute("fill", noFill);
           tetromino[e].setAttribute("class", "basicSquare");
         }
 
@@ -1123,7 +1145,8 @@ class Tetromino {
   private rotate(squareNbr: Array<Array<number>>){
     var rotatedArray: Array<Array<number>> = [];
     for(var i = squareNbr.length - 1; i >= 0; i--){
-      var reverse = squareNbr[i].reverse();
+      var failsafe: Array<number> = Array.prototype.slice.call(squareNbr[i]);
+      var reverse = failsafe.reverse();
 
       for(var j = reverse.length - 1, e = 0; j >= 0; j--, e++){
         if(i == squareNbr.length - 1) rotatedArray.push([]);
@@ -1237,6 +1260,8 @@ class Tetromino {
         break;
 
         case "rotate":
+        var rotation = this.rotation + 90;
+        if(rotation == 360) rotation = 0;
         // Cf http://web.archive.org/web/20080226183843/http://www.the-shell.net/img/srs_study.html
         var units: Array<Object> = ( {
           3: {
@@ -1276,7 +1301,7 @@ class Tetromino {
               y:[0, 0, 0, -1, 2]
             }
           }
-        } ) [this.squareNbrClass.length][this.rotation];
+        } ) [this.squareNbrClass.length][rotation];
 
         var calc = new function(){
           this.resultx = 0;
@@ -1359,7 +1384,11 @@ class Tetromino {
           };
         };
         var _thisSquaresIndex: Array<Array<number>> = this.squaresIndex;
-        this.squaresIndex = !collide ? calc.run(_thisSquaresIndex, units) : _thisSquaresIndex;
+        if(!collide) {
+          this.squaresIndex = calc.run(_thisSquaresIndex, units);
+        };
+
+        if(this.squaresIndex === undefined) this.squaresIndex = _thisSquaresIndex;
         break;
 
         default:
@@ -1557,15 +1586,13 @@ class Tetromino {
         var offsetRow: number = 0;
         var offsetCol: number = 0;
 
-        var rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
-        _thisTetromino.squareNbrClass = rotatedSquares;
+        console.log(_thisTetromino);
+
+        _thisTetromino.rotatedSquares = _thisTetromino.rotate(_thisTetromino.squareNbrClass);
 
         player.moving = true;
 
         offsetRow = _thisTetromino.findOutermostSquare(_thisTetromino.rotation);
-
-        _thisTetromino.rotation += 90;
-        if(_thisTetromino.rotation == 360) { _thisTetromino.rotation = 0 };
 
         if(timeout) clearTimeout(timeout);
 
@@ -1597,6 +1624,7 @@ class Tetromino {
   };
 
   var gameZone: Array<Array<HTMLElement>> = [];
+  var gameZoneObjects: Array<BasicSquare> = [];
   var previewZone: Array<Array<HTMLElement>> = [];
 
   var tetrominos: Array<Tetromino> = [];
@@ -1609,8 +1637,9 @@ class Tetromino {
   var basicWidth: number = 10;
   var basicHeight: number = 20;
   var userInterfaceWidth: number = 5;
-  var noFill: string = "none";
   var volume: number = 100;
+  var noFill: string = "rgba(0,163,191,.16)";
+  var defaultStroke: string = "rgba(0,0,0,.67)"
 
   // Create new game
   var game;
@@ -1621,6 +1650,14 @@ class Tetromino {
   // Create new player
   //Key codes = up: 38, left : 37, right: 39, down: 40, m: 77
   var player: any = new Player(38, 37, 39, 40, 77, "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown", "m");
+
+  document.addEventListener("keyup", fuckEverything);
+
+  function fuckEverything(event){
+    if(event.key == "p"){
+      game.spawnTetromino = undefined;
+    };
+  };
 
   // document.addEventListener('keyup', player.controls);
   // document.addEventListener('keydown', player.controls);
