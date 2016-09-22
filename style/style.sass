@@ -14,6 +14,7 @@ p
 
 body
 	overflow-x: hidden
+  z-index: -2
 
 #logo
   margin-left: 20%
@@ -23,11 +24,10 @@ body
 
 .separator
   margin-top: $height
-  position: absolute
-  left: 0
-  width: 100%
+  width: 100vw
   height: $height
   background-color: $orange
+  z-index: 999999999
 
 #header
   background-position: top
@@ -40,6 +40,12 @@ body
   flex-direction: column
   align-items: center
   justify-content: center
+
+  .separator
+    position: absolute
+    width: 100vw
+    left: 0
+    margin-top: $height * 3
 
 #header h1
   background-color: #fff
@@ -54,29 +60,17 @@ body
 	border-width: 1px
 	background-color: #ffffff
 
-.block
-  margin-top: $height * 3
-
 .text-container
   margin-right: auto
   margin-left: 15%
   width: 70%
 
-#manga
-  float: left
-  margin-left: -320px
-  margin-top: -100px
-  transform: scale(1.2)
-
 #intro
+  z-index: -2
+  margin-top: $height * 2
   position: relative
-  background-color: transparent
   height: 100%
-  width: 100%
   left: -10px
-  // background-image: url(../assets/images/drawings/manga.svg)
-  // background-size: auto
-  // background-position: -400px
   .text-container
     max-width: 50%
     margin-right: 10%
@@ -149,7 +143,6 @@ a:hover
 
 
 .title h1
-  margin-top: $height * 2
   font-family: 'Lobster', cursive
   font-weight: normal
   font-size: 50px
