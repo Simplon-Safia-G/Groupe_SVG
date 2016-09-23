@@ -24,7 +24,6 @@ function setHeight(){
   var $separators = $(".separator");
   var $separatorsOffset = $separators[1].offsetTop + ($separators[0].offsetTop + $separators[0].getAttribute("height"));
   manga.setAttribute("height", $separatorsOffset);
-  console.log($manga.offset().top);
   var margin = 0;
   manga.setAttribute("style", "margin-top:"+margin+"px");
 };
