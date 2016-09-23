@@ -1,6 +1,19 @@
 * {
 	font-family: sans-serif;
 }
+li{
+	text-align: left;
+	color: #888;
+	font-family: 'Muli', sans-serif;
+	list-style: none;
+	margin-left: 15%;
+	padding-top: 0.5%;
+}
+.main img {
+	width: 35%;
+	height: 35%;
+	margin-left: 30%;
+}
 #block1 {
 	position: absolute; 
 	display: block;
@@ -139,7 +152,6 @@ h2 {
 .main {
 	float: left;
 	width: 100%;
-	margin: 0 auto;
 }
 .main h1 {
 	padding:20px 50px 10px;
@@ -222,7 +234,7 @@ h2 {
 	float: right;
 }
 .main {
-	margin-bottom: 350px;
+	margin-bottom: 3%;
 	overflow: hidden;
 }
 .tps-section {
