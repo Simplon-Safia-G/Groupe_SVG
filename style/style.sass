@@ -43,7 +43,6 @@ body
 
   .separator
     position: absolute
-    width: 100vw
     left: 0
     top: 0
     margin-top: 50vh
@@ -61,18 +60,24 @@ body
 	border-width: 1px
 	background-color: #ffffff
 
+.block
+  width: 100vw
+
 .text-container
   margin-right: auto
   margin-left: 15%
   width: 70%
 
 #intro
-  z-index: -2
+  z-index: 1
+  background-color: white
   margin-top: $height * 2
   position: relative
   height: 100%
   left: -10px
   .text-container
+    background-color: white
+    padding: 15px
     max-width: 50%
     margin-right: 10%
     margin-left: 400px
@@ -96,6 +101,20 @@ body
     font-style: italic
     margin: 0
 
+#teams-deco
+  right: -160px
+  margin-top: -290px
+  position: absolute
+  z-index: -1
+
+  svg
+    transform: scale(2)
+
+#team-work
+  background-color: transparent
+
+#exemples
+  background-color: white
 
 .listen p
 	font-family: 'Muli', sans-serif
@@ -145,6 +164,8 @@ a:hover
 	position: relative
 	padding: 25px
 
+.container
+  z-index: 1
 
 .title h1
   font-family: 'Lobster', cursive
