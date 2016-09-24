@@ -1,3 +1,5 @@
+$basicSquare: 35px
+
 #svgArea
   margin-right: auto
   margin-left: auto
@@ -22,3 +24,39 @@
   fill: none
   stroke: black
   stroke-width: 2px
+
+#gameOverContainer
+  transform: translate($basicSquare, 210px)
+
+#gameOverText
+  font-size: 50px
+  stroke: black
+  stroke-width: 2px
+  font-weight: bolder
+  transform: rotateX(90deg)
+  transition: transform 500ms linear
+  animation-name: colorEffect
+  animation-duration: 2s
+  animation-iteration-count: infinite
+  animation-direction: alternate
+
+.startRotationX
+  transform: rotateX(0) !important
+
+@keyframes colorEffect
+  from { fill: white }
+  to { fill: red }
+
+#newGame
+  transform: translate(-400px, 70px)
+  transition: transform 500ms linear
+
+.startTranslationNewGame
+  transform: translate(0, 70px) !important
+
+#mainMenu
+  transform: translate(557.5px, 70px)
+  transition: transform 500ms linear
+
+.startTranslationMainMenu
+  transform: translate(157.5px, 70px) !important
