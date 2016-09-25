@@ -75,7 +75,12 @@ class UserInterface {
   };
 
   private createMenu(): void {
-    var svgArea: Element = this.menu;
+    var _this = userInterface || this;
+    var svgArea: Element = _this.menu;
+
+    while(svgArea.firstChild){
+      svgArea.removeChild(svgArea.firstChild);
+    };
 
     var g: Element = document.createElementNS(this.svgns, "g");
     g.setAttribute("id", "gContainer");
@@ -579,7 +584,7 @@ class UserInterface {
   };
 
   private newGame(){
-    var level: number = Number((<HTMLInputElement>document.getElementById("levelInput")).value);
+    var level: number = <HTMLInputElement>document.getElementById("levelInput") ? Number((<HTMLInputElement>document.getElementById("levelInput")).value) : 0;
     level > 99 ? level = 99 : level;
 
     var _this: any = userInterface || this;
@@ -597,6 +602,100 @@ class UserInterface {
     document.getElementById("settings").addEventListener("click", userInterface.setUpSettings);
   };
 
+  setUpGameOverMenu(){
+    var g: Element = document.createElementNS(this.svgns, "g");
+    g.setAttribute("id", "gameOverContainer");
+    userInterface.menu.appendChild(g);
+
+    var text: Element = document.createElementNS(this.svgns, "text");
+    text.innerHTML = "Game Over";
+    text.setAttribute("id", "gameOverText");
+    g.appendChild(text);
+
+    // NEW GAME BUTTON
+    var gNewGame: Element = document.createElementNS(this.svgns, "g");
+    gNewGame.setAttribute("id", "newGame");
+    g.appendChild(gNewGame);
+
+    var whiteRect: Element = document.createElementNS(this.svgns, "rect");
+    whiteRect.setAttribute("fill", "white");
+    whiteRect.setAttribute("style", "cursor:pointer");
+    whiteRect.setAttribute("stroke", "black");
+    whiteRect.setAttribute("width", `${basicSquare * 3.5}`);
+    whiteRect.setAttribute("height", `${basicSquare}`);
+    gNewGame.appendChild(whiteRect);
+
+    var newGameText: Element = document.createElementNS(this.svgns, "text");
+    newGameText.setAttribute("style", "font-size:15px");
+    newGameText.setAttribute("transform", `translate(${basicSquare}, ${basicSquare * 0.65})`);
+    newGameText.innerHTML = "New Game";
+    gNewGame.appendChild(newGameText);
+
+    var gNewGamePath = document.createElementNS(this.svgns, "g");
+    gNewGamePath.setAttribute("transform", `translate(30, 15)`)
+    gNewGame.appendChild(gNewGamePath);
+
+    var newGamePath: Element = document.createElementNS(this.svgns, "path");
+    newGamePath.setAttribute("transform", "scale(0.015)");
+    newGamePath.setAttribute("d", "M0 0q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z");
+    gNewGamePath.appendChild(newGamePath);
+
+    var newGameRect: Element = document.createElementNS(this.svgns, "rect");
+    newGameRect.setAttribute("fill", "transparent");
+    newGameRect.setAttribute("style", "cursor:pointer");
+    newGameRect.setAttribute("stroke", "black");
+    newGameRect.setAttribute("width", `${basicSquare * 3.5}`);
+    newGameRect.setAttribute("height", `${basicSquare}`);
+    gNewGame.appendChild(newGameRect);
+
+    newGameRect.addEventListener('click', userInterface.newGame);
+
+    // BACK TO MAIN MENU
+    var gMainMenu: Element = document.createElementNS(this.svgns, "g");
+    gMainMenu.setAttribute("id", "mainMenu");
+    g.appendChild(gMainMenu);
+
+    var whiteRectMenu: Element = document.createElementNS(this.svgns, "rect");
+    whiteRectMenu.setAttribute("fill", "white");
+    whiteRectMenu.setAttribute("style", "cursor:pointer");
+    whiteRectMenu.setAttribute("stroke", "black");
+    whiteRectMenu.setAttribute("width", `${basicSquare * 3.5}`);
+    whiteRectMenu.setAttribute("height", `${basicSquare}`);
+    gMainMenu.appendChild(whiteRectMenu);
+
+    var mainMenuText: Element = document.createElementNS(this.svgns, "text");
+    mainMenuText.setAttribute("style", "font-size:15px");
+    mainMenuText.setAttribute("transform", `translate(${basicSquare}, ${basicSquare * 0.65})`);
+    mainMenuText.innerHTML = "Main Menu";
+    gMainMenu.appendChild(mainMenuText);
+
+    var gMainMenuPath = document.createElementNS(this.svgns, "g");
+    gMainMenuPath.setAttribute("transform", `translate(30, 15)`)
+    gMainMenu.appendChild(gMainMenuPath);
+
+    var mainMenuPath: Element = document.createElementNS(this.svgns, "path");
+    mainMenuPath.setAttribute("transform", "scale(0.015)");
+    mainMenuPath.setAttribute("d", "M0 0q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z");
+    gMainMenuPath.appendChild(mainMenuPath);
+
+    var mainMenuRect: Element = document.createElementNS(this.svgns, "rect");
+    mainMenuRect.setAttribute("fill", "transparent");
+    mainMenuRect.setAttribute("style", "cursor:pointer");
+    mainMenuRect.setAttribute("stroke", "black");
+    mainMenuRect.setAttribute("width", `${basicSquare * 3.5}`);
+    mainMenuRect.setAttribute("height", `${basicSquare}`);
+    gMainMenu.appendChild(mainMenuRect);
+
+    mainMenuRect.addEventListener('click', userInterface.createMenu);
+
+    var superbInterval = setInterval(function(){
+      if(gameZone[0][9].getAttribute("fill") == gameOverFill) {
+         text.setAttribute("class", "startRotationX");
+         gNewGame.setAttribute("class", "startTranslationNewGame");
+         gMainMenu.setAttribute("class", "startTranslationMainMenu");
+       };
+    }, 100);
+  };
 };
 
 // Declare the class of the game
@@ -967,6 +1066,30 @@ class Tetris {
     };
 
   };
+
+  private gameOver(){
+
+    document.removeEventListener("keydown", player.controls);
+    document.removeEventListener("keyup", player.controls);
+
+    (function blackenRow(i){
+      setTimeout(function(){
+
+        (function blackenCol(e){
+          setTimeout(function(){
+
+            gameZone[i][e].setAttribute("fill", gameOverFill);
+
+            if(++e < gameZone[i].length) blackenCol(e);
+          }, 15)
+        }(0));
+
+        if(--i > 0) blackenRow(i);
+      }, 200)
+    }(gameZone.length));
+
+    userInterface.setUpGameOverMenu();
+  };
 };
 
 class Tetromino {
@@ -995,7 +1118,7 @@ class Tetromino {
   draw(spawn: boolean){
     currentTetromino = this;
 
-    if(spawn && this.checkAll("top")) return; // Check if there is space to spawn the tetromino at the top of the game area. If not, game over.
+    if(spawn && this.checkAll("top"))  return game.gameOver(); // Check if there is space to spawn the tetromino at the top of the game area. If not, game over.
     // Iterate through each square of the given tetromino to draw it in the game area.
     var i = 0;
     do{
@@ -1310,7 +1433,7 @@ class Tetromino {
           this.run = function(a,b) {
             const indexes: Array<Array<number>> = a;
             var _a: Array<Array<number>> = [];
-            alert("Entering with a as " + a);
+            // alert("Entering with a as " + a);
             for(var i = 0; i < b.x.length && i < b.y.length; i++){
               var noCollide: number = 0;
               var yOffset: number = 0;
@@ -1329,16 +1452,16 @@ class Tetromino {
                   if(yOffset != a.length * -1 && !gameZone[resulty]){
                     yOffset--;
                     resulty += 1;
-                    alert("resulty = " + resulty);
+                    // alert("resulty = " + resulty);
                   };
 
                   if(xOffset != a.length * -1 && (!gameZone[0][resultx])){
                     xOffset--;
                     resultx -= 1;
-                    alert("resultx = " + resultx);
+                    // alert("resultx = " + resultx);
                   };
 
-                  alert("yOffset = " + yOffset + " and xOffset = " + xOffset);
+                  // alert("yOffset = " + yOffset + " and xOffset = " + xOffset);
 
                   if(gameZone[resulty] && gameZone[0][resultx]){
                     _thisresulty = row + b.y[i] + yOffset;
@@ -1360,16 +1483,16 @@ class Tetromino {
                 if(gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("class") != "basicSquare stopped") {
                   _a.push(new Array(_thisresulty, _thisresultx));
                   noCollide++;
-                  gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                  alert("Loop at " + i + ", _a is " + _a);
-                  gameZone[_thisresulty][_thisresultx].setAttribute("fill", "none");
+                  // gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
+                  // alert("Loop at " + i + ", _a is " + _a);
+                  // gameZone[_thisresulty][_thisresultx].setAttribute("fill", "none");
                 } else {
                   collide = true;
                   _a.push(new Array(_thisresulty, _thisresultx));
-                  var temp = gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("fill");
-                  gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                  alert("Colliding in loop " + i + ", with _a as " + _a);
-                  gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", temp);
+                  // var temp = gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("fill");
+                  // gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
+                  // alert("Colliding in loop " + i + ", with _a as " + _a);
+                  // gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", temp);
                   _a = [];
                   break;
                 };
@@ -1638,7 +1761,8 @@ class Tetromino {
   var userInterfaceWidth: number = 5;
   var volume: number = 100;
   var noFill: string = "rgba(0,163,191,.16)";
-  var defaultStroke: string = "rgba(0,0,0,.67)"
+  var defaultStroke: string = "rgba(0,0,0,.67)";
+  var gameOverFill: string = "rgba(0,0,0,.55)";
 
   // Create new game
   var game;

@@ -1,5 +1,4 @@
 body{
-	 text-align: justify;
 	 user-select:none;
 }
 .titre{
@@ -42,5 +41,9 @@ li{
     text-decoration: none;
     font-weight: bold;
 
+}
+
+.chapters {
+  text-align: justify;
 }
     

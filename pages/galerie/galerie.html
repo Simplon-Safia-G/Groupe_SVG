@@ -2,43 +2,56 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/style.min.css">
+	<link rel="stylesheet" type="text/css" href="style/tps.min.css">
 	<script type="text/javascript" src="../../lib/jquery.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script type="text/javascript" src="lib/jquery.tiltedpage-scroll.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Lobster|Muli" rel="stylesheet">
+	<script type="text/javascript" src="lib/jquery.tiltedpage-scroll.js"></script>
 	<title>Galerie SVG</title>
 </head>
 <body>
-	<div class="conteneur">
-		<div id="block1">
-			<img id ="logo" src="assets/images/logo1.png">
-			<span> - Scalable Vector Graphic</span>
+	<div id="header">
+		<div id="backToIndex">
+			<a href="../../index.html">Retour</a>
 		</div>
-		<div id="block2"></div>
-		<div id="block3">
-			<script>
-			$(document).ready(function(){
-				$(".main").tiltedpage_scroll({
-					angle: 20
-				});
-			});
-			</script>
-			<div class="wrapper">
-				<div class="main">
-					<div class="header">
-						<h1>Voici quelques exemples de déssin produits en SVG</h1>
-						<p class="credit">(Excusez-nous, nous ne sommes pas de bons dessinateurs)</p>
-					</div>
-					<section class="page1">
-						<div class="page_container"></div>
-					</section>
-					<section class="page2">
-						<div class="page_container"></div>
-					</section>
+
+		<img id ="logo" src="assets/images/logo1.png">
+		<span> - Scalable Vector Graphic</span>
+	</div>
+	<div class="conteneur">
+		<div id="galery">
+			<div class="gallery-header">
+				<h1>Voici quelques exemples de dessins produits en SVG</h1>
+				<p class="credit">(Excusez-nous, nous ne sommes pas de bons dessinateurs)</p>
+			</div>
+
+			<div class="main">
+				<section class="page1">
+				</section>
+				<section class="page2">
+				</section>
+				<section class="page3">
+				</section>
+				<section class="page4">
+				</section>
+				<section class="page5">
+				</section>
+				<section class="page6">
+				</section>
+				<section class="page7">
+				</section>
+				<section class="page8">
+				</section>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="script/script.js"></script>
+	<script>
+	$(document).ready(function(){
+		$(".main").tiltedpage_scroll({
+			angle: 20
+		});
+	});
+	</script>
 </body>
 </html>

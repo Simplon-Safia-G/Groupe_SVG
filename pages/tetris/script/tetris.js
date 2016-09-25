@@ -56,7 +56,12 @@ var UserInterface = (function () {
     };
     ;
     UserInterface.prototype.createMenu = function () {
-        var svgArea = this.menu;
+        var _this = userInterface || this;
+        var svgArea = _this.menu;
+        while (svgArea.firstChild) {
+            svgArea.removeChild(svgArea.firstChild);
+        }
+        ;
         var g = document.createElementNS(this.svgns, "g");
         g.setAttribute("id", "gContainer");
         g.setAttribute("transform", "translate(" + basicSquare * 2 + ", " + basicSquare * 4 + ")");
@@ -496,7 +501,7 @@ var UserInterface = (function () {
     };
     ;
     UserInterface.prototype.newGame = function () {
-        var level = Number(document.getElementById("levelInput").value);
+        var level = document.getElementById("levelInput") ? Number(document.getElementById("levelInput").value) : 0;
         level > 99 ? level = 99 : level;
         var _this = userInterface || this;
         while (_this.menu.firstChild) {
@@ -512,6 +517,84 @@ var UserInterface = (function () {
         document.addEventListener('keydown', player.controls);
         document.getElementById("mute").addEventListener("click", player.toggleMusic);
         document.getElementById("settings").addEventListener("click", userInterface.setUpSettings);
+    };
+    ;
+    UserInterface.prototype.setUpGameOverMenu = function () {
+        var g = document.createElementNS(this.svgns, "g");
+        g.setAttribute("id", "gameOverContainer");
+        userInterface.menu.appendChild(g);
+        var text = document.createElementNS(this.svgns, "text");
+        text.innerHTML = "Game Over";
+        text.setAttribute("id", "gameOverText");
+        g.appendChild(text);
+        var gNewGame = document.createElementNS(this.svgns, "g");
+        gNewGame.setAttribute("id", "newGame");
+        g.appendChild(gNewGame);
+        var whiteRect = document.createElementNS(this.svgns, "rect");
+        whiteRect.setAttribute("fill", "white");
+        whiteRect.setAttribute("style", "cursor:pointer");
+        whiteRect.setAttribute("stroke", "black");
+        whiteRect.setAttribute("width", "" + basicSquare * 3.5);
+        whiteRect.setAttribute("height", "" + basicSquare);
+        gNewGame.appendChild(whiteRect);
+        var newGameText = document.createElementNS(this.svgns, "text");
+        newGameText.setAttribute("style", "font-size:15px");
+        newGameText.setAttribute("transform", "translate(" + basicSquare + ", " + basicSquare * 0.65 + ")");
+        newGameText.innerHTML = "New Game";
+        gNewGame.appendChild(newGameText);
+        var gNewGamePath = document.createElementNS(this.svgns, "g");
+        gNewGamePath.setAttribute("transform", "translate(30, 15)");
+        gNewGame.appendChild(gNewGamePath);
+        var newGamePath = document.createElementNS(this.svgns, "path");
+        newGamePath.setAttribute("transform", "scale(0.015)");
+        newGamePath.setAttribute("d", "M0 0q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z");
+        gNewGamePath.appendChild(newGamePath);
+        var newGameRect = document.createElementNS(this.svgns, "rect");
+        newGameRect.setAttribute("fill", "transparent");
+        newGameRect.setAttribute("style", "cursor:pointer");
+        newGameRect.setAttribute("stroke", "black");
+        newGameRect.setAttribute("width", "" + basicSquare * 3.5);
+        newGameRect.setAttribute("height", "" + basicSquare);
+        gNewGame.appendChild(newGameRect);
+        newGameRect.addEventListener('click', userInterface.newGame);
+        var gMainMenu = document.createElementNS(this.svgns, "g");
+        gMainMenu.setAttribute("id", "mainMenu");
+        g.appendChild(gMainMenu);
+        var whiteRectMenu = document.createElementNS(this.svgns, "rect");
+        whiteRectMenu.setAttribute("fill", "white");
+        whiteRectMenu.setAttribute("style", "cursor:pointer");
+        whiteRectMenu.setAttribute("stroke", "black");
+        whiteRectMenu.setAttribute("width", "" + basicSquare * 3.5);
+        whiteRectMenu.setAttribute("height", "" + basicSquare);
+        gMainMenu.appendChild(whiteRectMenu);
+        var mainMenuText = document.createElementNS(this.svgns, "text");
+        mainMenuText.setAttribute("style", "font-size:15px");
+        mainMenuText.setAttribute("transform", "translate(" + basicSquare + ", " + basicSquare * 0.65 + ")");
+        mainMenuText.innerHTML = "Main Menu";
+        gMainMenu.appendChild(mainMenuText);
+        var gMainMenuPath = document.createElementNS(this.svgns, "g");
+        gMainMenuPath.setAttribute("transform", "translate(30, 15)");
+        gMainMenu.appendChild(gMainMenuPath);
+        var mainMenuPath = document.createElementNS(this.svgns, "path");
+        mainMenuPath.setAttribute("transform", "scale(0.015)");
+        mainMenuPath.setAttribute("d", "M0 0q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z");
+        gMainMenuPath.appendChild(mainMenuPath);
+        var mainMenuRect = document.createElementNS(this.svgns, "rect");
+        mainMenuRect.setAttribute("fill", "transparent");
+        mainMenuRect.setAttribute("style", "cursor:pointer");
+        mainMenuRect.setAttribute("stroke", "black");
+        mainMenuRect.setAttribute("width", "" + basicSquare * 3.5);
+        mainMenuRect.setAttribute("height", "" + basicSquare);
+        gMainMenu.appendChild(mainMenuRect);
+        mainMenuRect.addEventListener('click', userInterface.createMenu);
+        var superbInterval = setInterval(function () {
+            if (gameZone[0][9].getAttribute("fill") == gameOverFill) {
+                text.setAttribute("class", "startRotationX");
+                gNewGame.setAttribute("class", "startTranslationNewGame");
+                gMainMenu.setAttribute("class", "startTranslationMainMenu");
+            }
+            ;
+        }, 100);
     };
     ;
     return UserInterface;
@@ -840,6 +923,25 @@ var Tetris = (function () {
         ;
     };
     ;
+    Tetris.prototype.gameOver = function () {
+        document.removeEventListener("keydown", player.controls);
+        document.removeEventListener("keyup", player.controls);
+        (function blackenRow(i) {
+            setTimeout(function () {
+                (function blackenCol(e) {
+                    setTimeout(function () {
+                        gameZone[i][e].setAttribute("fill", gameOverFill);
+                        if (++e < gameZone[i].length)
+                            blackenCol(e);
+                    }, 15);
+                }(0));
+                if (--i > 0)
+                    blackenRow(i);
+            }, 200);
+        }(gameZone.length));
+        userInterface.setUpGameOverMenu();
+    };
+    ;
     return Tetris;
 }());
 ;
@@ -857,7 +959,7 @@ var Tetromino = (function () {
     Tetromino.prototype.draw = function (spawn) {
         currentTetromino = this;
         if (spawn && this.checkAll("top"))
-            return;
+            return game.gameOver();
         var i = 0;
         do {
             var col = this.squaresIndex[i][1];
@@ -1139,7 +1241,6 @@ var Tetromino = (function () {
                     this.run = function (a, b) {
                         var indexes = a;
                         var _a = [];
-                        alert("Entering with a as " + a);
                         for (var i = 0; i < b.x.length && i < b.y.length; i++) {
                             var noCollide = 0;
                             var yOffset = 0;
@@ -1156,16 +1257,13 @@ var Tetromino = (function () {
                                     if (yOffset != a.length * -1 && !gameZone[resulty]) {
                                         yOffset--;
                                         resulty += 1;
-                                        alert("resulty = " + resulty);
                                     }
                                     ;
                                     if (xOffset != a.length * -1 && (!gameZone[0][resultx])) {
                                         xOffset--;
                                         resultx -= 1;
-                                        alert("resultx = " + resultx);
                                     }
                                     ;
-                                    alert("yOffset = " + yOffset + " and xOffset = " + xOffset);
                                     if (gameZone[resulty] && gameZone[0][resultx]) {
                                         _thisresulty = row + b.y[i] + yOffset;
                                         _thisresultx = col + b.x[i] + xOffset;
@@ -1187,17 +1285,10 @@ var Tetromino = (function () {
                                 if (gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("class") != "basicSquare stopped") {
                                     _a.push(new Array(_thisresulty, _thisresultx));
                                     noCollide++;
-                                    gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                                    alert("Loop at " + i + ", _a is " + _a);
-                                    gameZone[_thisresulty][_thisresultx].setAttribute("fill", "none");
                                 }
                                 else {
                                     collide = true;
                                     _a.push(new Array(_thisresulty, _thisresultx));
-                                    var temp = gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].getAttribute("fill");
-                                    gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", "cyan");
-                                    alert("Colliding in loop " + i + ", with _a as " + _a);
-                                    gameZone[_thisresulty] && gameZone[_thisresulty][_thisresultx] && gameZone[_thisresulty][_thisresultx].setAttribute("fill", temp);
                                     _a = [];
                                     break;
                                 }
@@ -1444,6 +1535,7 @@ var userInterfaceWidth = 5;
 var volume = 100;
 var noFill = "rgba(0,163,191,.16)";
 var defaultStroke = "rgba(0,0,0,.67)";
+var gameOverFill = "rgba(0,0,0,.55)";
 var game;
 var player;
 var userInterface = new UserInterface("svgArea", basicSquare, basicSquare);

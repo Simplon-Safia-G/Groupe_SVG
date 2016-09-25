@@ -10,22 +10,11 @@
 	<script type="text/javascript" src="jquery.tiltedpage-scroll.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Lobster|Muli" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/font-style.css">
-	<link rel="stylesheet" href="../../style/navbar.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/navbar.min.css" />
 	<title>Tutoriel SVG</title>
 </head>
 <body id="body">
 
-	<!-- <pre>
-		<code class="language-javascript">
-			function Dog(id){
-				this.id = id;
-			}
-		</code>
-	</pre>
-
-	<p>
-		C'est un bout de <code class="language-javascript inline-code">code</code> en inline.
-	</p> -->
 			<div id="block1">
 			<div class="back paragraphe">
 				<a href="../../index.html">Retour</a>
@@ -290,70 +279,274 @@
 					</div>
 					
 					<div class="chapters">
-						<h3 class="titre">Animations</h3>
+<h3 class="titre">Animation</h2>
+	<p class="paragraphe">Il existe 3 balises pour principale pour l'animation en svg, je vais vous les présenter dans ce tutoriel.</p>
 
-						<p class="paragraphe">Le plus gros interêt du SVG est l'animation de forme plus ou moins complexe de façon simple et efficace.
-							Pour animer nos formes, nous allons simplement utiliser la balise :
+	<h3> La balise<code class="language-markup"><span class="token punctuation"><</span>animate/<span class="token punctuation">></span></code></h3>
+
+	<p class="paragraphe">Cette balise plusieurs attributs que je vais vous décrire si dessous.</p>
+
+	<h4 class="sous-titre">La balise cible de l'animation</h4>
+		<ul>
+		il existe 2 possibilité pour liée ca balise, 
+		
+		<li>la 1ere(celle que j'utilise) consite a inclure la balise animate dans la balise de la formes que l'ont souhaite animer.</li>
+		
+		<li>La 2ème possibilité est d'appeler la balise cible par son id avec <code class="language-markup">xlink:href</code>, si vous utiliser cette syntax je vous conseil de mettre la balise animate dans la balise <code class="language-markup"><span class="token punctiation"><</span>defs<span class="token punctuation" >></span></code> pour conserver une certaine logique cemantique.</li>	
+		</ul>
+			
+	<h4 class="sous-titre">L'attribut ou la propièté cible:</h4>
+
+		<p class="paragraphe">On utilise <code class="language-markup">attributeName=""</code>pour indiqué l'attribut sur lequel on veux influer.Nous devons aussi utiliser <code class="language-markup">attributeType=""</code>pour indiqué de quel language est l'élément sur lequel nous influont, XML ou CSS dans le cas d'animate. </p>
+		
+		<code class="language-markup"><span class="token punctuation"><</span>animate attributeName="x" attributeType="XML"<span class="token punctuation">></span></code>
+
+
+	<h4 class="sous-titre">Les valeurs de début et de fin de l'animation</h4>
+		<p class="paragraphe">ils faut maintenant indiqué les valeur de déplacement.
+		Nous allons utiliser <code class="language-markup">from=""</code> pour indiqué la position de départ de l'animation et <code class="language-markup">to=""</code>pour indiquer la position finale de l'animation.Ils est aussi possible d'utilisé l'attribut <code class="language-markup">values</code> mais nous en parlerons plus tard dans le tutoriel</p>
+
+		<code class="language-markup"><span class="token punctuation"><</span>animate attributeName="x" attributeType="XML" from="20" to="200"<span class="token punctuation">></span></code>
+
+	<h4 class="sous-titre">indiquation des valeurs de temps dans l'animation</h4>
+
+		<p class="paragraphe">Comme vous vous en doutez il existe un attribut pour indiqué quand l'animation dois commencer...<code class="language-markup">begin=""</code>cette attribut peux prend des valeurs de temps en hh:mm:ss:ms ou mm:ss:ms ou simplement en seconde</p>
+		<p class="paragraphe">Il faut aussi indiqué une valeurs de duration de l'animation, <code class="language-markup">dur=""</code> il prend aussi des valeurs de temps, avec la même syntaxe.</p>
+
+		<code class="language-markup"><span class="token punctuation"><</span>animate attributeName="x" attributeType="XML" from="20" to="200" begin="0s" dur="6s"<span class="token punctuation">></span></code>
+
+	<h4 class="sous-titre">Stop l'animation a ca position finale</h4>
+		
+		<p class="paragraphe">Si l'on test nos animation maintenant on peux constater qu'après avoir effectuer sont animation notre forme reprend ca position initial. Grâce a l'attribut <code class="language-markup">fill="freeze"</code>, l'animation sera bloqué dans ca postion finale.</p>
+
+		<code class="language-markup"><span class="token punctuation"><</span>animate attributeName="x" attributeType="XML" from="20" to="200" begin="0s" dur="6s" fill="freeze"<span class="token punctuation">></span></code>
+
+	<h4 class="sous-titre">L'attribut end start</h4>
+
+		<p class="paragraphe">Ces attributs nous permette de synchroniser plus facilement nos animation plus facilement. Un petit exemple:
+
+<pre><code class="language-markup">
+<span class="token punctuation"><</span>animate id="anim1" attributeName="y" attributeType="XML" from="50" to="100" 
+	begin="0s" dur="9s" fill="freeze"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>animate id="anim2" attributeName="x" attributeType="XML" from="15" to="100" 
+	begin="#anim1.start+3s" dur="3s" fill="freeze"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>animate id="anim3" attributeName="x" attributeType="XML" from="100" to="15" 
+	begin="#anim2.end" dur="3s" fill="freeze"<span class="token punctuation">></span>
+</code>
+</pre></p>
+	
+	<h4 class="sous-titre">Les evènement souris</h4>
+		<p class="paragraphe">Il existe plusieurs écouteurs d'évenement pour améliorer l'intèractivité:</p>
+			<ul>
+				<li><code class="language-markup">click</code></li>
+				<li><code class="language-markup">activate</code></li>
+				<li><code class="language-markup">mousedown</code></li>
+				<li><code class="language-markup">mouseup</code></li>
+				<li><code class="language-markup">mouseover</code></li>
+				<li><code class="language-markup">mouseout</code></li>
+				<li><code class="language-markup">mousemove</code></li>
+			</ul> 
+			<p class="paragraphe">il est aussi possible d'attribué un raccourci clavier(seulement pour lancer une animation) avec <code class="language-markup">begin="accesKey(raccourci)"</code>.</p>
+
+	<h4 class="sous-titre">L'attribut restart</h4>
+
+		<p class="paragraphe">restart possede 3 valeur, <code class="language-markup">always</code> qui permet de redémarer l'animation n'importe quand, <code class="language-markup">whenNotActive</code>permet seulement de redamérer l'animation lorsque qu'elle est inactive(terminé) et <code class="language-markup">never</code>rend le redémarage d'un animation impossible.</p>
+
+
+	<p class="paragraphe">Grace a la balise <code class="language-markup">animate</code> que nous avons vu dans la premier chapitre nous pouvons réalisé des translation simple(un seul attribut est modifié: x ou y)... 
+		</p>
+	
+	<h4 class="sous-titre">Raccourci:<code class="language-markup"><span class="token punctuation"><</span>set/<span class="token punctuation">></span></code></h4>
+
+			<p class="paragraphe">Contrairement a animate elle ne peut pas calculer et dessiner les valeurs comprises entre les valeurs de début et de fin de sont attribut cible, elle n'a donc pas d'attribut dur. Cepedant elle peut s'avérer utile pour l'utilisation de
+				valeurs tel que:</p>
+					<ul>
+						<li><code class="language-markup">Visible</code></li>
+						<li><code class="language-markup">hidden</code></li>
+						<li><code class="language-markup">collapse</code></li>
+					</ul>
+						<p class="paragraphe">Un exemple:</p>
+<pre>
+	<code class="language-markup">
+	<span class="token punctuation"><</span>path id="triangle" d="M40,80 l50,0 l-25,-70" style="stroke:black"<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>set attributeName="visibility" attributeType="CSS" to="hidden" begin="rectangle.click"/<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>set attributeName="visibility" attributeType="CSS" to="hidden" begin="rectangle2.click"/<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>path/<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>rect id="rectangle" x="20" y="20" height="30" width="30"/<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>rect id="rectanglebis" x="60"  y="20" height="30" width="30"/<span class="token punctuation">></span>
+	</code>
+</pre>
+		<h4 class="sous-titre"><code class="language-markup">values</code> et <code class="language-markup">keyTimes</code></h4>
+
+				<p class="paragraphe">Voici deux nouveau attributs valables pour toute les balise d'animation, sauf <code class="language-markup">animateMotion</code> je vais d'abord vous parler du 1ere attribut <code class="language-markup">values</code>. Il va nous permetre d'indiquer plus qu'une valeur pour notre attribut cible. il sera donc possible de déplacer notre ellipse de 200px sur la droite, puis la faire revenir a ca position initiale en 1 seul animation.</p>
+					<p class="paragraphe">Vous devez indiquer dans values les valeurs que vous désirez asigné a la propriété cible séparer de point virgule</p>
+
+<pre><code class="language-markup">
+<span class="token punctuation"><</span>ellipse cx="100" cy="200" rx="80" ry="180" style="fill:#444"<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>attributeName="cx" attributeType="XML" begin="0s" dur="4s" values="100; 300; 150; 400; 200; 100" fill="freeze"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>/ellipse<span class="token punctuation">></span>
+</code></pre>
+	<h3 class="titre">Les tracé de mouvement</h2>
+		
+				<h4 class="sous-titre"><code class="language-markup"><span class="token punctuation"><</span>animateMotion/<span class="token punctuation">></span></code></h4>
+					<p class="paragraphe">cette balise va nous permettre de réaliser des animation a partir d'un nouvelle attribut <code class="language-markup">path=""</code> nous allons faire bouger nos formes sur des courbes. Dans cette attribut nous allons ecrire un tracé comme on l'a appris dans la chapitre des formes, c'est sur ce tracé que le mouvement s'éffectura(d'ou le nom tracé de mouvement). cette balise ne contiendra donc pas d'attribut: attributeName, attributType, from et to. Cependant comme pour <code class="language-markup"><span class="token punctuation"><</span>animate/<span class="token punctuation">></span></code> elle possède les attribut being et dur:</p>
+
+					<!--Exemple d'animate motion a faire ici-->
+<pre>
+	<code class="language-markup">
+<span class="token punctuation"><</span>circle cx="100" cy="100" r="80" style="fill:#ae3" <span class="token punctuation">></span>
+	<span class="token punctuation"><</span>animateMotion begin="0s" dur="3s" path="M0,0 q40,80 80,160 q200,300 300,50 t200,300 100,-300" fill="freeze"/<span class="token punctuation">></span>
+<span class="token punctuation"><</span>/circle<span class="token punctuation">></span>	
+	</code>
+</pre>
+				<h4 class="sous-titre"><code class="language-markup"><span class="token punctuation"><</span>mpath/<span class="token punctuation">></span></code></h4>
+						<p class="paragraphe">La balise <code class="language-markup"><span class="token punctuation"><</span>mpath/<span class="token punctuation">></span></code></p>va nous permetre d'appeler un path avec un appelle d'id, cette balise ne prend qu'un attribut <code class="language-markup">xlink:href=""</code>.Ce raccourci est tres utile si l'ont souhaite utiliser plusieurs fois la même path.Un visuel pour bien comprendre
+<pre>
+	<code class="language-markup">
+		<span class="token punctuation"><</span>svg height="1000px" width="1000px" xmlns="http://www.w3.org/2000/svg"
+			xmlns:xlink="http://www.w3.org/1999/xlink"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>defs<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>path id="path" d="M0,0 q40,80 80,160 q200,300 300,50 t200,300 100,-300"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>defs/<span class="token punctuation">></span>
+
+		<span class="token punctuation"><</span>ellipse cx="100" cy="100" rx="80" ry="150" style="fill:#ae3"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>animateMotion begin="1s" dur="3s" fill="freeze"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>mpath xlink:href="#path"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>/animateMotion<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>/circle<span class="token punctuation">></span>
+
+		<span class="token punctuation"><</span>circle cx="200" cy="100" r="80" style="fill:#fae;"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>animateMotion begin="1.2s" dur="3s" fill="freeze"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>mpath xlink:href="#path"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>/animateMotion<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>/circle<span class="token punctuation">></span>
+
+		<span class="token punctuation"><</span>rect x="300" y="100" height="80" width="80" style="fill:#ea4"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>animateMotion begin="1.5s" dur="3s" fill="freeze"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>mpath xlink:href="#path"<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>/animateMotion<span class="token punctuation">></span>
+		<span class="token punctuation"><</span>/circle<span class="token punctuation">></span></code></pre>
+		
+				<h4 class="sous-titre">rotation sur un tracé de mouvement</h4>
+					<p class="paragraphe">Vous avez surment noté que les formes que de l'exemple précédent reste droites alors qu'elles ce déplacent sur sont tracé de mouvement. Grace a <code class="language-markup">rotate=""</code>nous allons pouvoir controler ce comportement. La valeur par défault de rotate est de 0, c'est pourquoi les forme ne s'incline pas.Si vous indiquer un autre angle que 0 comme valeur de <code class="language-markup">rotate</code>, vous verrez que vos formes seront incliné de la valeur indiqué, alors qu'elle ce déplace sur le tracé de mouvement.</p>
+						exemple:
+							<pre>
+								<code class="language-markup">
+<span class="token punctuation"><</span>svg height="1000px" width="1000px" xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"<span class="token punctuation">></span>
+
+<span class="token punctuation"><</span>defs<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>path id="path" d="M0,0 q40,80 80,160 q200,300 300,50 t200,300 100,-300"/<span class="token punctuation">></span>
+<span class="token punctuation"><</span>/defs<span class="token punctuation">></span>
+<span class="token punctuation"><</span>path id="path" d="M0,0 q40,80 80,160 q200,300 300,50 t200,300 100,-300" 
+	style="fill:none;stroke:black"/<span class="token punctuation">></span>
+<span class="token punctuation"><</span>polygon points="0,0 40,20 20,20 20,40 30,50 40,60" style="fill:#ae3"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>animateMotion begin="1s" dur="3s" fill="freeze">
+	<span class="token punctuation"><</span>mpath xlink:href="#path"/<span class="token punctuation">></span>
+<span class="token punctuation"><</span>/animateMotion<span class="token punctuation">></span>
+<span class="token punctuation"><</span>/circle<span class="token punctuation">></span>
+<span class="token punctuation"><</span>/svg></code></pre>
+						<p class="paragraphe">l'ajout de valeur autre qu'un angle comme auto, change le fonctionnement des coordonnées...</p>
+						<p class="paragraphe">Rotate, peux posséder une valeur, <code class="language-markup">auto-reverse</code>votre forme pivotera tout simplement de l'autre coté du tracé.</p>
+				<h4 class="sous-titre">Répétition d'animation</h4>
+						<p class="paragraphe">Nous allons introduire un nouvelle attribut valable pour les 5 balises d'animation...
+							<code class="language-markup">repeatCount=""</code>. Cette balise va nous permetre de crée des boucle dans nos animation l'attribut peut prendre des valeurs numérique pour définir un nombre d'itération limité ou la valeur<code class="language-markup">indefinite</code> pour crée une boucle.</p>
+				<h3 class="titre">Les changement de couleurs</h2>
+					<p class="paragraphe"><code class="language-markup">animate</code> nous permet de faire quelque changement de couleur,mais c'est n'est pas bien intèrprété par les programme.</p>
+					<p class="paragraphe">Heuresement il existe une balise dédié au changement de couleurs,<code class="language-markup"><span class="token punctuation"><</span>animateColor/<span class="token punctuation">></span></code> elle fonctionne exactement de la même façon que <code class="language-markup"><span class="token punctuation"><</span>animate/<span class="token punctuation">></span></code></p>
+
+					<pre><code class="language-markup">
+<span class="token punctuation"><</span>ellipse cx="150" cy="200" rx="100" ry="150" style="fill:#ec4"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>animateColor attributeName="fill" attributeType="CSS" from="#ec4" to="#fff" begin="0s" dur="3s" fill="freeze"/<span class="token punctuation">></span>
+<span class="token punctuation"><</span>ellipse<span class="token punctuation">></span>
+					</code></pre>
+
+					<h4 class="sous-titre">les transformation géométrique</h4>
+						<p class="paragraphe">Nous allons introduire la dernière balise d'animation <code class="language-markup"><span class="token punctuation"><</span>animateTransform/<span class="token punctuation">></span></code> elle fonctionne comme la balise <code class="language-markup">animate</code>cette balise va nous permetre d'éffectuer des translation simple sans avoir a ecrire de tracé de mouvement a chaque fois(translation simple = horizental, vertical, diagonale)
 						</p>
-						<code class="language-markup">
-							<span class="token punctuation"><</span>animation<span class="token punctuation">></span>
-						</code>
 
-						<p> Cette balise prend plusieurs attributs :</p>
+					<h3 class="titre">Les transformation geometrique</h2>
+						
+						<p class="paragraphe">Nouvelle et derniere balise d'animation<code class="language-markup"><span class="token punctuation"><</span>animatetransform<span class="token punctuation">></span></code>. Elle aussi fonctionne de la même facon que <code class="language-markup">animate</code>.</p>
 
-						<ul>
-							<li><code class="language-markup">xlink:href</code>, cet attribut defini un lien vers une ressource de référence (avec un ID ou une classe)</li>
-							</br>
-							<li><code class="language-markup">attributeName</code>, qui sert à séléctionner l'attribut sur lequel on veut influer (x, y, fill, stroke, opacity, etc).</li>
-							</br>
-							<li><code class="language-markup">attributeType</code>, cet atribut permet d'indiquer selon l'élément sur lequel on influe est du XML ou du CSS.</li>
-							</br>
-							<li><code class="language-markup">from</code>, position de départ de l'animation.</li>
-							</br>
-							<li><code class="language-markup">to</code>, positon de fin de l'animation.</li>
-							</br>
-							<li><code class="language-markup">value</code>, il est possible d'utiliser value pour donner plusieurs coordonnées. </li>
-							</br>
-							<li><code class="language-markup">begin</code>, le moment auquel commence l'animation, en seconde (il est possible d'utiliser .start et .end pour faciliter la synchronisation avec les autres animations).</li>
-							</br>
-							<li><code class="language-markup">dur</code>, indique la durée de l'animation.</li>
-							</br>
-							<li><code class="language-markup">repeatCount</code>, il prend comme valeur "indefinite" si l'on veut que l'animation se fasse en boucle (dans ce cas, une animation avec value permet de faire une animation simple fluide avec une ligne de code), on peut bien sûr lui donner une valeur numérique si l'on veut un nombre defini d'itérations.</li>
-							</br>
-							<li>
-<code class="language-markup">restart</code>
-, il peut prendre plusieurs valeurs :
-								<ul>
-									<li>
-										<code class="language-markup">always</code> : l'animation peut redémmarer quand on le souhaite
-									</li>
-									<li>
-										<code class="language-markup">whenNotActive</code> : l'animation ne peut redémarrer que quand elle n'est pas active
-									</li>
-									<li>
-									<code class="language-markup">never</code> : l'animation ne peut jamais redémarrer.
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<p>Il existe d'autres balises d'animations telles que :</p>
+						<p class="paragraphe">Elle contient un attribut spécifique <code class="language-markup">transform</code>, il va nous permettre d'agir en temps réel sur la valeur par défauts de <code class="language-markup">transform</code>. Nous pouvons l'appliquer a tout les formes et les gorupe d'élément appris jusqu'a maintenant. transform permet d'éffectuer cinq transformation que nous allons voir : </p>
+							<ul>
+								<li>translation</li>
+								<li>homothétie</li>
+								<li>rotation</li>
+								<li>inclinaison</li>
+							</ul>
+	 						<h4 class="sous-titre">Translation(animation)</h4> 	
 
-						<ul>
+							<p class="paragraphe">Faire des translation avec avec <code class="language-markup">animateTransform</code> nous permet d'éviter de réaliser un tracé de mouvement a chaque fois que l'ont souhaite une translation simple ou de ne pas écrire 2 balises <code class="language-markup">animate</code>.</p>
 
-							<li><code class="language-markup">
-	<span class="token punctuation"><</span>animateMotion<span class="token punctuation">></span>
-</code>, qui permet d'effectuer une animation par rapport à un path. Un petit exemple :</li>
-<code class="language-markup">
-	<span class="token punctuation"><</span>animateMotion d="M200,300 t200,300 "/<span class="token punctuation">></span>
-</code><!-- <animateMotion d="M200,300 t200,300" /> " -->
-							</br><li><code class="language-markup">
-	<span class="token punctuation"><</span>animateTransform<span class="token punctuation">></span>
-</code>, l'élément permet d'animer un élément soit par translation, mise à l'échelle, rotation et/ou inclinaison.</li>
-						</ul>
-						<!--Mettre un exemple d'animation part apport a une path.(a discuter en groupe).-->
-						<p class="paragraphe">Avec ceci, nous pouvons donc réaliser des animations plus poussées.</p>
+<pre><code class="language-markup">
+<span class="token punctuation"><</span>rect x="120" y="400" height="50" width="200" style="fill:#999; stroke:#934"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>animateTransform attributeName="transform" attributeType="XML" type="translate" from="0,0" to="400,-300"
+		begin="0s" dur="3s" fill="freeze"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>rect<span class="token punctuation">></span>	
+</code></pre>							
+		
+		<h4 class="sous-titre">Translation(dans une forme)</h4>
+		<p class="paragraphe">Vous n'êtes pas obligéq d'utiliser tranform uniquement pour faire des animation. En effet cela peut être utile pour faire des ajustement. Dans ce cas la nous indiquerons le vecteur de la translation entre parenthese</p>
 
-						<!--Exo sur l'animation ici-->
+<pre><code class="language-markup">
+<span class="token punctuation"><</span><rect x="120" y="400" height="50" width="200" transform="translate(400,-300)" style="fill:#999; stroke:#934" /><span class="token punctuation">></span>
+</code></pre>
+	
+	<h4 class="sous-titre">Homothétie(animation)</h4>
+		<p class="paragraphe">Une homothétie est l'agrandissement ou le retrecissemenet d'une forme, vous devez indiquez <code class="language-markup">scale</code> dans <code class="language-markup">animateTransform</code> et dans from vous devez indiquez 1(1=100%, 0.5=50%, etc)</p>
+
+<pre><code class="language-markup">
+<span class="token punctuation"><</span>rect x="100" y="80" height="50" width="80" style="fill:#254;stroke:#999;"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>animateTransform attributeName="transform" attributType="XML" type="scale" from="1" to="2" begin="0s" dur="2.5s" fill="freeze"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>rect<span class="token punctuation">></span>
+</code></pre>
+
+		<h4 class="sous-titre">Homothétie(dans une forme)</h4>
+
+		<p class="paragraphe">La syntax est la même que <code class="language-markup">translate</code></p>
+<pre><code class="language-markup">
+<span class="token punctuation"></span>rect x="100" y="80" height="50" width="80" transform="scale(3)" style="fill:#254;stroke:#999"<span class="token punctuation"></span>	
+</code></pre>
+		
+		<p class="paragraphe">Il existe une méthode qui permet de faire une homothétie a partir d'un autre point que (0,0). l'astuce est de faire subir une translation à la forme avec comme vecteur le point d'homothétie désiré puis de faire la translation inverse.Pour faire ceci il suffit d'entré plusieurs commande espacé par un espace.</p>
+<pre><code class="language-markup">
+<span class="token punctuation"></span>rect x="100" y="80" height="50" width="80" transform="translate(30,40) scale(3) translate(-30,-40)" style="fill:#254;stroke:#999"<span class="token punctuation"></span>	
+</code></pre>
+
+		<h4 class="sous-titre">Rotation</h4>
+			<p class="paragraphe">Il suffit d'utiliser <code class="language-markup">rotate</code> dans <code class="language-markup">type=""</code> et d'indiquer dans to l'angle souhaiter(from="0")</p>
+<pre><code class="language-markup">
+	<span class="token punctuation"><</span>rect x="400" y="150" height="100" width="50" style="fill:#642;stroke:#555;"<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0,400,150" to="200,300,100" begin="0s" dur="3s" fill="freeze"<span class="token punctuation">></span>
+	<span class="token punctuation"><</span>rect<span class="token punctuation">></span>
+</code></pre>
+		
+		<p class="paragraphe">il est aussi possible d'utiliser rotate dans nos form</p>
+<pre><code class="language-markup">
+<span class="token punctuation"></span>rect x="100" y="80" height="50" width="80" transform="rotate(50,100)" style="fill:#254;stroke:#999"<span class="token punctuation"></span></code></pre>
+	
+		<h4 class="sous-titre">Inclinaison(animation)</h4>
+			<p class="paragraphe">Ici ca risque d'être plus dificile à comprendre. Grace a l'attribut <code class="language-markup">skewX</code> ou <code class="language-markup">skewY</code> nous allons incliner nos formes, vous indiquerer 0 dans from et l'angle d'inclinaison dans to.</p>
+
+<pre><code class="language-markup">
+<span class="token punctuation"><</span>rect x="200" y="200" height="100" width="100" style="fill:#498;stroke:#666;"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>animateTransform attributeName="transform" attributeType="XML" type="skewY" from="0" to="45" begin="0s" dur="5s" fill="freeze"<span class="token punctuation">></span>
+<span class="token punctuation"><</span>rect<span class="token punctuation">></span>
+</code></pre>
+
+		<h4 class="sous-titre">Inclinaison(dans les forme)</h4>
+
+			<p class="paragraphe">pour utiliser l'inclinaison avec l'attribut transform, la syntaxe est simple <code class="language-markup">skewX</code> et <code class="language-markup">skewY</code></p>
+		<!--script-->
+
+
+		<h4 class="sous-titre">Conclusion</h4>
+
+
+		<p class="paragraphe">C'est de la merde</p>
+
 
 					</div>
 					<!--Chapitre4-->
